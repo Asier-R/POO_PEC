@@ -1,6 +1,4 @@
-﻿**Sistema Integrado de Gestión de ![](Aspose.Words.63731550-8e58-40e5-adbb-d3d6a5f0ba2a.001.png)**
-
-**un Hospital Universitario**
+﻿**Sistema Integrado de Gestión de un Hospital Universitario**
 
 Práctica de la asignatura Programación Orientada a Objetos Escenario para el curso 2023-2024 - febrero de 2024 - Versión 1.1
 
