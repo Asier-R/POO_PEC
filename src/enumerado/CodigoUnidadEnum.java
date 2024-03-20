@@ -1,17 +1,12 @@
 package enumerado;
 
 /**
- * Clase enum que define los códigos de área de las distintas unidades {@link entidad.Unidad}
+ * Clase enum que define los códigos de unidad de las distintas unidades {@link entidad.Unidad}
  */
-public enum CodigoAreaEnum {
-    ADMINISTRACION(1, "ADMINISTRACION"),
-    ALIMENTACION(2, "ALIMENTACION"),
-    GARAJE(3, "GARAJE"),
-    HABITACION(4, "HABITACION"),
-    QUIROFANO(5, "QUIROFANO"),
-    CONSULTA(6, "CONSULTA"),
-    CLASE(7, "CLASE"),
-    LABORATORIO(8, "LABORATORIO");
+public enum CodigoUnidadEnum {
+    SERVICIOS(1,"SERVICIOS"),
+    MEDICINA(2, "MEDICINA"),
+    FORMACION(3, "FORMACIÓN");
 
     /**
      * Id del enumerado.
@@ -23,7 +18,7 @@ public enum CodigoAreaEnum {
      */
     private String descripcion;
 
-    private CodigoAreaEnum(int id, String descripcion){
+    private CodigoUnidadEnum(int id, String descripcion){
         this.id = id;
         this.descripcion = descripcion;
     }
@@ -38,7 +33,7 @@ public enum CodigoAreaEnum {
 
     /**
      * Devuelve el texto descriptivo del enumerado.
-     * @return descripción del área.
+     * @return descripción de la unidad.
      */
     public String getDescripcion(){
         return this.descripcion;

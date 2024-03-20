@@ -1,6 +1,6 @@
 package entidad;
 
-import enumerado.CodigoAreaEnum;
+import enumerado.CodigoUnidadEnum;
 
 /**
  * Clase abstracta para representar todas las unidades de un hospital.
@@ -8,21 +8,24 @@ import enumerado.CodigoAreaEnum;
 public abstract class Unidad {
 
     /**
-     * Código único que identifica el área a la que pertenece la unidad. {@link CodigoAreaEnum}
+     * Código único que identifica a la unidad. {@link CodigoUnidadEnum}
      */
-    private CodigoAreaEnum codigoArea;
+    private CodigoUnidadEnum codigoUnidad;
 
     /**
      * Nombre completo que recibe la unidad.
      */
     private String nombre;
 
-    public Unidad(CodigoAreaEnum codigoArea, String nombre){
+    /**
+     * Constructor de unidad.
+     * @param codigoUnidad código de la unidad.
+     * @param nombre nombre de la unidad.
+     */
+    protected Unidad(CodigoUnidadEnum codigoUnidad, String nombre){
         this.nombre = nombre;
-        this.codigoArea = codigoArea;
+        this.codigoUnidad = codigoUnidad;
     }
 
-    public String toString(){
-        return codigoArea + " - " +nombre;
-    }
+    public abstract String toString();
 }
