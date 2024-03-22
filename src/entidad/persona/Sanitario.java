@@ -6,38 +6,33 @@ import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
 /**
- * Clase que representa a un estudiante de medicína o enfermería.
+ * Clase abstracta para representar el personal Sanitario de un Hospital.
  */
-public class Estudiante extends Sanitario{
-    /**
-     * Nombre del centro de estudios de procedencia.
-     */
-    private String nombreCentro;
+public abstract class Sanitario extends Personal{
 
     /**
-     * Constructor con los campos heredados de Sanitario {@link Sanitario}.
-     *
+     * Código de la especialidad del Sanitario.
+     */
+    private CodigoEspecialidadEnum codigoEspecialidad;
+
+    /**
+     * Constructor con los campos heredados de Personal {@link Personal}.
      * @param NIF             NIF.
      * @param nombre          Nombre.
      * @param apellido1       Primer apellido.
      * @param apellido2       Segundo apellido.
      */
-    public Estudiante(
+    protected Sanitario(
             String NIF,
             String nombre,
             String apellido1,
             String apellido2
-    ) {
-        super(
-                NIF,
-                nombre,
-                apellido1,
-                apellido2
-        );
+    ){
+        super(NIF, nombre, apellido1, apellido2);
     }
 
     /**
-     * Constructor con los campos heredados de Sanitario {@link Sanitario}.
+     * Constructor con los campos heredados de Personal {@link Personal}.
      *
      * @param NIF             NIF.
      * @param nombre          Nombre.
@@ -47,7 +42,7 @@ public class Estudiante extends Sanitario{
      * @param codigoArea      Código del área.
      * @param codigoActividad Código de actividad.
      */
-    public Estudiante(
+    protected Sanitario(
             String NIF,
             String nombre,
             String apellido1,
@@ -68,7 +63,7 @@ public class Estudiante extends Sanitario{
     }
 
     /**
-     * Constructor con los campos heredados de {@link Sanitario} y los campos propios de Estudiante.
+     * Constructor con los campos heredados de Personal {@link Personal} y los campos propios de Sanitario.
      *
      * @param NIF                NIF.
      * @param nombre             Nombre.
@@ -77,9 +72,9 @@ public class Estudiante extends Sanitario{
      * @param codigoUnidad       Código de la unidad.
      * @param codigoArea         Código del área.
      * @param codigoActividad    Código de actividad.
-     * @param nombreCentro    Código de actividad.
+     * @param codigoEspecialidad Código de especialidad.
      */
-    public Estudiante(
+    protected Sanitario(
             String NIF,
             String nombre,
             String apellido1,
@@ -87,8 +82,7 @@ public class Estudiante extends Sanitario{
             CodigoUnidadEnum codigoUnidad,
             CodigoAreaEnum codigoArea,
             CodigoActividadEnum codigoActividad,
-            CodigoEspecialidadEnum codigoEspecialidad,
-            String nombreCentro
+            CodigoEspecialidadEnum codigoEspecialidad
     ) {
         super(
                 NIF,
@@ -97,22 +91,16 @@ public class Estudiante extends Sanitario{
                 apellido2,
                 codigoUnidad,
                 codigoArea,
-                codigoActividad,
-                codigoEspecialidad
+                codigoActividad
         );
-        this.nombreCentro = nombreCentro;
+        this.codigoEspecialidad = codigoEspecialidad;
     }
 
-    public String getNombreCentro() {
-        return nombreCentro;
+    public CodigoEspecialidadEnum getCodigoEspecialidad() {
+        return codigoEspecialidad;
     }
 
-    public void setNombreCentro(String nombreCentro) {
-        this.nombreCentro = nombreCentro;
-    }
-
-    @Override
-    public String toString() {
-        return null;
+    public void setCodigoEspecialidad(CodigoEspecialidadEnum codigoEspecialidad) {
+        this.codigoEspecialidad = codigoEspecialidad;
     }
 }

@@ -24,12 +24,17 @@ public abstract class Persona {
 
     /**
      * Constructor de Persona.
-     * @param NIF NIF.
-     * @param nombre Nombre.
+     * @param NIF       NIF.
+     * @param nombre    Nombre.
      * @param apellido1 Primer apellido.
      * @param apellido2 Segundo apellido.
      */
-    public Persona(String NIF, String nombre, String apellido1, String apellido2){
+    protected Persona(
+            String NIF,
+            String nombre,
+            String apellido1,
+            String apellido2
+    ){
         this.NIF = NIF;
         this.nombre = nombre;
         this.apellido1 = apellido1;
