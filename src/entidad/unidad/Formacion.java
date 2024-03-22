@@ -1,12 +1,14 @@
 package entidad.unidad;
 
-import entidad.unidad.Unidad;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
+import entidad.persona.Medico;
+import entidad.persona.Enfermero;
 
 /**
  * Subclase de Unidad {@link Unidad} que se utiliza para definir las unidades que realizan labores
- * relacionadas con la formación del futuro personal médico y de enfermería.
+ * relacionadas con la formación del futuro personal médico {@link Medico} y de
+ * enfermería {@link Enfermero}.
  */
 public abstract class Formacion extends Unidad {
 

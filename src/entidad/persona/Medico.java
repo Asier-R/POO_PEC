@@ -1,15 +1,21 @@
 package entidad.persona;
 
-import entidad.Hospital;
+import entidad.registro.Cita;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
+import java.util.List;
+
 /** Clase que representa a un médico. */
 public class Medico extends Sanitario {
-  /** Hospital en el que el estudiante realiza su formación. */
-  private Hospital hospital;
+
+  /** Años de experiencia del médico. */
+  private int experiencia;
+
+  /** Especialidades del médico. */
+  private List<CodigoEspecialidadEnum> especialidades;
 
   /**
    * Constructor con los campos heredados de Sanitario {@link Sanitario}.
@@ -46,7 +52,7 @@ public class Medico extends Sanitario {
   }
 
   /**
-   * Constructor con los campos heredados de {@link Sanitario} y los campos propios de Enfermero.
+   * Constructor con los campos heredados de {@link Sanitario}.
    *
    * @param NIF NIF.
    * @param nombre Nombre.
@@ -56,7 +62,7 @@ public class Medico extends Sanitario {
    * @param codigoArea Código del área.
    * @param codigoActividad Código de actividad.
    * @param codigoEspecialidad Código de especialidad.
-   * @param hospital Hospital.
+   * @param citas Citas.
    */
   public Medico(
       String NIF,
@@ -67,7 +73,7 @@ public class Medico extends Sanitario {
       CodigoAreaEnum codigoArea,
       CodigoActividadEnum codigoActividad,
       CodigoEspecialidadEnum codigoEspecialidad,
-      Hospital hospital) {
+      List<Cita> citas) {
     super(
         NIF,
         nombre,
@@ -76,16 +82,65 @@ public class Medico extends Sanitario {
         codigoUnidad,
         codigoArea,
         codigoActividad,
-        codigoEspecialidad);
-    this.hospital = hospital;
+        codigoEspecialidad,
+        citas);
   }
 
-  public Hospital getHospital() {
-    return hospital;
+  /**
+   * Constructor con los campos heredados de {@link Sanitario} y los campos propios de Médico.
+   *
+   * @param NIF NIF.
+   * @param nombre Nombre.
+   * @param apellido1 Primer apellido.
+   * @param apellido2 Segundo apellido.
+   * @param codigoUnidad Código de la unidad.
+   * @param codigoArea Código del área.
+   * @param codigoActividad Código de actividad.
+   * @param codigoEspecialidad Código de especialidad.
+   * @param citas Citas.
+   * @param experiencia Experiencia.
+   * @param especialidades Especialidades.
+   */
+  public Medico(
+      String NIF,
+      String nombre,
+      String apellido1,
+      String apellido2,
+      CodigoUnidadEnum codigoUnidad,
+      CodigoAreaEnum codigoArea,
+      CodigoActividadEnum codigoActividad,
+      CodigoEspecialidadEnum codigoEspecialidad,
+      List<Cita> citas,
+      int experiencia,
+      List<CodigoEspecialidadEnum> especialidades) {
+    super(
+        NIF,
+        nombre,
+        apellido1,
+        apellido2,
+        codigoUnidad,
+        codigoArea,
+        codigoActividad,
+        codigoEspecialidad,
+        citas);
+    this.experiencia = experiencia;
+    this.especialidades = especialidades;
   }
 
-  public void setHospital(Hospital hospital) {
-    this.hospital = hospital;
+  public int getExperiencia() {
+    return experiencia;
+  }
+
+  public void setExperiencia(int experiencia) {
+    this.experiencia = experiencia;
+  }
+
+  public List<CodigoEspecialidadEnum> getEspecialidades() {
+    return especialidades;
+  }
+
+  public void setEspecialidades(List<CodigoEspecialidadEnum> especialidades) {
+    this.especialidades = especialidades;
   }
 
   @Override

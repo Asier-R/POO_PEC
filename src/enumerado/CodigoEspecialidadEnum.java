@@ -1,10 +1,9 @@
 package enumerado;
 
-import entidad.persona.Estudiante;
-import entidad.persona.Persona;
+import entidad.persona.*;
 
 /**
- * Clase enum que define las especialidades de médicos {@link Persona}, enfermeros {@link Persona} y
+ * Clase enum que define las especialidades de médicos {@link Medico}, enfermeros {@link Enfermero} y
  * estudiantes {@link Estudiante}
  */
 public enum CodigoEspecialidadEnum {
