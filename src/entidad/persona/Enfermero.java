@@ -7,14 +7,9 @@ import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
 /**
- * Clase que representa a un estudiante de medicína o enfermería.
+ * Clase que representa a un enfermero.
  */
-public class Estudiante extends Sanitario{
-    /**
-     * Nombre del centro de estudios de procedencia.
-     */
-    private String nombreCentro;
-
+public class Enfermero extends Sanitario{
     /**
      * Hospital en el que el estudiante realiza su formación.
      */
@@ -28,7 +23,7 @@ public class Estudiante extends Sanitario{
      * @param apellido1       Primer apellido.
      * @param apellido2       Segundo apellido.
      */
-    public Estudiante(
+    public Enfermero(
             String NIF,
             String nombre,
             String apellido1,
@@ -53,7 +48,7 @@ public class Estudiante extends Sanitario{
      * @param codigoArea      Código del área.
      * @param codigoActividad Código de actividad.
      */
-    public Estudiante(
+    public Enfermero(
             String NIF,
             String nombre,
             String apellido1,
@@ -74,7 +69,7 @@ public class Estudiante extends Sanitario{
     }
 
     /**
-     * Constructor con los campos heredados de {@link Sanitario} y los campos propios de Estudiante.
+     * Constructor con los campos heredados de {@link Sanitario} y los campos propios de Enfermero.
      *
      * @param NIF                NIF.
      * @param nombre             Nombre.
@@ -84,10 +79,9 @@ public class Estudiante extends Sanitario{
      * @param codigoArea         Código del área.
      * @param codigoActividad    Código de actividad.
      * @param codigoEspecialidad Código de especialidad.
-     * @param nombreCentro       Código de actividad.
      * @param hospital           Hospital.
      */
-    public Estudiante(
+    public Enfermero(
             String NIF,
             String nombre,
             String apellido1,
@@ -96,7 +90,6 @@ public class Estudiante extends Sanitario{
             CodigoAreaEnum codigoArea,
             CodigoActividadEnum codigoActividad,
             CodigoEspecialidadEnum codigoEspecialidad,
-            String nombreCentro,
             Hospital hospital
     ) {
         super(
@@ -109,16 +102,7 @@ public class Estudiante extends Sanitario{
                 codigoActividad,
                 codigoEspecialidad
         );
-        this.nombreCentro = nombreCentro;
         this.hospital = hospital;
-    }
-
-    public String getNombreCentro() {
-        return nombreCentro;
-    }
-
-    public void setNombreCentro(String nombreCentro) {
-        this.nombreCentro = nombreCentro;
     }
 
     public Hospital getHospital() {
