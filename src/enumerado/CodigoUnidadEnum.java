@@ -1,7 +1,9 @@
 package enumerado;
 
+import entidad.unidad.Unidad;
+
 /**
- * Clase enum que define los códigos de unidad de las distintas unidades {@link entidad.Unidad}
+ * Clase enum que define los códigos de unidad de las distintas unidades {@link Unidad}
  */
 public enum CodigoUnidadEnum {
     SERVICIOS(1,"SERVICIOS"),

@@ -1,5 +1,6 @@
-package entidad;
+package entidad.unidad;
 
+import entidad.unidad.Unidad;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 

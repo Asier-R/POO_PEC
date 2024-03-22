@@ -1,5 +1,6 @@
-package entidad;
+package entidad.unidad;
 
+import entidad.unidad.Unidad;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
@@ -12,15 +13,16 @@ public abstract class Medica extends Unidad{
     /**
      * Código único que identifica el área de la unidad. {@link CodigoUnidadEnum}
      */
-    private CodigoAreaEnum codigoAreaEnum;
+    private CodigoAreaEnum codigoArea;
 
     /**
      * Constructor de las unidades Médicas.
+     * @param codigoArea código del área al que pertenece la Unidad.
      * @param nombre nombre de la unidad.
      */
-    public Medica(CodigoAreaEnum codigoAreaEnum, String nombre){
+    public Medica(CodigoAreaEnum codigoArea, String nombre){
         super(CodigoUnidadEnum.MEDICINA, nombre);
-        this.codigoAreaEnum = codigoAreaEnum;
+        this.codigoArea = codigoArea;
     }
 
 }

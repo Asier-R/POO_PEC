@@ -1,4 +1,4 @@
-package entidad;
+package entidad.unidad;
 
 import enumerado.CodigoUnidadEnum;
 

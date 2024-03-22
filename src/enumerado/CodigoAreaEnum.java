@@ -1,7 +1,9 @@
 package enumerado;
 
+import entidad.unidad.Unidad;
+
 /**
- * Clase enum que define los códigos de área de las distintas unidades {@link entidad.Unidad}
+ * Clase enum que define los códigos de área de las distintas unidades {@link Unidad}
  */
 public enum CodigoAreaEnum {
     ADMINISTRACION(1, "ADMINISTRACION"),

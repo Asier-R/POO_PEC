@@ -1,5 +1,6 @@
-package entidad;
+package entidad.unidad;
 
+import entidad.unidad.Unidad;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
@@ -12,15 +13,16 @@ public abstract class Servicio extends Unidad {
     /**
      * Código único que identifica el área de la unidad. {@link CodigoUnidadEnum}
      */
-    private CodigoAreaEnum codigoAreaEnum;
+    private CodigoAreaEnum codigoArea;
 
     /**
      * Constructor de las unidades de Servicios.
+     * @param codigoArea código del área al que pertenece la Unidad.
      * @param nombre nombre de la unidad.
      */
-    public Servicio(CodigoAreaEnum codigoAreaEnum, String nombre){
+    public Servicio(CodigoAreaEnum codigoArea, String nombre){
         super(CodigoUnidadEnum.SERVICIOS, nombre);
-        this.codigoAreaEnum = codigoAreaEnum;
+        this.codigoArea = codigoArea;
     }
 
 }

@@ -1,20 +1,12 @@
 package enumerado;
 
-import entidad.unidad.Unidad;
+import entidad.persona.Estudiante;
+import entidad.persona.Persona;
 
 /**
- * Clase enum que define los códigos de actividad de las distintas unidades {@link Unidad}
+ * Clase enum que define las especialidades de médicos {@link Persona}, enfermeros {@link Persona} y estudiantes {@link Estudiante}
  */
-public enum CodigoActividadEnum {
-    CONTABILIDAD(1, "CONTABILIDAD"),
-    DIRECCION(2, "DIRECCION"),
-    DOC_CLINICA(3, "DOCUMENTACIÓN CLINICA"),
-    MANTENIMIENTO(4, "MANTENIMIENTO"),
-    LIMPIEZA(5, "LIMPIEZA"),
-    RRHH(6, "RRHH"),
-    SEGURIDAD(7, "SEGURIDAD"),
-    UCI(8, "UCI"),
-    EN_PLANTA(8, "EN PLANTA"),
+public enum CodigoEspecialidadEnum {
     APARATO_DIGESTIVO(8, "APARATO DIGESTIVO"),
     CARDIOLOGIA(8, "CARDIOLOGÍA"),
     CIRUGIA_GENERAL(8, "CIRUGÍA GENERAL"),
@@ -23,11 +15,7 @@ public enum CodigoActividadEnum {
     ONCOLOGIA(8, "ONCOLOGÍA"),
     OFTALMOLOGIA(8, "OFTALMOLOGÍA"),
     PSIQUIATRIA(8, "PSIQUIATRÍA"),
-    TRAUMATOLOGIA(8, "TRAUMATOLOGÍA"),
-    CAFETERIA(8, "CAFETERIA"),
-    APARCAMIENTO(8, "APARCAMIENTO"),
-    CLASE(8, "CLASE"),
-    LABORATORIO(8, "LABORATORIO");
+    TRAUMATOLOGIA(8, "TRAUMATOLOGÍA");
 
     /**
      * Id del enumerado.
@@ -39,7 +27,7 @@ public enum CodigoActividadEnum {
      */
     private String descripcion;
 
-    private CodigoActividadEnum(int id, String descripcion){
+    private CodigoEspecialidadEnum(int id, String descripcion){
         this.id = id;
         this.descripcion = descripcion;
     }
