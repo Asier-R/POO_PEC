@@ -8,7 +8,7 @@ import enumerado.CodigoUnidadEnum;
 public class Mantenimiento extends Personal {
 
   /** Enum de las labores de mantenimiento. */
-  enum Labor {
+  public enum Labor {
     MANTENIMIENTO,
     LIMPIEZA,
     SEGURIDAD

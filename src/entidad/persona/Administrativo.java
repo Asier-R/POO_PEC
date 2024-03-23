@@ -10,7 +10,7 @@ public class Administrativo extends Personal {
     /**
      * Enum de los grupos administrativos.
      */
-    enum Grupo{
+    public enum Grupo{
         A1,
         A2,
         C1,
