@@ -14,6 +14,11 @@ public enum CodigoUnidadEnum {
   /** Texto descriptivo del enumerado. */
   private String descripcion;
 
+  /**
+   * Constructor de CodigoUnidadEnum.
+   * @param id Id.
+   * @param descripcion Descripción.
+   */
   private CodigoUnidadEnum(int id, String descripcion) {
     this.id = id;
     this.descripcion = descripcion;

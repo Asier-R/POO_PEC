@@ -13,9 +13,11 @@ public class Main {
 
         Instant ahora = Instant.now();
         ZonedDateTime ahora2 = ZonedDateTime.now();
+        int hora = ZonedDateTime.now().minusHours(12).getHour();
 
         System.out.println("UTC: "+ahora.toString());
         System.out.println("UTC+1: "+ahora2.toString());
+        System.out.println("Hora: "+hora);
 
         // TODO-ASIER: crear CSVs (desordenados) para los datos a insertar en el pre-inicio de la aplicación.
         // TODO-ASIER: implementar Hashmap<String, Integer> para dar pesos a los caracteres.

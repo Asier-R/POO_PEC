@@ -19,6 +19,12 @@ public enum CodigoAreaEnum {
   /** Texto descriptivo del enumerado. */
   private String descripcion;
 
+  /**
+   * Constructor de CodigoAreaEnum
+   *
+   * @param id Id.
+   * @param descripcion Descripción.
+   */
   private CodigoAreaEnum(int id, String descripcion) {
     this.id = id;
     this.descripcion = descripcion;

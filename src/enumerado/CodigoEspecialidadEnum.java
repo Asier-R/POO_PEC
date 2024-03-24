@@ -3,8 +3,8 @@ package enumerado;
 import entidad.persona.*;
 
 /**
- * Clase enum que define las especialidades de médicos {@link Medico}, enfermeros {@link Enfermero} y
- * estudiantes {@link Estudiante}
+ * Clase enum que define las especialidades de médicos {@link Medico}, enfermeros {@link Enfermero}
+ * y estudiantes {@link Estudiante}
  */
 public enum CodigoEspecialidadEnum {
   APARATO_DIGESTIVO(8, "APARATO DIGESTIVO"),
@@ -23,6 +23,12 @@ public enum CodigoEspecialidadEnum {
   /** Texto descriptivo del enumerado. */
   private String descripcion;
 
+  /**
+   * Constructor de CodigoEspecialidadEnum.
+   *
+   * @param id Id.
+   * @param descripcion Descripción.
+   */
   private CodigoEspecialidadEnum(int id, String descripcion) {
     this.id = id;
     this.descripcion = descripcion;
