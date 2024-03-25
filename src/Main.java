@@ -1,3 +1,5 @@
+import servicio.DiagnosticoTratamiento;
+
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -18,6 +20,10 @@ public class Main {
         System.out.println("UTC: "+ahora.toString());
         System.out.println("UTC+1: "+ahora2.toString());
         System.out.println("Hora: "+hora);
+
+        DiagnosticoTratamiento.Diagnostico dia = DiagnosticoTratamiento.Diagnostico.ACNE;
+
+
 
         // TODO-ASIER: crear CSVs (desordenados) para los datos a insertar en el pre-inicio de la aplicación.
         // TODO-ASIER: implementar Hashmap<String, Integer> para dar pesos a los caracteres.
