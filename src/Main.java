@@ -21,7 +21,15 @@ public class Main {
         System.out.println("UTC+1: "+ahora2.toString());
         System.out.println("Hora: "+hora);
 
-        DiagnosticoTratamiento.Diagnostico dia = DiagnosticoTratamiento.Diagnostico.ACNE;
+        DiagnosticoTratamiento.DiagnosticosTratamientos diag = DiagnosticoTratamiento.getDiagnostico();
+        for(int i=0; i<=10; i++){
+            System.out.println(i+"-Diagnostico: "+diag.getDiagnostico());
+            System.out.println(i+"-Tratamiento: "+diag.getTratamiento());
+            System.out.println(i+"-Origen: "+diag.getUnidadOrigen().getDescripcion());
+            System.out.println(i+"-Destino: "+(diag.getUnidadDestino()==null?"n/a":diag.getUnidadDestino().getDescripcion()));
+            System.out.println(i+"-Sanitario: "+diag.getSanitario()+"\n");
+            diag = DiagnosticoTratamiento.getDiagnostico();
+        }
 
 
 
