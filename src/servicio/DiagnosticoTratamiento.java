@@ -1,14 +1,11 @@
 package servicio;
 
-import entidad.persona.Medico;
 import entidad.persona.Sanitario;
 import enumerado.CodigoActividadEnum;
-import enumerado.CodigoEspecialidadEnum;
 
 import java.util.Random;
 
 import static entidad.persona.Sanitario.TipoSanitario.*;
-import static enumerado.CodigoEspecialidadEnum.*;
 import static enumerado.CodigoActividadEnum.*;
 
 /** Clase que representa los diagnósticos, tratamientos y las relaciones entre ambos. */
@@ -16,14 +13,14 @@ public final class DiagnosticoTratamiento {
 
   /** Constructor vacío de la clase. */
   private DiagnosticoTratamiento() {
-    // Constructor vacio
+    // Constructor vacío
   }
 
   /**
    * Genera un diagnostico para un paciente que acude a consulta primaria
    * @return DiagnosticoTratamiento
    */
-  public static DiagnosticosTratamientos getDiagnostico(){
+  public static DiagnosticosTratamientos diagnosticar(){
     Random random = new Random();
     int numero = random.nextInt(DiagnosticosTratamientos.values().length);
     return DiagnosticosTratamientos.values()[numero];

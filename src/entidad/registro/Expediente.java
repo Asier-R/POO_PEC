@@ -1,6 +1,7 @@
 package entidad.registro;
 
 import entidad.persona.Paciente;
+import servicio.DiagnosticoTratamiento;
 
 import java.time.ZonedDateTime;
 
@@ -31,8 +32,13 @@ public class Expediente {
   /** Estado actual del paciente. */
   private Estado estado;
 
-  // TODO: introducir campo para indicar estado de salud del paciente
-  // TODO: trasladar estado a expediente
+  /**
+   * Cita actual del paciente.
+   */
+  private Cita cita;
+
+  /** Diagnóstico actual del paciente. */
+  private DiagnosticoTratamiento.DiagnosticosTratamientos diagnostico;
 
   /**
    * Constructor de Expediente.
@@ -63,5 +69,29 @@ public class Expediente {
 
   public Historial getHistorial() {
     return historial;
+  }
+
+  public Estado getEstado() {
+    return estado;
+  }
+
+  public void setEstado(Estado estado) {
+    this.estado = estado;
+  }
+
+  public Cita getCita() {
+    return cita;
+  }
+
+  public void setCita(Cita cita) {
+    this.cita = cita;
+  }
+
+  public DiagnosticoTratamiento.DiagnosticosTratamientos getDiagnostico() {
+    return diagnostico;
+  }
+
+  public void setDiagnostico(DiagnosticoTratamiento.DiagnosticosTratamientos diagnostico) {
+    this.diagnostico = diagnostico;
   }
 }
