@@ -1,6 +1,5 @@
 package entidad.unidad;
 
-import entidad.unidad.Unidad;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
@@ -23,5 +22,13 @@ public abstract class Servicio extends Unidad {
   public Servicio(CodigoAreaEnum codigoArea, String nombre) {
     super(CodigoUnidadEnum.SERVICIOS, nombre);
     this.codigoArea = codigoArea;
+  }
+
+  /**
+   * Devuelve el código de área de la unidad.
+   * @return Código de área.
+   */
+  public CodigoAreaEnum getCodigoArea(){
+    return this.codigoArea;
   }
 }

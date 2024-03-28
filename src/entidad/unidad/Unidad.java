@@ -22,5 +22,13 @@ public abstract class Unidad {
     this.codigoUnidad = codigoUnidad;
   }
 
+  /**
+   * Devuelve el código de unidad.
+   * @return Código de área.
+   */
+  public CodigoUnidadEnum getCodigoUnidad(){
+    return this.codigoUnidad;
+  }
+
   public abstract String toString();
 }
