@@ -14,7 +14,7 @@ public abstract class Administracion extends Servicio {
 
   /**
    * Constructor de las unidades de Servicios.
-   *
+   * @param codigoActividad código de actividad.
    * @param nombre nombre de la unidad.
    */
   public Administracion(CodigoActividadEnum codigoActividad, String nombre) {
@@ -22,5 +22,7 @@ public abstract class Administracion extends Servicio {
     this.codigoActividad = codigoActividad;
   }
 
-
+  public CodigoActividadEnum getCodigoActividad() {
+    return codigoActividad;
+  }
 }

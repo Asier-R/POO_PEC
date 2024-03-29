@@ -12,8 +12,8 @@ import java.util.List;
 public class Cita {
 
   /**
-   * Horario de la cita. Puede ser de mañana o de tarde. Mañana (6am a 2pm) -> M Tarde (2pm a 10pm)
-   * -> T Noche (10pm a 6am) -> N
+   * Horario de la cita. Puede ser de mañana o de tarde. Mañana (M) de 6am a 2pm, Tarde (T) de 2pm a
+   * 10pm y Noche (N) de 10pm a 6am.
    */
   public enum Horario {
     M(6),
@@ -48,26 +48,21 @@ public class Cita {
   /** Personal sanitario implicado en la cita. Pueden ser médicos, enfermeros o estudiantes. */
   private List<Sanitario> sanitarios;
 
-  /**
-   * Unidad destíno de la cita.
-   */
+  /** Unidad destíno de la cita. */
   private Unidad unidad;
 
   /** Indica si la cita ha vencido. */
   private boolean vencida;
 
   /**
-   * Constructor de Cita, donde se inserta la fecha de creación en el momento de la
-   * creación, se inicializa la lista de sanitarios y se determina el horario.
+   * Constructor de Cita, donde se inserta la fecha de creación en el momento de la creación, se
+   * inicializa la lista de sanitarios y se determina el horario.
    *
    * @param fechaCreacion Fecha de creación.
    * @param fechaCita Fecha de la cita.
    * @param paciente Paciente.
    */
-  public Cita(
-      ZonedDateTime fechaCreacion,
-      ZonedDateTime fechaCita,
-      Paciente paciente) {
+  public Cita(ZonedDateTime fechaCreacion, ZonedDateTime fechaCita, Paciente paciente) {
     this.fechaCreacion = ZonedDateTime.now();
     this.fechaCita = fechaCita;
     this.paciente = paciente;
@@ -78,8 +73,8 @@ public class Cita {
 
   private void determinarHorario(ZonedDateTime fechaCreacion) {
     final int hora = fechaCreacion.getHour();
-    if(Horario.M.inicio <= hora && hora < Horario.T.inicio) this.horario = Horario.M;
-    else if(Horario.T.inicio <= hora && hora < Horario.N.inicio) this.horario = Horario.T;
+    if (Horario.M.inicio <= hora && hora < Horario.T.inicio) this.horario = Horario.M;
+    else if (Horario.T.inicio <= hora && hora < Horario.N.inicio) this.horario = Horario.T;
     else this.horario = Horario.N;
   }
 

@@ -24,11 +24,8 @@ public abstract class Servicio extends Unidad {
     this.codigoArea = codigoArea;
   }
 
-  /**
-   * Devuelve el código de área de la unidad.
-   * @return Código de área.
-   */
-  public CodigoAreaEnum getCodigoArea(){
+  public CodigoAreaEnum getCodigoArea() {
     return this.codigoArea;
   }
+
 }
