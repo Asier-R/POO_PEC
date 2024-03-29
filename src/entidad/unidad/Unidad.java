@@ -36,10 +36,10 @@ public abstract class Unidad {
   /**
    * Devuelve el nombre de la unidad.
    *
-   * @return Código de área.
+   * @return nombre de la unidad.
    */
-  public CodigoUnidadEnum getNombre() {
-    return this.codigoUnidad;
+  public String getNombre() {
+    return this.nombre;
   }
 
   /**

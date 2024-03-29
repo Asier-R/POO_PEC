@@ -1,17 +1,17 @@
-package entidad.unidad;
+package entidad.unidad.servicio.administracion;
 
 import enumerado.CodigoActividadEnum;
 
-/** Subclase de {@link Administracion} que define a la unidad de seguridad. */
-public class Seguridad extends Administracion {
+/** Subclase de {@link Administracion} que define a la unidad de limpieza. */
+public class Limpieza extends Administracion {
 
   /**
-   * Constructor de unidad de seguridad.
+   * Constructor de unidad de limpieza.
    *
    * @param nombre nombre de la unidad.
    */
-  public Seguridad(String nombre) {
-    super(CodigoActividadEnum.SEGURIDAD, nombre);
+  public Limpieza(String nombre) {
+    super(CodigoActividadEnum.LIMPIEZA, nombre);
   }
 
   @Override

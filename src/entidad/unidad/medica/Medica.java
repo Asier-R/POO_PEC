@@ -1,4 +1,4 @@
-package entidad.unidad;
+package entidad.unidad.medica;
 
 import entidad.unidad.Unidad;
 import enumerado.CodigoAreaEnum;
@@ -22,5 +22,9 @@ public abstract class Medica extends Unidad {
   public Medica(CodigoAreaEnum codigoArea, String nombre) {
     super(CodigoUnidadEnum.MEDICINA, nombre);
     this.codigoArea = codigoArea;
+  }
+
+  public CodigoAreaEnum getCodigoArea(){
+    return this.codigoArea;
   }
 }

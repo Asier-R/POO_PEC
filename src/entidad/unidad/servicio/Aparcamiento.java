@@ -1,4 +1,4 @@
-package entidad.unidad;
+package entidad.unidad.servicio;
 
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;

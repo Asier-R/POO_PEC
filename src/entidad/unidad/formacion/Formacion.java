@@ -1,5 +1,6 @@
-package entidad.unidad;
+package entidad.unidad.formacion;
 
+import entidad.unidad.Unidad;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 import entidad.persona.Medico;
@@ -26,7 +27,7 @@ public abstract class Formacion extends Unidad {
     this.codigoArea = codigoArea;
   }
 
-  public CodigoAreaEnum getCodigoArea() {
-    return codigoArea;
+  public CodigoAreaEnum getCodigoArea(){
+    return this.codigoArea;
   }
 }

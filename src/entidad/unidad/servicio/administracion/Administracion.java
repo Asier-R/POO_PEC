@@ -1,5 +1,6 @@
-package entidad.unidad;
+package entidad.unidad.servicio.administracion;
 
+import entidad.unidad.servicio.Servicio;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 
@@ -22,7 +23,7 @@ public abstract class Administracion extends Servicio {
     this.codigoActividad = codigoActividad;
   }
 
-  public CodigoActividadEnum getCodigoActividad() {
-    return codigoActividad;
+  public CodigoActividadEnum getCodigoActividad(){
+    return this.codigoActividad;
   }
 }
