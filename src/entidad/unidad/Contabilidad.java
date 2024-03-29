@@ -16,6 +16,12 @@ public class Contabilidad extends Administracion {
 
   @Override
   public String toString() {
-    return this.getCodigoUnidad() + "-" + this.getCodigoUnidad() + "-" + this.getCodigoActividad() + "-" + this.getNombre();
+    return this.getCodigoUnidad()
+        + "-"
+        + this.getCodigoUnidad()
+        + "-"
+        + this.getCodigoActividad()
+        + "-"
+        + this.getNombre();
   }
 }
