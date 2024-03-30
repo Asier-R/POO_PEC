@@ -9,11 +9,10 @@ public class EnPlanta extends Habitacion {
   /**
    * Constructor de habitaciones para ingresos en planta.
    *
-   * @param codigoActividad código del área al que pertenece la Unidad.
    * @param nombre nombre de la unidad.
    */
-  public EnPlanta(CodigoActividadEnum codigoActividad, String nombre) {
-    super(codigoActividad, nombre);
+  public EnPlanta(String nombre) {
+    super(CodigoActividadEnum.EN_PLANTA, nombre);
   }
 
   @Override

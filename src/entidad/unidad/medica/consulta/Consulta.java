@@ -25,6 +25,6 @@ public abstract class Consulta extends Medica {
 
     @Override
     public CodigoActividadEnum getCodigoActividad() {
-        return this.codigoActividad;
+        return codigoActividad;
     }
 }

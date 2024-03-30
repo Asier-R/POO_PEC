@@ -9,11 +9,10 @@ public class UCI extends Habitacion{
     /**
      * Constructor de habitaciones de unidades de cuidados intensivos.
      *
-     * @param codigoActividad código del área al que pertenece la Unidad.
      * @param nombre          nombre de la unidad.
      */
-    public UCI(CodigoActividadEnum codigoActividad, String nombre) {
-        super(codigoActividad, nombre);
+    public UCI(String nombre) {
+        super(CodigoActividadEnum.UCI, nombre);
     }
 
     @Override

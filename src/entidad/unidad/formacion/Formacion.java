@@ -28,6 +28,6 @@ public abstract class Formacion extends Unidad {
   }
 
   public CodigoAreaEnum getCodigoArea(){
-    return this.codigoArea;
+    return codigoArea;
   }
 }

@@ -24,7 +24,7 @@ public abstract class Medica extends Unidad {
     this.codigoArea = codigoArea;
   }
 
-  public CodigoAreaEnum getCodigoArea(){
-    return this.codigoArea;
+  public CodigoAreaEnum getCodigoArea() {
+    return codigoArea;
   }
 }

@@ -22,7 +22,7 @@ public class Quirofano extends Medica {
 
   @Override
   public CodigoActividadEnum getCodigoActividad() {
-    return this.codigoActividad;
+    return codigoActividad;
   }
 
   @Override

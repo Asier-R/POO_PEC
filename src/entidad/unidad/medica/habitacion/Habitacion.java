@@ -26,6 +26,6 @@ public abstract class Habitacion extends Medica {
 
   @Override
   public CodigoActividadEnum getCodigoActividad() {
-    return this.codigoActividad;
+    return codigoActividad;
   }
 }

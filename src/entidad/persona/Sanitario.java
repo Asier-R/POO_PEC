@@ -28,6 +28,15 @@ public abstract class Sanitario extends Personal {
   /** El tipo de sanitario. */
   private TipoSanitario tipoSanitario;
 
+  /** Código de la unidad a la que está asignada la Persona. */
+  private CodigoUnidadEnum codigoUnidad;
+
+  /** Código del área a la que está asignada la Persona. */
+  private CodigoAreaEnum codigoArea;
+
+  /** Código de la actividad que realiza la Persona. */
+  private CodigoActividadEnum codigoActividad;
+
   /** Código de la especialidad del Sanitario. */
   private CodigoEspecialidadEnum codigoEspecialidad;
 
@@ -58,8 +67,11 @@ public abstract class Sanitario extends Personal {
       CodigoAreaEnum codigoArea,
       CodigoActividadEnum codigoActividad,
       CodigoEspecialidadEnum codigoEspecialidad) {
-    super(NIF, nombre, apellido1, apellido2, codigoUnidad, codigoArea, codigoActividad);
+    super(NIF, nombre, apellido1, apellido2);
     this.tipoSanitario = tipoSanitario;
+    this.codigoUnidad = codigoUnidad;
+    this.codigoArea = codigoArea;
+    this.codigoActividad = codigoActividad;
     this.codigoEspecialidad = codigoEspecialidad;
   }
 

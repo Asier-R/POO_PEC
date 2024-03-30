@@ -8,6 +8,15 @@ import enumerado.CodigoUnidadEnum;
 /** Clase que representa a un médico. */
 public class Medico extends Sanitario {
 
+  /** Código de la unidad a la que está asignada la Persona. */
+  private CodigoUnidadEnum codigoUnidad;
+
+  /** Código del área a la que está asignada la Persona. */
+  private CodigoAreaEnum codigoArea;
+
+  /** Código de la actividad que realiza la Persona. */
+  private CodigoActividadEnum codigoActividad;
+
   /** Años de experiencia del médico. */
   private int experiencia;
 
@@ -63,6 +72,21 @@ public class Medico extends Sanitario {
 
   public CodigoEspecialidadEnum getSegundaEspecialidad() {
     return segundaEspecialidad;
+  }
+
+  @Override
+  public CodigoUnidadEnum getCodigoUnidad() {
+    return codigoUnidad;
+  }
+
+  @Override
+  public CodigoAreaEnum getCodigoArea() {
+    return codigoArea;
+  }
+
+  @Override
+  public CodigoActividadEnum getCodigoActividad() {
+    return codigoActividad;
   }
 
   @Override

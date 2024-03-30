@@ -8,6 +8,16 @@ import enumerado.CodigoUnidadEnum;
 /** Clase que representa a un enfermero. */
 public class Enfermero extends Sanitario {
 
+  /** Código de la unidad a la que está asignada la Persona. */
+  private CodigoUnidadEnum codigoUnidad;
+
+  /** Código del área a la que está asignada la Persona. */
+  private CodigoAreaEnum codigoArea;
+
+  /** Código de la actividad que realiza la Persona. */
+  private CodigoActividadEnum codigoActividad;
+
+
   /** Años de experiencia del enfermero. */
   private int experiencia;
 
@@ -53,6 +63,21 @@ public class Enfermero extends Sanitario {
 
   public void setExperiencia(int experiencia) {
     this.experiencia = experiencia;
+  }
+
+  @Override
+  public CodigoUnidadEnum getCodigoUnidad() {
+    return codigoUnidad;
+  }
+
+  @Override
+  public CodigoAreaEnum getCodigoArea() {
+    return codigoArea;
+  }
+
+  @Override
+  public CodigoActividadEnum getCodigoActividad() {
+    return codigoActividad;
   }
 
   @Override

@@ -7,6 +7,16 @@ import enumerado.CodigoUnidadEnum;
 
 /** Clase que representa a un estudiante de medicína o enfermería. */
 public class Estudiante extends Sanitario {
+
+  /** Código de la unidad a la que está asignada la Persona. */
+  private CodigoUnidadEnum codigoUnidad;
+
+  /** Código del área a la que está asignada la Persona. */
+  private CodigoAreaEnum codigoArea;
+
+  /** Código de la actividad que realiza la Persona. */
+  private CodigoActividadEnum codigoActividad;
+
   /** Nombre del centro de estudios de procedencia. */
   private String nombreCentro;
 
@@ -48,6 +58,21 @@ public class Estudiante extends Sanitario {
 
   public String getNombreCentro() {
     return nombreCentro;
+  }
+
+  @Override
+  public CodigoUnidadEnum getCodigoUnidad() {
+    return codigoUnidad;
+  }
+
+  @Override
+  public CodigoAreaEnum getCodigoArea() {
+    return codigoArea;
+  }
+
+  @Override
+  public CodigoActividadEnum getCodigoActividad() {
+    return codigoActividad;
   }
 
   @Override
