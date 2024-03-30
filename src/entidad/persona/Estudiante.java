@@ -5,7 +5,7 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
-/** Clase que representa a un estudiante de medicína o enfermería. */
+/** Subclase de {@link Sanitario} que representa a un estudiante de medicína o enfermería. */
 public class Estudiante extends Sanitario {
 
   /** Código de la unidad a la que está asignada la Persona. */

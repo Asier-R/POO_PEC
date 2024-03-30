@@ -8,7 +8,7 @@ import enumerado.CodigoUnidadEnum;
 
 import java.util.List;
 
-/** Clase abstracta para representar el personal Sanitario de un Hospital. */
+/** Subclase abstracta de {@link Personal} para representar el personal Sanitario de un Hospital. */
 public abstract class Sanitario extends Personal {
 
   /** Tipos de sanitarios existentes. */

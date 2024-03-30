@@ -5,7 +5,7 @@ import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 
 /**
- * Subclase de {@link Servicio} que se utiliza para definir las unidades que realizan tareas
+ * Subclase abstracta de {@link Servicio} que se utiliza para definir las unidades que realizan tareas
  * administrativas.
  */
 public abstract class Administracion extends Servicio {

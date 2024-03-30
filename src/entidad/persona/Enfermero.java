@@ -5,7 +5,7 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
-/** Clase que representa a un enfermero. */
+/** Subclase de {@link Sanitario} que representa a un enfermero. */
 public class Enfermero extends Sanitario {
 
   /** Código de la unidad a la que está asignada la Persona. */
@@ -16,7 +16,6 @@ public class Enfermero extends Sanitario {
 
   /** Código de la actividad que realiza la Persona. */
   private CodigoActividadEnum codigoActividad;
-
 
   /** Años de experiencia del enfermero. */
   private int experiencia;

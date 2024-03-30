@@ -5,7 +5,7 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
 /**
- * Subclase de Unidad {@link Unidad} que se utiliza para definir las unidades que realizan o prestan
+ * Subclase abstracta de Unidad {@link Unidad} que se utiliza para definir las unidades que realizan o prestan
  * servicios fuera del ámbito de la medicina, pero necesarios para el correcto funcionamiento del
  * hospital.
  */

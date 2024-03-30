@@ -4,15 +4,11 @@ import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
-/** Clase que representa al personal de mantenimiento de un Hospital. */
-public class Mantenimiento extends Personal {
-
-  /** Enum de las labores de mantenimiento. */
-  public enum Labor {
-    MANTENIMIENTO,
-    LIMPIEZA,
-    SEGURIDAD
-  }
+/**
+ * Subclase de {@link Personal} que representa al personal de mantenimiento de un Hospital. Esta
+ * clase engloba al personal de mantenimiento, limpieza, seguridad, cafeteria y aparcamiento.
+ */
+public class MantenimientoServicio extends Personal {
 
   /** Código de la unidad a la que está asignada la Persona. */
   private CodigoUnidadEnum codigoUnidad;
@@ -23,9 +19,6 @@ public class Mantenimiento extends Personal {
   /** Código de la actividad que realiza la Persona. */
   private CodigoActividadEnum codigoActividad;
 
-  /** Labor de mantenimiento. */
-  private Labor labor;
-
   /**
    * Constructor con los campos heredados de Personal {@link Personal} y los campos propios de
    * Mantenimiento.
@@ -34,25 +27,18 @@ public class Mantenimiento extends Personal {
    * @param nombre Nombre.
    * @param apellido1 Primer apellido.
    * @param apellido2 Segundo apellido.
-   * @param codigoUnidad Código de la unidad.
-   * @param codigoArea Código del área.
-   * @param codigoActividad Código de actividad.
-   * @param labor labor que realiza el técnico.
+   * @param codigoActividad código de actividad.
    */
-  public Mantenimiento(
+  public MantenimientoServicio(
       String NIF,
       String nombre,
       String apellido1,
       String apellido2,
-      CodigoUnidadEnum codigoUnidad,
-      CodigoAreaEnum codigoArea,
-      CodigoActividadEnum codigoActividad,
-      Labor labor) {
+      CodigoActividadEnum codigoActividad) {
     super(NIF, nombre, apellido1, apellido2);
-    this.codigoUnidad = codigoUnidad;
-    this.codigoArea = codigoArea;
+    this.codigoUnidad = CodigoUnidadEnum.SERVICIOS;
+    this.codigoArea = CodigoAreaEnum.ADMINISTRACION;
     this.codigoActividad = codigoActividad;
-    this.labor = labor;
   }
 
   @Override
@@ -68,10 +54,6 @@ public class Mantenimiento extends Personal {
   @Override
   public CodigoActividadEnum getCodigoActividad() {
     return codigoActividad;
-  }
-
-  public Labor getLabor() {
-    return labor;
   }
 
   @Override

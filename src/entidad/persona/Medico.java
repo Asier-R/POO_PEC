@@ -5,7 +5,7 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
-/** Clase que representa a un médico. */
+/** Subclase de {@link Sanitario} que representa a un médico. */
 public class Medico extends Sanitario {
 
   /** Código de la unidad a la que está asignada la Persona. */

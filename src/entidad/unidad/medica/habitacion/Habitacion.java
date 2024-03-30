@@ -5,7 +5,7 @@ import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 
 /**
- * Subclase de {@link Medica} que se utiliza para definir las unidades que se ocupan de alojar a los
+ * Subclase abstracta de {@link Medica} que se utiliza para definir las unidades que se ocupan de alojar a los
  * pacientes en el hospital.
  */
 public abstract class Habitacion extends Medica {

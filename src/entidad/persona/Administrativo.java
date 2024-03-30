@@ -4,7 +4,7 @@ import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
-/** Clase que representa a un administrativo de un Hospital. */
+/** Subclase de {@link Personal} que representa a un administrativo de un Hospital. */
 public class Administrativo extends Personal {
 
   /** Enum de los grupos administrativos. */
@@ -35,7 +35,6 @@ public class Administrativo extends Personal {
    * @param nombre Nombre.
    * @param apellido1 Primer apellido.
    * @param apellido2 Segundo apellido.
-   * @param codigoUnidad Código de la unidad.
    * @param codigoArea Código del área.
    * @param codigoActividad Código de actividad.
    * @param grupo Grupo.
@@ -45,12 +44,11 @@ public class Administrativo extends Personal {
       String nombre,
       String apellido1,
       String apellido2,
-      CodigoUnidadEnum codigoUnidad,
       CodigoAreaEnum codigoArea,
       CodigoActividadEnum codigoActividad,
       Grupo grupo) {
     super(NIF, nombre, apellido1, apellido2);
-    this.codigoUnidad = codigoUnidad;
+    this.codigoUnidad = CodigoUnidadEnum.SERVICIOS;
     this.codigoArea = codigoArea;
     this.codigoActividad = codigoActividad;
     this.grupo = grupo;

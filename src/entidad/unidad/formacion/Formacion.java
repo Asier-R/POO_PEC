@@ -7,7 +7,7 @@ import entidad.persona.Medico;
 import entidad.persona.Enfermero;
 
 /**
- * Subclase de Unidad {@link Unidad} que se utiliza para definir las unidades que realizan labores
+ * Subclase abstracta de Unidad {@link Unidad} que se utiliza para definir las unidades que realizan labores
  * relacionadas con la formación del futuro personal médico {@link Medico} y de enfermería {@link
  * Enfermero}.
  */

@@ -4,7 +4,7 @@ import entidad.registro.Cita;
 import entidad.registro.Expediente;
 import entidad.unidad.Unidad;
 
-/** Clase que representa a un paciente. */
+/** Subclase de {@link Persona} que representa a un paciente. */
 public class Paciente extends Persona {
 
   /** Sexo del paciente. */

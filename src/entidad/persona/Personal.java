@@ -4,7 +4,7 @@ import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
-/** Clase abstracta para representar el personal implicado en un Hospital. */
+/** Subclase abstracta de {@link Persona} para representar el personal implicado en un Hospital. */
 public abstract class Personal extends Persona {
 
   /**
