@@ -1,5 +1,6 @@
-package entidad.unidad.medica;
+package entidad.unidad.medica.urgencias;
 
+import entidad.unidad.medica.Medica;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 
