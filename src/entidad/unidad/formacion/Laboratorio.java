@@ -15,7 +15,7 @@ public class Laboratorio extends Formacion {
    * @param nombre nombre de la unidad.
    */
   public Laboratorio(String nombre) {
-    super(CodigoAreaEnum.CLASE, nombre);
+    super(CodigoAreaEnum.LABORATORIO, nombre);
     this.codigoActividad = CodigoActividadEnum.CAFETERIA;
   }
 

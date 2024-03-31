@@ -10,15 +10,6 @@ import enumerado.CodigoUnidadEnum;
  */
 public class MantenimientoServicio extends Personal {
 
-  /** Código de la unidad a la que está asignada la Persona. */
-  private CodigoUnidadEnum codigoUnidad;
-
-  /** Código del área a la que está asignada la Persona. */
-  private CodigoAreaEnum codigoArea;
-
-  /** Código de la actividad que realiza la Persona. */
-  private CodigoActividadEnum codigoActividad;
-
   /**
    * Constructor con los campos heredados de Personal {@link Personal} y los campos propios de
    * Mantenimiento.
@@ -27,6 +18,7 @@ public class MantenimientoServicio extends Personal {
    * @param nombre Nombre.
    * @param apellido1 Primer apellido.
    * @param apellido2 Segundo apellido.
+   * @param codigoArea Código del área.
    * @param codigoActividad código de actividad.
    */
   public MantenimientoServicio(
@@ -34,30 +26,33 @@ public class MantenimientoServicio extends Personal {
       String nombre,
       String apellido1,
       String apellido2,
+      CodigoAreaEnum codigoArea,
       CodigoActividadEnum codigoActividad) {
-    super(NIF, nombre, apellido1, apellido2);
-    this.codigoUnidad = CodigoUnidadEnum.SERVICIOS;
-    this.codigoArea = CodigoAreaEnum.ADMINISTRACION;
-    this.codigoActividad = codigoActividad;
-  }
-
-  @Override
-  public CodigoUnidadEnum getCodigoUnidad() {
-    return codigoUnidad;
-  }
-
-  @Override
-  public CodigoAreaEnum getCodigoArea() {
-    return codigoArea;
-  }
-
-  @Override
-  public CodigoActividadEnum getCodigoActividad() {
-    return codigoActividad;
+    super(
+        NIF, nombre, apellido1, apellido2, CodigoUnidadEnum.SERVICIOS, codigoArea, codigoActividad);
   }
 
   @Override
   public String toString() {
-    return null;
+    return "NIF: "
+        + this.getNIF()
+        + "\n"
+        + "Nombre: "
+        + this.getNombre()
+        + "\n"
+        + "Primer apellido: "
+        + this.getApellido1()
+        + "\n"
+        + "Segundo apellido: "
+        + this.getApellido2()
+        + "\n"
+        + "Unidad: "
+        + this.getCodigoUnidad().getDescripcion()
+        + "\n"
+        + "Area: "
+        + this.getCodigoArea().getDescripcion()
+        + "\n"
+        + "Actividad: "
+        + this.getCodigoActividad().getDescripcion();
   }
 }

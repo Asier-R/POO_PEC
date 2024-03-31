@@ -45,40 +45,78 @@ public class Paciente extends Persona {
     this.sexo = sexo;
   }
 
+  /**
+   * Devuelve el expediente del paciente.
+   *
+   * @return Expediente.
+   */
   public Expediente getExpediente() {
     return expediente;
   }
 
+  /**
+   * Establece el expediente del paciente.
+   *
+   * @param expediente Expediente.
+   */
   public void setExpediente(Expediente expediente) {
     this.expediente = expediente;
   }
 
+  /**
+   * Devuelve la cita vigente del paciente.
+   *
+   * @return Cita.
+   */
   public Cita getCita() {
     return cita;
   }
 
+  /**
+   * Establece la nueva cita vigente del paciente.
+   *
+   * @param cita Cita.
+   */
   public void setCita(Cita cita) {
     this.cita = cita;
   }
 
-  public Unidad getUnidad() {
-    return unidad;
-  }
-
-  public void setUnidad(Unidad unidad) {
-    this.unidad = unidad;
-  }
-
+  /**
+   * Devuelve la edad del paciente.
+   *
+   * @return Edad.
+   */
   public int getEdad() {
     return edad;
   }
 
+  /**
+   * Devuelve el sexo del paciente.
+   *
+   * @return Sexo.
+   */
   public Sexo getSexo() {
     return sexo;
   }
 
   @Override
   public String toString() {
-    return null;
+    return "NIF: "
+        + this.getNIF()
+        + "\n"
+        + "Nombre: "
+        + this.getNombre()
+        + "\n"
+        + "Primer apellido: "
+        + this.getApellido1()
+        + "\n"
+        + "Segundo apellido: "
+        + this.getApellido2()
+        + "\n"
+        + "Edad: "
+        + this.getEdad()
+        + "\n"
+        + "Sexo: "
+        + this.getSexo();
   }
 }

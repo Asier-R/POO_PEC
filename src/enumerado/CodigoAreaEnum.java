@@ -9,10 +9,10 @@ public enum CodigoAreaEnum {
   GARAJE(3, "GARAJE"),
   HABITACION(4, "HABITACION"),
   OPERATORIO(5, "OPERATORIO"),
-  URGENCIAS(5, "URGENCIAS"),
-  CONSULTA(6, "CONSULTA"),
-  CLASE(7, "CLASE"),
-  LABORATORIO(8, "LABORATORIO");
+  URGENCIAS(6, "URGENCIAS"),
+  CONSULTA(7, "CONSULTA"),
+  CLASE(8, "CLASE"),
+  LABORATORIO(9, "LABORATORIO");
 
   /** Id del enumerado. */
   private int id;
@@ -47,5 +47,35 @@ public enum CodigoAreaEnum {
    */
   public String getDescripcion() {
     return this.descripcion;
+  }
+
+  /**
+   * Devuelve un Código de Área en función de la descripción.
+   *
+   * @param descripcion descripción.
+   * @return código de área correspondiente al código de entrada.
+   */
+  public CodigoAreaEnum getFromDescripcion(String descripcion) {
+    for (CodigoAreaEnum c : values()) {
+      if (c.descripcion.equals(descripcion)) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Devuelve un Código de Área en función de la descripción.
+   *
+   * @param descripcion descripción.
+   * @return código de área correspondiente al código de entrada.
+   */
+  public CodigoAreaEnum getFromId(String descripcion) {
+    for (CodigoAreaEnum c : values()) {
+      if (c.descripcion.equals(descripcion)) {
+        return c;
+      }
+    }
+    return null;
   }
 }

@@ -27,7 +27,7 @@ public abstract class Unidad {
   /**
    * Devuelve el código de unidad.
    *
-   * @return Código de área.
+   * @return Código de unidad.
    */
   public CodigoUnidadEnum getCodigoUnidad() {
     return this.codigoUnidad;
@@ -39,7 +39,7 @@ public abstract class Unidad {
    * @return nombre de la unidad.
    */
   public String getNombre() {
-    return this.nombre;
+    return nombre;
   }
 
   /**
@@ -52,7 +52,7 @@ public abstract class Unidad {
   /**
    * Devuelve el código de actividad de la unidad.
    *
-   * @return Código de área.
+   * @return Código de actividad.
    */
   public abstract CodigoActividadEnum getCodigoActividad();
 

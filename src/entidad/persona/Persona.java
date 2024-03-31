@@ -30,5 +30,46 @@ public abstract class Persona {
     this.apellido2 = apellido2;
   }
 
+  /**
+   * Devuelve el número de identificación fiscal de la persona.
+   *
+   * @return NIF.
+   */
+  public String getNIF() {
+    return NIF;
+  }
+
+  /**
+   * Devuelve el nombre de la persona.
+   *
+   * @return Nombre.
+   */
+  public String getNombre() {
+    return nombre;
+  }
+
+  /**
+   * Devuelve el primer apellido de la persona.
+   *
+   * @return Primer apellido.
+   */
+  public String getApellido1() {
+    return apellido1;
+  }
+
+  /**
+   * Devuelve el segundo apellido de la persona.
+   *
+   * @return Segundo apellido.
+   */
+  public String getApellido2() {
+    return apellido2;
+  }
+
+  /**
+   * Devuelve una cadena de texto que identifica a la persona.
+   *
+   * @return cadena de texto.
+   */
   public abstract String toString();
 }

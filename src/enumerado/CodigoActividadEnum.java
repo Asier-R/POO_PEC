@@ -12,23 +12,23 @@ public enum CodigoActividadEnum {
   RRHH(6, "RRHH"),
   SEGURIDAD(7, "SEGURIDAD"),
   UCI(8, "UCI"),
-  EN_PLANTA(8, "EN PLANTA"),
-  CONSULTA_APARATO_DIGESTIVO(8, "APARATO DIGESTIVO"),
-  CONSULTA_CARDIOLOGIA(8, "CARDIOLOGIA"),
-  CONSULTA_CIRUGIA_GENERAL(8, "CIRUGIA GENERAL"),
-  CONSULTA_DERMATOLOGIA(8, "DERMATOLOGIA"),
-  CONSULTA_MEDICINA_INTERNA(8, "MEDICINA INTERNA"),
-  CONSULTA_ONCOLOGIA(8, "ONCOLOGIA"),
-  CONSULTA_OFTALMOLOGIA(8, "OFTALMOLOGIA"),
-  CONSULTA_PRIMARIA(8, "CONSULTA PRIMARIA"),
-  CONSULTA_PSIQUIATRIA(8, "PSIQUIATRIA"),
-  CONSULTA_TRAUMATOLOGIA(8, "TRAUMATOLOGIA"),
-  CAFETERIA(8, "CAFETERIA"),
-  APARCAMIENTO(8, "APARCAMIENTO"),
-  CLASE(8, "CLASE"),
-  LABORATORIO(8, "LABORATORIO"),
-  QUIROFANO(8, "QUIROFANO"),
-  ATENCION_URGENCIAS(8, "ATENCION DE URGENCIAS");
+  EN_PLANTA(9, "EN PLANTA"),
+  CONSULTA_APARATO_DIGESTIVO(10, "APARATO DIGESTIVO"),
+  CONSULTA_CARDIOLOGIA(11, "CARDIOLOGIA"),
+  CONSULTA_CIRUGIA_GENERAL(12, "CIRUGIA GENERAL"),
+  CONSULTA_DERMATOLOGIA(13, "DERMATOLOGIA"),
+  CONSULTA_MEDICINA_INTERNA(14, "MEDICINA INTERNA"),
+  CONSULTA_ONCOLOGIA(15, "ONCOLOGIA"),
+  CONSULTA_OFTALMOLOGIA(16, "OFTALMOLOGIA"),
+  CONSULTA_PRIMARIA(17, "CONSULTA PRIMARIA"),
+  CONSULTA_PSIQUIATRIA(18, "PSIQUIATRIA"),
+  CONSULTA_TRAUMATOLOGIA(19, "TRAUMATOLOGIA"),
+  CAFETERIA(20, "CAFETERIA"),
+  APARCAMIENTO(21, "APARCAMIENTO"),
+  CLASE(22, "CLASE"),
+  LABORATORIO(23, "LABORATORIO"),
+  QUIROFANO(24, "QUIROFANO"),
+  ATENCION_URGENCIAS(25, "ATENCION DE URGENCIAS");
 
   /** Id del enumerado. */
   private int id;
@@ -62,5 +62,20 @@ public enum CodigoActividadEnum {
    */
   public String getDescripcion() {
     return this.descripcion;
+  }
+
+  /**
+   * Devuelve un Código de Actividad en función de la descripción.
+   *
+   * @param descripcion descripción.
+   * @return código de actividad correspondiente al código de entrada.
+   */
+  public CodigoActividadEnum getFromDescripcion(String descripcion) {
+    for (CodigoActividadEnum c : values()) {
+      if (c.descripcion.equals(descripcion)) {
+        return c;
+      }
+    }
+    return null;
   }
 }

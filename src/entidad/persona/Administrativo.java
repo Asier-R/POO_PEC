@@ -1,5 +1,6 @@
 package entidad.persona;
 
+import entidad.unidad.servicio.administracion.Contabilidad;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
@@ -9,20 +10,48 @@ public class Administrativo extends Personal {
 
   /** Enum de los grupos administrativos. */
   public enum Grupo {
-    A1,
-    A2,
-    C1,
-    C2
+    A1("A1"),
+    A2("A2"),
+    B("B"),
+    C1("C1"),
+    C2("C2");
+
+    /** Código del grupo. */
+    private String codigo;
+
+    /**
+     * Constructor de Grupo.
+     *
+     * @param codigo código.
+     */
+    private Grupo(String codigo) {
+      this.codigo = codigo;
+    }
+
+    /**
+     * Devuelve un Grupo en función del código.
+     *
+     * @param codigo código.
+     * @return grupo correspondiente al código de entrada.
+     */
+    public Grupo getFromCodigo(String codigo) {
+      for (Grupo g : values()) {
+        if (g.codigo.equals(codigo)) {
+          return g;
+        }
+      }
+      return null;
+    }
+
+    /**
+     * Devuelve el código del grupo.
+     *
+     * @return Código del grupo.
+     */
+    public String getCodigo() {
+      return this.codigo;
+    }
   }
-
-  /** Código de la unidad a la que está asignada la Persona. */
-  private CodigoUnidadEnum codigoUnidad;
-
-  /** Código del área a la que está asignada la Persona. */
-  private CodigoAreaEnum codigoArea;
-
-  /** Código de la actividad que realiza la Persona. */
-  private CodigoActividadEnum codigoActividad;
 
   /** Grupo al que pertenece el administrativo. */
   private Grupo grupo;
@@ -35,7 +64,6 @@ public class Administrativo extends Personal {
    * @param nombre Nombre.
    * @param apellido1 Primer apellido.
    * @param apellido2 Segundo apellido.
-   * @param codigoArea Código del área.
    * @param codigoActividad Código de actividad.
    * @param grupo Grupo.
    */
@@ -44,29 +72,17 @@ public class Administrativo extends Personal {
       String nombre,
       String apellido1,
       String apellido2,
-      CodigoAreaEnum codigoArea,
       CodigoActividadEnum codigoActividad,
       Grupo grupo) {
-    super(NIF, nombre, apellido1, apellido2);
-    this.codigoUnidad = CodigoUnidadEnum.SERVICIOS;
-    this.codigoArea = codigoArea;
-    this.codigoActividad = codigoActividad;
+    super(
+        NIF,
+        nombre,
+        apellido1,
+        apellido2,
+        CodigoUnidadEnum.SERVICIOS,
+        CodigoAreaEnum.ADMINISTRACION,
+        codigoActividad);
     this.grupo = grupo;
-  }
-
-  @Override
-  public CodigoUnidadEnum getCodigoUnidad() {
-    return codigoUnidad;
-  }
-
-  @Override
-  public CodigoAreaEnum getCodigoArea() {
-    return codigoArea;
-  }
-
-  @Override
-  public CodigoActividadEnum getCodigoActividad() {
-    return codigoActividad;
   }
 
   public Grupo getGrupo() {
@@ -75,6 +91,25 @@ public class Administrativo extends Personal {
 
   @Override
   public String toString() {
-    return null;
+    return "NIF: "
+        + this.getNIF()
+        + "\n"
+        + "Nombre: "
+        + this.getNombre()
+        + "\n"
+        + "Primer apellido: "
+        + this.getApellido1()
+        + "\n"
+        + "Segundo apellido: "
+        + this.getApellido2()
+        + "\n"
+        + "Unidad: "
+        + this.getCodigoUnidad().getDescripcion()
+        + "\n"
+        + "Area: "
+        + this.getCodigoArea().getDescripcion()
+        + "\n"
+        + "Grupo: "
+        + this.getGrupo().getCodigo();
   }
 }

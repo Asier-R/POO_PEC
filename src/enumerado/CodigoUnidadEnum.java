@@ -6,7 +6,7 @@ import entidad.unidad.Unidad;
 public enum CodigoUnidadEnum {
   SERVICIOS(1, "SERVICIOS"),
   MEDICINA(2, "MEDICINA"),
-  FORMACION(3, "FORMACIÓN");
+  FORMACION(3, "FORMACION");
 
   /** Id del enumerado. */
   private int id;
@@ -16,6 +16,7 @@ public enum CodigoUnidadEnum {
 
   /**
    * Constructor de CodigoUnidadEnum.
+   *
    * @param id Id.
    * @param descripcion Descripción.
    */
@@ -40,5 +41,20 @@ public enum CodigoUnidadEnum {
    */
   public String getDescripcion() {
     return this.descripcion;
+  }
+
+  /**
+   * Devuelve un Código de Unidad en función de la descripción.
+   *
+   * @param descripcion descripción.
+   * @return código de unidad correspondiente al código de entrada.
+   */
+  public CodigoUnidadEnum getFromDescripcion(String descripcion) {
+    for (CodigoUnidadEnum c : values()) {
+      if (c.descripcion.equals(descripcion)) {
+        return c;
+      }
+    }
+    return null;
   }
 }

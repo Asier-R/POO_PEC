@@ -20,25 +20,33 @@ public abstract class Sanitario extends Personal {
     /** Descripción del tipo de sanitario. */
     private String descripcion;
 
+    /**
+     * Constructor privado de Tipo de Sanitario.
+     *
+     * @param descripcion descripción.
+     */
     private TipoSanitario(String descripcion) {
       this.descripcion = descripcion;
+    }
+
+    /**
+     * Devuelve la descripción del tipo de sanitario.
+     *
+     * @return descripción.
+     */
+    public String getDescripcion() {
+      return descripcion;
     }
   }
 
   /** El tipo de sanitario. */
   private TipoSanitario tipoSanitario;
 
-  /** Código de la unidad a la que está asignada la Persona. */
-  private CodigoUnidadEnum codigoUnidad;
-
-  /** Código del área a la que está asignada la Persona. */
-  private CodigoAreaEnum codigoArea;
-
-  /** Código de la actividad que realiza la Persona. */
-  private CodigoActividadEnum codigoActividad;
-
   /** Código de la especialidad del Sanitario. */
   private CodigoEspecialidadEnum codigoEspecialidad;
+
+  /** Años de experiencia del sanitario. */
+  private int experiencia;
 
   /** Citas asignadas al Sanitario. */
   private List<Cita> citas;
@@ -52,10 +60,10 @@ public abstract class Sanitario extends Personal {
    * @param apellido1 Primer apellido.
    * @param apellido2 Segundo apellido.
    * @param tipoSanitario Tipo de sanitario.
-   * @param codigoUnidad Código de la unidad.
    * @param codigoArea Código del área.
    * @param codigoActividad Código de actividad.
    * @param codigoEspecialidad Código de especialidad.
+   * @param experiencia Experiencia.
    */
   protected Sanitario(
       String NIF,
@@ -63,34 +71,74 @@ public abstract class Sanitario extends Personal {
       String apellido1,
       String apellido2,
       TipoSanitario tipoSanitario,
-      CodigoUnidadEnum codigoUnidad,
       CodigoAreaEnum codigoArea,
       CodigoActividadEnum codigoActividad,
-      CodigoEspecialidadEnum codigoEspecialidad) {
-    super(NIF, nombre, apellido1, apellido2);
+      CodigoEspecialidadEnum codigoEspecialidad,
+      int experiencia) {
+    super(
+        NIF, nombre, apellido1, apellido2, CodigoUnidadEnum.MEDICINA, codigoArea, codigoActividad);
+    this.experiencia = experiencia;
     this.tipoSanitario = tipoSanitario;
-    this.codigoUnidad = codigoUnidad;
-    this.codigoArea = codigoArea;
-    this.codigoActividad = codigoActividad;
     this.codigoEspecialidad = codigoEspecialidad;
   }
 
+  /**
+   * Devuelve el código de la especialidad del sanitario.
+   *
+   * @return Código especialidad.
+   */
   public CodigoEspecialidadEnum getCodigoEspecialidad() {
     return codigoEspecialidad;
   }
 
+  /**
+   * Establece el código de especialidad del sanitario.
+   *
+   * @param codigoEspecialidad Código de especialidad.
+   */
   public void setCodigoEspecialidad(CodigoEspecialidadEnum codigoEspecialidad) {
     this.codigoEspecialidad = codigoEspecialidad;
   }
 
+  /**
+   * Devuelve los años de experiencia del sanitario.
+   * @return Años de experiencia.
+   */
+  public int getExperiencia() {
+    return experiencia;
+  }
+
+  /**
+   * Establece los años de experiencia del sanitario.
+   * @param experiencia Años de experiencia.
+   */
+  public void setExperiencia(int experiencia) {
+    this.experiencia = experiencia;
+  }
+
+  /**
+   * Devuelve las citas del sanitario.
+   *
+   * @return Lista de citas.
+   */
   public List<Cita> getCitas() {
     return citas;
   }
 
+  /**
+   * Establece las citas del sanitario.
+   *
+   * @param cita Lista de citas.
+   */
   public void setCitas(List<Cita> cita) {
     this.citas = cita;
   }
 
+  /**
+   * Devuelve el tipo de sanitario.
+   *
+   * @return Tipo de sanitario.
+   */
   public TipoSanitario getTipoSanitario() {
     return tipoSanitario;
   }
