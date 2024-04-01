@@ -60,4 +60,28 @@ public class Hospital {
   public void registrarPersonal(Personal personal) {
     this.personal.add(personal);
   }
+
+  /**
+   * Devuelve las unidades del hospital.
+   * @return Lista de unidades.
+   */
+  public List<Unidad> getUnidades() {
+    return unidades;
+  }
+
+  /**
+   * Devuelve los pacientes del hospital.
+   * @return Lista de pacientes.
+   */
+  public List<Paciente> getPacientes() {
+    return pacientes;
+  }
+
+  /**
+   * Devuelve el personal del hospital.
+   * @return Lista de personal.
+   */
+  public List<Personal> getPersonal() {
+    return personal;
+  }
 }

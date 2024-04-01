@@ -61,10 +61,10 @@ public class Medico extends Sanitario {
         + "Nombre: "
         + this.getNombre()
         + "\n"
-        + "Primer Apellido: "
+        + "Primer apellido: "
         + this.getApellido1()
         + "\n"
-        + "Segundo Apellido: "
+        + "Segundo apellido: "
         + this.getApellido2()
         + "\n"
         + "Unidad: "
@@ -80,7 +80,7 @@ public class Medico extends Sanitario {
         + this.getCodigoEspecialidad().getDescripcion()
         + "\n"
         + "Segunda especialidad: "
-        + this.getSegundaEspecialidad().getDescripcion()
+        + (this.getSegundaEspecialidad()==null?"no":this.getSegundaEspecialidad().getDescripcion())
         + "\n"
         + "Experiencia: "
         + this.getExperiencia();

@@ -66,10 +66,10 @@ public class Estudiante extends Sanitario {
             + "Nombre: "
             + this.getNombre()
             + "\n"
-            + "Primer Apellido: "
+            + "Primer apellido: "
             + this.getApellido1()
             + "\n"
-            + "Segundo Apellido: "
+            + "Segundo apellido: "
             + this.getApellido2()
             + "\n"
             + "Unidad: "
