@@ -78,7 +78,7 @@ public final class LecturaEscrituraFichero {
 
   private static void grabarDatos(Grabable grabable, String path){
     try {
-      Files.write(Paths.get(path), grabable.generarCadenaCSV().getBytes(), StandardOpenOption.APPEND);
+      Files.write(Paths.get(path), ("\n"+grabable.generarCadenaCSV()).getBytes(), StandardOpenOption.APPEND);
     }catch (IOException e) {
       System.err.println("IOException: " +e.getMessage());
     }

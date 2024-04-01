@@ -1,4 +1,8 @@
 import entidad.Hospital;
+import entidad.persona.Estudiante;
+import enumerado.CodigoActividadEnum;
+import enumerado.CodigoAreaEnum;
+import enumerado.CodigoEspecialidadEnum;
 
 import static servicio.LecturaEscrituraFichero.grabarPersona;
 import static servicio.LecturaEscrituraFichero.iniciarHospital;
@@ -15,13 +19,21 @@ public class Main {
         .forEach(personal -> System.out.println(">>> Personal\n" + personal.toString() + "\n"));
 
     hospital
-            .getPacientes()
-            .forEach(paciente -> System.out.println(">>> Paciente\n" + paciente.toString() + "\n"));
+        .getPacientes()
+        .forEach(paciente -> System.out.println(">>> Paciente\n" + paciente.toString() + "\n"));
 
-
-
-
-    //grabarPersona();
+    final Estudiante estudiante =
+        new Estudiante(
+            "NIF",
+            "NOMBRE",
+            "APELLIDO1",
+            "APELLIDO2",
+            CodigoAreaEnum.CLASE,
+            CodigoActividadEnum.CLASE,
+            CodigoEspecialidadEnum.TRAUMATOLOGIA,
+            0,
+            "UNIVERSIDAD");
+    grabarPersona(estudiante);
 
     // TODO: agregar ordenados Pacientes y Personal
     // TODO: implementar Hashmap<String, Integer> para dar pesos a los caracteres.
@@ -29,5 +41,4 @@ public class Main {
     // TODO: los datos se insertan de forma ordenada en listas.
 
   }
-
 }
