@@ -1,7 +1,9 @@
 package entidad.persona;
 
+import servicio.Grabable;
+
 /** Clase abstracta para representar todas las personas relacionadas con un Hospital. */
-public abstract class Persona {
+public abstract class Persona implements Grabable {
 
   /** Número de identificación fiscal de la persona. */
   private String NIF;

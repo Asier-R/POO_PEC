@@ -55,4 +55,21 @@ public class MantenimientoServicio extends Personal {
         + "Actividad: "
         + this.getCodigoActividad().getDescripcion();
   }
+
+  @Override
+  public String generarCadenaCSV() {
+    return this.getNIF()
+            + ","
+            + this.getNombre()
+            + ","
+            + this.getApellido1()
+            + ","
+            + this.getApellido2()
+            + ","
+            + this.getCodigoUnidad().getDescripcion()
+            + ","
+            + this.getCodigoArea().getDescripcion()
+            + ","
+            + this.getCodigoActividad().getDescripcion();
+  }
 }

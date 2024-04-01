@@ -57,7 +57,7 @@ public class Estudiante extends Sanitario {
 
   @Override
   public String toString() {
-    return "Sanitario: "
+    return "Estudiante: "
             + this.getTipoSanitario()
             + "\n"
             + "NIF: "
@@ -85,6 +85,30 @@ public class Estudiante extends Sanitario {
             + this.getCodigoEspecialidad().getDescripcion()
             + "\n"
             + "Experiencia: "
-            + this.getExperiencia();
+            + this.getExperiencia()
+            + "\n"
+            + "Centro: "
+            + this.getNombreCentro();
+  }
+
+  @Override
+  public String generarCadenaCSV() {
+    return this.getNIF()
+            + ","
+            + this.getNombre()
+            + ","
+            + this.getApellido1()
+            + ","
+            + this.getApellido2()
+            + ","
+            + this.getCodigoArea().getDescripcion()
+            + ","
+            + this.getCodigoActividad().getDescripcion()
+            + ","
+            + this.getCodigoEspecialidad().getDescripcion()
+            + ","
+            + this.getExperiencia()
+            + ","
+            + this.getNombreCentro();
   }
 }

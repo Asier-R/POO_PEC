@@ -1,6 +1,5 @@
 package entidad.persona;
 
-import entidad.unidad.servicio.administracion.Contabilidad;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
@@ -109,7 +108,29 @@ public class Administrativo extends Personal {
         + "Area: "
         + this.getCodigoArea().getDescripcion()
         + "\n"
+        + "Actividad: "
+        + this.getCodigoActividad().getDescripcion()
+        + "\n"
         + "Grupo: "
+        + this.getGrupo().getCodigo();
+  }
+
+  @Override
+  public String generarCadenaCSV() {
+    return this.getNIF()
+        + ","
+        + this.getNombre()
+        + ","
+        + this.getApellido1()
+        + ","
+        + this.getApellido2()
+        + ","
+        + this.getCodigoUnidad().getDescripcion()
+        + ","
+        + this.getCodigoArea().getDescripcion()
+        + ","
+        + this.getCodigoActividad().getDescripcion()
+        + ","
         + this.getGrupo().getCodigo();
   }
 }

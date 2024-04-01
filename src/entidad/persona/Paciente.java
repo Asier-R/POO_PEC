@@ -3,9 +3,10 @@ package entidad.persona;
 import entidad.registro.Cita;
 import entidad.registro.Expediente;
 import entidad.unidad.Unidad;
+import servicio.Grabable;
 
 /** Subclase de {@link Persona} que representa a un paciente. */
-public class Paciente extends Persona {
+public class Paciente extends Persona{
 
   /** Sexo del paciente. */
   public enum Sexo {
@@ -117,6 +118,21 @@ public class Paciente extends Persona {
         + this.getEdad()
         + "\n"
         + "Sexo: "
+        + this.getSexo();
+  }
+
+  @Override
+  public String generarCadenaCSV() {
+    return this.getNIF()
+        + ","
+        + this.getNombre()
+        + ","
+        + this.getApellido1()
+        + ","
+        + this.getApellido2()
+        + ","
+        + this.getEdad()
+        + ","
         + this.getSexo();
   }
 }
