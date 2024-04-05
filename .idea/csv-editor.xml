@@ -3,7 +3,7 @@
   <component name="CsvFileAttributes">
     <option name="attributeMap">
       <map>
-        <entry key="\src\zz_recursos\administrativo.csv">
+        <entry key="\src\zz_recursos\administrativos.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />
@@ -24,6 +24,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\src\zz_recursos\mantenimientoServicios.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\src\zz_recursos\medicos.csv">
           <value>
             <Attribute>
@@ -31,14 +38,7 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="\src\zz_recursos\paciente.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
-        <entry key="\src\zz_recursos\personal.csv">
+        <entry key="\src\zz_recursos\pacientes.csv">
           <value>
             <Attribute>
               <option name="separator" value="," />

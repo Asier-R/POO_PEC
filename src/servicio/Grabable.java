@@ -9,6 +9,6 @@ public interface Grabable {
      * Genera una cadena de texto con los datos de la entidad en formato csv.
      * @return Cadena de texto.
      */
-    public String generarCadenaCSV();
+    String generarCadenaCSV();
 
 }
