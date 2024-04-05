@@ -28,6 +28,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase encargada de escribir en ficheros y leer de ficheros para poder iniciar el hospital con unos datos determinados.
+ */
 public final class LecturaEscrituraFichero {
   /**
    * Path devuelto por el sistema.
@@ -49,7 +52,9 @@ public final class LecturaEscrituraFichero {
   private static final String PATH_ESTUDIANTES = PATH_ADAPTADO + "\\zz_recursos\\estudiantes.csv";
 
   public static Hospital iniciarHospital() {
+    System.out.println(">>> Inicialización de hospital");
     // Generar una unidad de cada tipo
+    System.out.println(">>> Generación de unidades");
     List<Unidad> unidades = new ArrayList<>();
     Arrays.asList(CodigoActividadEnum.values())
         .forEach(
@@ -94,8 +99,11 @@ public final class LecturaEscrituraFichero {
   }
 
   private static void generarPacientes(List<Paciente> pacientes) {
+    System.out.println(">>> Generación de pacientes");
+    System.out.println(">>> Path fichero: "+PATH_PACIENTE);
     Paciente paciente;
     Scanner sc;
+    int contador = 0;
     try {
       sc = new Scanner(new File(PATH_PACIENTE));
       sc.useDelimiter("\r\n");
@@ -111,16 +119,21 @@ public final class LecturaEscrituraFichero {
                 Integer.parseInt(datos[4]),
                 Paciente.Sexo.valueOf(datos[5]));
         pacientes.add(paciente);
+        contador++;
       }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
     sc.close();
+    System.out.println(">>> Total generados: "+contador);
   }
 
   private static void generarAdministrativos(List<Personal> personal) {
+    System.out.println(">>> Generación de administrativos");
+    System.out.println(">>> Path fichero: "+PATH_ADMINISTRATIVO);
     Personal persona;
     Scanner sc;
+    int contador = 0;
     try {
       sc = new Scanner(new File(PATH_ADMINISTRATIVO));
       sc.useDelimiter("\r\n");
@@ -133,16 +146,21 @@ public final class LecturaEscrituraFichero {
         persona =
             new Administrativo(datos[0], datos[1], datos[2], datos[3], codigoActividad, grupo);
         personal.add(persona);
+        contador++;
       }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
     sc.close();
+    System.out.println(">>> Total generados: "+contador);
   }
 
   private static void generarMantenimientoServicios(List<Personal> personal) {
+    System.out.println(">>> Generación de personal de mantenimiento");
+    System.out.println(">>> Path fichero: "+PATH_MANTENIMIENTOSERVICIO);
     Personal persona;
     Scanner sc;
+    int contador = 0;
     try {
       sc = new Scanner(new File(PATH_MANTENIMIENTOSERVICIO));
       sc.useDelimiter("\r\n");
@@ -159,16 +177,21 @@ public final class LecturaEscrituraFichero {
                 CodigoAreaEnum.valueOf(datos[5]),
                 codigoActividad);
         personal.add(persona);
+        contador++;
       }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
     sc.close();
+    System.out.println(">>> Total generados: "+contador);
   }
 
   private static void generarMedicos(List<Personal> personal) {
+    System.out.println(">>> Generación de médicos");
+    System.out.println(">>> Path fichero: "+PATH_MEDICOS);
     Personal persona;
     Scanner sc;
+    int contador = 0;
     try {
       sc = new Scanner(new File(PATH_MEDICOS));
       sc.useDelimiter("\r\n");
@@ -189,16 +212,21 @@ public final class LecturaEscrituraFichero {
                 segundaEspecialidad,
                 Integer.parseInt(datos[8]));
         personal.add(persona);
+        contador++;
       }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
     sc.close();
+    System.out.println(">>> Total generados: "+contador);
   }
 
   private static void generarEnfermeros(List<Personal> personal) {
+    System.out.println(">>> Generación de enfermeros");
+    System.out.println(">>> Path fichero: "+PATH_ENFERMEROS);
     Personal persona;
     Scanner sc;
+    int contador = 0;
     try {
       sc = new Scanner(new File(PATH_ENFERMEROS));
       sc.useDelimiter("\r\n");
@@ -216,16 +244,21 @@ public final class LecturaEscrituraFichero {
                 CodigoEspecialidadEnum.valueOf(datos[6]),
                 Integer.parseInt(datos[7]));
         personal.add(persona);
+        contador++;
       }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
     sc.close();
+    System.out.println(">>> Total generados: "+contador);
   }
 
   private static void generarEstudiantes(List<Personal> personal) {
+    System.out.println(">>> Generación de estudiantes");
+    System.out.println(">>> Path fichero: "+PATH_ESTUDIANTES);
     Personal persona;
     Scanner sc;
+    int contador = 0;
     try {
       sc = new Scanner(new File(PATH_ESTUDIANTES));
       sc.useDelimiter("\r\n");
@@ -244,11 +277,13 @@ public final class LecturaEscrituraFichero {
                 Integer.parseInt(datos[7]),
                 datos[8]);
         personal.add(persona);
+        contador++;
       }
     } catch (FileNotFoundException e) {
       throw new RuntimeException(e);
     }
     sc.close();
+    System.out.println(">>> Total generados: "+contador);
   }
 
   private static Unidad generarUnidad(CodigoActividadEnum codigo, String nombre) {
