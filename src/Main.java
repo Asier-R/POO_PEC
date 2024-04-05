@@ -9,9 +9,9 @@ public class Main {
   public static void main(String[] args) {
     // Se genera javadoc con opciones: -encoding utf8 -docencoding utf8 -charset utf8
     System.out.println("Inicio de Hospital");
-    System.out.println();
     final Hospital hospital = iniciarHospital();
 
+    System.out.println();
 //    hospital
 //        .getPersonal()
 //        .forEach(personal -> System.out.println(">>> Personal\n" + personal.toString() + "\n"));

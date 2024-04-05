@@ -35,7 +35,23 @@ public class Historial {
     this.citas.add(cita);
     this.diagnosticosTratamientos.add(diagnostico);
     this.citaDiagnostico.put(cita, diagnostico);
+    this.citas.sort(Cita::compareTo);
   }
 
+  /**
+   * Devuelve las citas del historial.
+   * @return Lista cronológicamente ordenada de citas.
+   */
+  public List<Cita> getCitas() {
+    return citas;
+  }
 
+  /**
+   * Devuelve el DiagnosticoTratamiento de una cita determinada.
+   * @param cita Cita cuyo DiagnosticoTratamiento se quiere obtener.
+   * @return DiagnosticoTratamiento.
+   */
+  public DiagnosticosTratamientos getDiagnosticoTratamiento(Cita cita){
+    return citaDiagnostico.get(cita);
+  }
 }

@@ -6,10 +6,11 @@ import entidad.unidad.Unidad;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /** Apunte en la agenda de un sanitario que tiene resguardo en el expediente */
-public class Cita {
+public class Cita implements Comparable<Cita> {
 
   /**
    * Horario de la cita. Puede ser de mañana o de tarde. Mañana (M) de 6am a 2pm, Tarde (T) de 2pm a
@@ -104,5 +105,10 @@ public class Cita {
 
   public void setVencida() {
     this.vencida = true;
+  }
+
+  @Override
+  public int compareTo(Cita c) {
+    return this.getFechaCita().compareTo(c.getFechaCita());
   }
 }

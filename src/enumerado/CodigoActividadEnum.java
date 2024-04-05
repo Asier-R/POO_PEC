@@ -47,7 +47,7 @@ public enum CodigoActividadEnum {
   }
 
   /**
-   * Devuelve el id del enumerado.
+   * Devuelve el ID del enumerado.
    *
    * @return id
    */

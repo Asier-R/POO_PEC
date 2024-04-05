@@ -6,7 +6,7 @@ import entidad.unidad.Unidad;
 import servicio.Grabable;
 
 /** Subclase de {@link Persona} que representa a un paciente. */
-public class Paciente extends Persona{
+public class Paciente extends Persona implements Comparable<Paciente>{
 
   /** Sexo del paciente. */
   public enum Sexo {
@@ -134,5 +134,10 @@ public class Paciente extends Persona{
         + this.getEdad()
         + ","
         + this.getSexo();
+  }
+
+  @Override
+  public int compareTo(Paciente p) {
+    return this.getNIF().compareTo(p.getNIF());
   }
 }

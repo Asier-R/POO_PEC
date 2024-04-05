@@ -106,4 +106,5 @@ public class Medico extends Sanitario {
             + ","
             + this.getExperiencia();
   }
+
 }

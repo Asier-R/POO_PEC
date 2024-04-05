@@ -5,7 +5,7 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
 /** Clase abstracta para representar todas las unidades de un hospital. */
-public abstract class Unidad {
+public abstract class Unidad implements Comparable<Unidad> {
 
   /** Código único que identifica a la unidad. {@link CodigoUnidadEnum} */
   private CodigoUnidadEnum codigoUnidad;
@@ -62,4 +62,9 @@ public abstract class Unidad {
    * @return cadena de texto.
    */
   public abstract String toString();
+
+  @Override
+  public int compareTo(Unidad u) {
+    return this.getCodigoUnidad().compareTo(u.getCodigoUnidad());
+  }
 }

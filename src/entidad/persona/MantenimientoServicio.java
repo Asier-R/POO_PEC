@@ -72,4 +72,5 @@ public class MantenimientoServicio extends Personal {
             + ","
             + this.getCodigoActividad().getDescripcion();
   }
+
 }

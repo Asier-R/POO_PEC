@@ -133,4 +133,5 @@ public class Administrativo extends Personal {
         + ","
         + this.getGrupo().getCodigo();
   }
+
 }

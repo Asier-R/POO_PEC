@@ -61,10 +61,12 @@ public final class LecturaEscrituraFichero {
             unidad -> {
               unidades.add(generarUnidad(unidad, unidad.getDescripcion()));
             });
+    unidades.sort(Unidad::compareTo);
 
     // No se generan pacientes, se registran al inicio de la aplicación.
     List<Paciente> pacientes = new ArrayList<>();
     generarPacientes(pacientes);
+    pacientes.sort(Paciente::compareTo);
 
     // Se genera un miembro del personal del hospital por cada especialidad y por cada unidad.
     List<Personal> personal = new ArrayList<>();
@@ -73,6 +75,7 @@ public final class LecturaEscrituraFichero {
     generarMedicos(personal);
     generarEnfermeros(personal);
     generarEstudiantes(personal);
+    personal.sort(Personal::compareTo);
 
     return new Hospital(unidades, pacientes, personal);
   }

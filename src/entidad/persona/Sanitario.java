@@ -25,7 +25,7 @@ public abstract class Sanitario extends Personal {
      *
      * @param descripcion descripción.
      */
-    private TipoSanitario(String descripcion) {
+    TipoSanitario(String descripcion) {
       this.descripcion = descripcion;
     }
 

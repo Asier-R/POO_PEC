@@ -5,7 +5,7 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoUnidadEnum;
 
 /** Subclase abstracta de {@link Persona} para representar el personal implicado en un Hospital. */
-public abstract class Personal extends Persona {
+public abstract class Personal extends Persona implements Comparable<Personal>{
 
   /** Código de la unidad a la que está asignada la Persona. */
   private CodigoUnidadEnum codigoUnidad;
@@ -67,5 +67,10 @@ public abstract class Personal extends Persona {
    */
   public CodigoActividadEnum getCodigoActividad() {
     return codigoActividad;
+  }
+
+  @Override
+  public int compareTo(Personal p) {
+    return this.getCodigoActividad().compareTo(p.getCodigoActividad());
   }
 }
