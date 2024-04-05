@@ -29,19 +29,24 @@ import java.util.List;
 import java.util.Scanner;
 
 public final class LecturaEscrituraFichero {
-
-  private static final String PATH_PACIENTE =
-      System.getProperty("user.dir") + "\\src\\zz_recursos\\pacientes.csv";
+  /**
+   * Path devuelto por el sistema.
+   */
+  private static final String PATH_BASE = System.getProperty("user.dir");
+  /**
+   * Path adaptado para poder arrancar la aplicación tanto en IntelliJ como en BlueJ.
+   * Si el proyecto está ubicado en un fichero llamado src, es posible que no funcione, adaptar esta ruta.
+   */
+  private static final String PATH_ADAPTADO =
+      PATH_BASE.endsWith("src") ? PATH_BASE : PATH_BASE + "\\src";
+  private static final String PATH_PACIENTE = PATH_ADAPTADO + "\\zz_recursos\\pacientes.csv";
   private static final String PATH_MANTENIMIENTOSERVICIO =
-      System.getProperty("user.dir") + "\\src\\zz_recursos\\mantenimientoServicios.csv";
+      PATH_ADAPTADO + "\\zz_recursos\\mantenimientoServicios.csv";
   private static final String PATH_ADMINISTRATIVO =
-      System.getProperty("user.dir") + "\\src\\zz_recursos\\administrativos.csv";
-  private static final String PATH_MEDICOS =
-      System.getProperty("user.dir") + "\\src\\zz_recursos\\medicos.csv";
-  private static final String PATH_ENFERMEROS =
-      System.getProperty("user.dir") + "\\src\\zz_recursos\\enfermeros.csv";
-  private static final String PATH_ESTUDIANTES =
-      System.getProperty("user.dir") + "\\src\\zz_recursos\\estudiantes.csv";
+      PATH_ADAPTADO + "\\zz_recursos\\administrativos.csv";
+  private static final String PATH_MEDICOS = PATH_ADAPTADO + "\\zz_recursos\\medicos.csv";
+  private static final String PATH_ENFERMEROS = PATH_ADAPTADO + "\\zz_recursos\\enfermeros.csv";
+  private static final String PATH_ESTUDIANTES = PATH_ADAPTADO + "\\zz_recursos\\estudiantes.csv";
 
   public static Hospital iniciarHospital() {
     // Generar una unidad de cada tipo
@@ -70,17 +75,21 @@ public final class LecturaEscrituraFichero {
   public static void grabarPersona(Grabable grabable) {
     if (grabable instanceof Paciente) grabarDatos(grabable, PATH_PACIENTE);
     else if (grabable instanceof Administrativo) grabarDatos(grabable, PATH_ADMINISTRATIVO);
-    else if (grabable instanceof MantenimientoServicio) grabarDatos(grabable, PATH_MANTENIMIENTOSERVICIO);
+    else if (grabable instanceof MantenimientoServicio)
+      grabarDatos(grabable, PATH_MANTENIMIENTOSERVICIO);
     else if (grabable instanceof Medico) grabarDatos(grabable, PATH_MEDICOS);
     else if (grabable instanceof Enfermero) grabarDatos(grabable, PATH_ENFERMEROS);
     else if (grabable instanceof Estudiante) grabarDatos(grabable, PATH_ESTUDIANTES);
   }
 
-  private static void grabarDatos(Grabable grabable, String path){
+  private static void grabarDatos(Grabable grabable, String path) {
     try {
-      Files.write(Paths.get(path), ("\n"+grabable.generarCadenaCSV()).getBytes(), StandardOpenOption.APPEND);
-    }catch (IOException e) {
-      System.err.println("IOException: " +e.getMessage());
+      Files.write(
+          Paths.get(path),
+          ("\n" + grabable.generarCadenaCSV()).getBytes(),
+          StandardOpenOption.APPEND);
+    } catch (IOException e) {
+      System.err.println("IOException: " + e.getMessage());
     }
   }
 
