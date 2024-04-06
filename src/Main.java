@@ -11,6 +11,10 @@ public class Main {
     System.out.println("Inicio de Hospital");
     final Hospital hospital = iniciarHospital();
 
+    // TODO: instanciar la consola con la que interactua el usuario
+    // TODO: añadir las pantallas de las funcionalidades
+    // TODO: crear lógica de navegación entre pantallas
+
     System.out.println();
 //    hospital
 //        .getPersonal()
