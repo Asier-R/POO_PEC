@@ -6,7 +6,7 @@ import entidad.persona.*;
  * Clase enum que define las especialidades de médicos {@link Medico}, enfermeros {@link Enfermero}
  * y estudiantes {@link Estudiante}
  */
-public enum CodigoEspecialidadEnum {
+public enum CodigoEspecialidadEnum {//implements CodigosEnum{
   APARATO_DIGESTIVO(1, "APARATO DIGESTIVO"),
   CARDIOLOGIA(2, "CARDIOLOGIA"),
   CIRUGIA_GENERAL(3, "CIRUGIA GENERAL"),
@@ -36,7 +36,7 @@ public enum CodigoEspecialidadEnum {
   }
 
   /**
-   * Devuelve el id del enumerado.
+   * Devuelve el ID del enumerado.
    *
    * @return id
    */
@@ -51,5 +51,29 @@ public enum CodigoEspecialidadEnum {
    */
   public String getDescripcion() {
     return this.descripcion;
+  }
+
+  /**
+   * Devuelve un Código de especialidad en función del ID.
+   *
+   * @param id Id del código a obtener.
+   * @return código de especialidad correspondiente al código de entrada.
+   */
+  public static CodigoEspecialidadEnum getFromId(int id) {
+    for (CodigoEspecialidadEnum c : values()) {
+      if (c.getId() == id) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Muestra por pantalla los diferentes códigos del enumerado.
+   */
+  public static void mostrarPorPantalla() {
+    for (CodigoEspecialidadEnum c : values()) {
+      System.out.println("> " + c.getId() + ". " + c.getDescripcion());
+    }
   }
 }

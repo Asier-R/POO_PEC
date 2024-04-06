@@ -38,6 +38,7 @@ public enum CodigoActividadEnum {
 
   /**
    * Constructor de CodigoActividadEnum.
+   *
    * @param id Id.
    * @param descripcion Descripción.
    */
@@ -70,12 +71,36 @@ public enum CodigoActividadEnum {
    * @param descripcion descripción.
    * @return código de actividad correspondiente al código de entrada.
    */
-  public CodigoActividadEnum getFromDescripcion(String descripcion) {
+  public static CodigoActividadEnum getFromDescripcion(String descripcion) {
     for (CodigoActividadEnum c : values()) {
       if (c.descripcion.equals(descripcion)) {
         return c;
       }
     }
     return null;
+  }
+
+  /**
+   * Devuelve un Código de Actividad en función del ID.
+   *
+   * @param id Id del código a obtener.
+   * @return código de actividad correspondiente al código de entrada.
+   */
+  public static CodigoActividadEnum getFromId(int id) {
+    for (CodigoActividadEnum c : values()) {
+      if (c.getId() == id) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Muestra por pantalla los diferentes códigos del enumerado.
+   */
+  public static void mostrarPorPantalla() {
+    for (CodigoActividadEnum c : values()) {
+      System.out.println("> " + c.getId() + ". " + c.getDescripcion());
+    }
   }
 }

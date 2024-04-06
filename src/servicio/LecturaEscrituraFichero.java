@@ -89,7 +89,7 @@ public final class LecturaEscrituraFichero {
    * Graba en un fichero csv los datos de las personas que interactúan con un hospital.
    * @param grabable Objeto de tipo Grabable.
    */
-  private static void grabarPersona(Grabable grabable) {
+  public static void grabarPersona(Grabable grabable) {
     if (grabable instanceof Paciente) grabarDatos(grabable, PATH_PACIENTE);
     else if (grabable instanceof Administrativo) grabarDatos(grabable, PATH_ADMINISTRATIVO);
     else if (grabable instanceof MantenimientoServicio)

@@ -3,33 +3,15 @@ package servicio.terminalDatos;
 /** Clase encargada de mostrar en pantalla la información ofrecida y solicitada a/por el usuario. */
 public class PantallasTerminalDatos {
 
-  private final String SEPARADOR =
-      "--------------------------------------------\n--------------------------------------------";
+  private final String SEPARADOR = "--------------------------------------------";
 
   /** Constructor de la terminal de datos. */
-  public PantallasTerminalDatos() {
+  PantallasTerminalDatos() {
     System.out.println(">>>>>> INICIO DE TERMINAL DE DATOS <<<<<<");
   }
 
-  /** Introduce salto de línea y elementos repetidos para separar las pantallas. */
-  private void separarPantalla() {
-    System.out.println(SEPARADOR);
-  }
-
-  /** Pantalla de confirmación */
-  private void pantallaConfirmacion() {
-    System.out.println("> Confirmar operación... Sí(S)  No(N)");
-  }
-
-  /** Muestra las opciones comunes en todas las pantallas. */
-  private void opcionesComunes() {
-    System.out.println();
-    System.out.println("> X. Volver");
-    System.out.println("> Z. Finalizar programa");
-  }
-
   /** Pantalla de inicio con las opciones disponibles. */
-  private void pantallaInicio() {
+  void pantallaInicio() {
     separarPantalla();
     System.out.println(">>> 0. INICIO");
     System.out.println("> 1. Gerencia y Administración");
@@ -39,7 +21,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de gerencia con las opciones disponibles. */
-  private void pantallaGerencia() {
+  void pantallaGerencia() {
     separarPantalla();
     System.out.println(">>> 1. GERENCIA");
     System.out.println("> 1. Gestión del personal");
@@ -54,7 +36,7 @@ public class PantallasTerminalDatos {
   ------------------------------------------------------------------------------------------------------------------ */
 
   /** Pantalla de gestión del personal con las opciones disponibles. */
-  private void pantallaGestionPersonal() {
+  void pantallaGestionPersonal() {
     separarPantalla();
     System.out.println(">>> 1.1. GESTIÓN DEL PERSONAL");
     System.out.println("> 1. Alta");
@@ -64,7 +46,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de gestión de altas de personal con las opciones disponibles. */
-  private void pantallaGestionPersonalAlta() {
+  void pantallaGestionPersonalAlta() {
     separarPantalla();
     System.out.println(">>> 1.1.1. GESTIÓN DE ALTAS DE PERSONAL");
     System.out.println("> 1. Alta de administrativos");
@@ -76,7 +58,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de altas de administrativos. */
-  private void pantallaAltaAdministrativo() {
+  void pantallaAltaAdministrativo() {
     separarPantalla();
     System.out.println(">>> 1.1.1.1. ALTAS DE ADMINISTRATIVO");
     System.out.println("> 1. Introducir NIF");
@@ -85,11 +67,12 @@ public class PantallasTerminalDatos {
     System.out.println("> 4. Introducir segundo apellido");
     System.out.println("> 5. Seleccionar código actividad");
     System.out.println("> 6. Seleccionar grupo administrativo");
+    System.out.println("> 7. Finalizar Alta");
     opcionesComunes();
   }
 
   /** Pantalla de altas de personal de mantenimiento y servicio. */
-  private void pantallaAltaMantServ() {
+  void pantallaAltaMantServ() {
     separarPantalla();
     System.out.println(">>> 1.1.1.2. ALTAS DE PERSONAL DE MANTENIMIENTO Y SERVICIO");
     System.out.println("> 1. Introducir NIF");
@@ -102,7 +85,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de altas de estudiantes. */
-  private void pantallaAltaEstudiantes() {
+  void pantallaAltaEstudiantes() {
     separarPantalla();
     System.out.println(">>> 1.1.1.2. ALTAS DE ESTUDIANTE");
     System.out.println("> 1. Introducir NIF");
@@ -116,7 +99,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de altas de enfermeros. */
-  private void pantallaAltaEnfermero() {
+  void pantallaAltaEnfermero() {
     separarPantalla();
     System.out.println(">>> 1.1.1.2. ALTAS DE ENFERMERO");
     System.out.println("> 1. Introducir NIF");
@@ -131,7 +114,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de altas de médicos. */
-  private void pantallaAltaMedicos() {
+  void pantallaAltaMedicos() {
     separarPantalla();
     System.out.println(">>> 1.1.1.2. ALTAS DE MÉDICO");
     System.out.println("> 1. Introducir NIF");
@@ -147,7 +130,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla común de selección de personal a consultar */
-  private void pantallaConsultaSeleccionPersonal() {
+  void pantallaConsultaSeleccionPersonal() {
     System.out.println(">> Consultar personal");
     System.out.println("> 2. Consultar personal administrativos");
     System.out.println("> 3. Consultar personal de mantenimiento y servicio");
@@ -157,7 +140,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de gestión de bajas de personal con las opciones disponibles. */
-  private void pantallaGestionPersonalBaja() {
+  void pantallaGestionPersonalBaja() {
     separarPantalla();
     System.out.println(">>> 1.1.2. GESTIÓN DE BAJAS DE PERSONAL");
     System.out.println("> 1. Baja por NIF");
@@ -167,7 +150,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de baja de personal administrativo. */
-  private void pantallaBajaPersonal() {
+  void pantallaBajaPersonal() {
     separarPantalla();
     System.out.println(">>> 1.1.2.1. BAJA DE PERSONAL");
     System.out.println("> Introduzca el NIF del empleado o estudiante a dar de baja...");
@@ -177,7 +160,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de baja de personal administrativo. */
-  private void pantallaGestionDatosPersonal() {
+  void pantallaGestionDatosPersonal() {
     separarPantalla();
     System.out.println(">>> 1.1.3. GESTIÓN DE DATOS DEL PERSONAL");
     System.out.println("> 1. Selección por NIF");
@@ -187,7 +170,7 @@ public class PantallasTerminalDatos {
   }
 
   /** Pantalla de baja de personal administrativo. */
-  private void pantallaSeleccionarPersonal2() {
+  void pantallaSeleccionarPersonal2() {
     separarPantalla();
     System.out.println(">>> 1.1.3.1. GESTIÓN DE PERSONAL");
     System.out.println("> Introduzca el NIF del empleado o estudiante a gestionar...");
@@ -200,7 +183,6 @@ public class PantallasTerminalDatos {
      PANTALLAS DE GESTIÓN DE PACIENTES
   ------------------------------------------------------------------------------------------------------------------ */
 
-
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE CONTABLE
   ------------------------------------------------------------------------------------------------------------------ */
@@ -208,4 +190,41 @@ public class PantallasTerminalDatos {
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE MANTENIMIENTO
   ------------------------------------------------------------------------------------------------------------------ */
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     PANTALLAS COMUNES
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /** Introduce salto de línea y elementos repetidos para separar las pantallas. */
+  private void separarPantalla() {
+    System.out.println(SEPARADOR);
+  }
+
+  /** Pantalla introducción de datos */
+  void pantallaIntroducirDato(String texto) {
+    System.out.println("> Introduzca " + texto + "...");
+  }
+
+  /** Pantalla selección de código */
+  void pantallaSeleccionarCodigo(String texto) {
+    System.out.println("> Seleccione " + texto + "...");
+  }
+
+  /** Pantalla aviso fin de programa */
+  void pantallaFin() {
+    System.out.println("> AVISO: se va a finalizar el programa...");
+  }
+
+  /** Pantalla de confirmación */
+  void pantallaConfirmacion() {
+    System.out.println("> Confirmar operación... Sí(S)  No(N)");
+  }
+
+  /** Muestra las opciones comunes en todas las pantallas. */
+  private void opcionesComunes() {
+    System.out.println();
+    System.out.println("> X. Volver");
+    System.out.println("> Z. Finalizar programa");
+  }
+
 }

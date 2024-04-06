@@ -9,11 +9,14 @@ public class Administrativo extends Personal {
 
   /** Enum de los grupos administrativos. */
   public enum Grupo {
-    A1("A1"),
-    A2("A2"),
-    B("B"),
-    C1("C1"),
-    C2("C2");
+    A1(1, "A1"),
+    A2(2, "A2"),
+    B(3, "B"),
+    C1(4, "C1"),
+    C2(5, "C2");
+
+    /** Id del grupo. */
+    private int id;
 
     /** Código del grupo. */
     private String codigo;
@@ -23,7 +26,8 @@ public class Administrativo extends Personal {
      *
      * @param codigo código.
      */
-    private Grupo(String codigo) {
+    private Grupo(int id, String codigo) {
+      this.id = id;
       this.codigo = codigo;
     }
 
@@ -33,13 +37,46 @@ public class Administrativo extends Personal {
      * @param codigo código.
      * @return grupo correspondiente al código de entrada.
      */
-    public Grupo getFromCodigo(String codigo) {
+    public static Grupo getFromCodigo(String codigo) {
       for (Grupo g : values()) {
         if (g.codigo.equals(codigo)) {
           return g;
         }
       }
       return null;
+    }
+
+    /**
+     * Devuelve el Grupo a partir del ID.
+     *
+     * @param id Id del código a obtener.
+     * @return Grupo.
+     */
+    public static Grupo getFromId(int id) {
+      for (Grupo c : values()) {
+        if (c.getId() == id) {
+          return c;
+        }
+      }
+      return null;
+    }
+
+    /**
+     * Muestra por pantalla los diferentes códigos del enumerado.
+     */
+    public static void mostrarPorPantalla() {
+      for (Grupo c : values()) {
+        System.out.println("> " + c.getId() + ". " + c.getCodigo());
+      }
+    }
+
+    /**
+     * Devuelve el id del grupo.
+     *
+     * @return Id del grupo.
+     */
+    public int getId() {
+      return this.id;
     }
 
     /**

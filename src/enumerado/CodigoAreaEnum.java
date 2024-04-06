@@ -3,7 +3,7 @@ package enumerado;
 import entidad.unidad.Unidad;
 
 /** Clase enum que define los códigos de área de las distintas unidades {@link Unidad} */
-public enum CodigoAreaEnum {
+public enum CodigoAreaEnum {//implements CodigosEnum{
   ADMINISTRACION(1, "ADMINISTRACION"),
   ALIMENTACION(2, "ALIMENTACION"),
   GARAJE(3, "GARAJE"),
@@ -32,7 +32,7 @@ public enum CodigoAreaEnum {
   }
 
   /**
-   * Devuelve el id del enumerado.
+   * Devuelve el ID del enumerado.
    *
    * @return id
    */
@@ -55,7 +55,7 @@ public enum CodigoAreaEnum {
    * @param descripcion descripción.
    * @return código de área correspondiente al código de entrada.
    */
-  public CodigoAreaEnum getFromDescripcion(String descripcion) {
+  public static CodigoAreaEnum getFromDescripcion(String descripcion) {
     for (CodigoAreaEnum c : values()) {
       if (c.descripcion.equals(descripcion)) {
         return c;
@@ -65,17 +65,26 @@ public enum CodigoAreaEnum {
   }
 
   /**
-   * Devuelve un Código de Área en función de la descripción.
+   * Devuelve un Código de Área en función del ID.
    *
-   * @param descripcion descripción.
+   * @param id Id del código a obtener.
    * @return código de área correspondiente al código de entrada.
    */
-  public CodigoAreaEnum getFromId(String descripcion) {
+  public static CodigoAreaEnum getFromId(int id) {
     for (CodigoAreaEnum c : values()) {
-      if (c.descripcion.equals(descripcion)) {
+      if (c.getId() == id) {
         return c;
       }
     }
     return null;
+  }
+
+  /**
+   * Muestra por pantalla los diferentes códigos del enumerado.
+   */
+  public static void mostrarPorPantalla() {
+    for (CodigoAreaEnum c : values()) {
+      System.out.println("> " + c.getId() + ". " + c.getDescripcion());
+    }
   }
 }

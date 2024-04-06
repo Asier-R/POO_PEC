@@ -26,7 +26,7 @@ public enum CodigoUnidadEnum {
   }
 
   /**
-   * Devuelve el id del enumerado.
+   * Devuelve el ID del enumerado.
    *
    * @return id
    */
@@ -49,7 +49,7 @@ public enum CodigoUnidadEnum {
    * @param descripcion descripción.
    * @return código de unidad correspondiente al código de entrada.
    */
-  public CodigoUnidadEnum getFromDescripcion(String descripcion) {
+  public static CodigoUnidadEnum getFromDescripcion(String descripcion) {
     for (CodigoUnidadEnum c : values()) {
       if (c.descripcion.equals(descripcion)) {
         return c;
@@ -57,4 +57,29 @@ public enum CodigoUnidadEnum {
     }
     return null;
   }
+
+  /**
+   * Devuelve un Código de Unidad en función del ID.
+   *
+   * @param id Id del código a obtener.
+   * @return código de unidad correspondiente al código de entrada.
+   */
+  public static CodigoUnidadEnum getFromId(int id) {
+    for (CodigoUnidadEnum c : values()) {
+      if (c.getId() == id) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Muestra por pantalla los diferentes códigos del enumerado.
+   */
+  public static void mostrarPorPantalla() {
+    for (CodigoUnidadEnum c : values()) {
+      System.out.println("> " + c.getId() + ". " + c.getDescripcion());
+    }
+  }
+
 }
