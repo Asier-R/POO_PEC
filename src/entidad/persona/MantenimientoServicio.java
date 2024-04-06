@@ -35,42 +35,41 @@ public class MantenimientoServicio extends Personal {
   @Override
   public String toString() {
     return "NIF: "
-        + this.getNIF()
+        + (this.getNIF() != null ? this.getNIF() : "")
         + "\n"
         + "Nombre: "
-        + this.getNombre()
+        + (this.getNombre() != null ? this.getNombre() : "")
         + "\n"
         + "Primer apellido: "
-        + this.getApellido1()
+        + (this.getApellido1() != null ? this.getApellido1() : "")
         + "\n"
         + "Segundo apellido: "
-        + this.getApellido2()
+        + (this.getApellido2() != null ? this.getApellido2() : "")
         + "\n"
         + "Unidad: "
-        + this.getCodigoUnidad().getDescripcion()
+        + (this.getCodigoUnidad() != null ? this.getCodigoUnidad().getDescripcion() : "")
         + "\n"
         + "Area: "
-        + this.getCodigoArea().getDescripcion()
+        + (this.getCodigoArea() != null ? this.getCodigoArea().getDescripcion() : "")
         + "\n"
         + "Actividad: "
-        + this.getCodigoActividad().getDescripcion();
+        + (this.getCodigoActividad() != null ? this.getCodigoActividad().getDescripcion() : "");
   }
 
   @Override
   public String generarCadenaCSV() {
     return this.getNIF()
-            + ","
-            + this.getNombre()
-            + ","
-            + this.getApellido1()
-            + ","
-            + this.getApellido2()
-            + ","
-            + this.getCodigoUnidad().getDescripcion()
-            + ","
-            + this.getCodigoArea().getDescripcion()
-            + ","
-            + this.getCodigoActividad().getDescripcion();
+        + ","
+        + this.getNombre()
+        + ","
+        + this.getApellido1()
+        + ","
+        + this.getApellido2()
+        + ","
+        + this.getCodigoUnidad().getDescripcion()
+        + ","
+        + this.getCodigoArea().getDescripcion()
+        + ","
+        + this.getCodigoActividad().getDescripcion();
   }
-
 }

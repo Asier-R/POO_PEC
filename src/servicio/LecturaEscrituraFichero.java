@@ -105,6 +105,7 @@ public final class LecturaEscrituraFichero {
    * @param path Ruta del fichero.
    */
   private static void grabarDatos(Grabable grabable, String path) {
+    PantallasTerminalDatos.pantallaAvisoAlta();
     try {
       Files.write(
           Paths.get(path),
@@ -113,6 +114,7 @@ public final class LecturaEscrituraFichero {
     } catch (IOException e) {
       System.err.println("IOException: " + e.getMessage());
     }
+    PantallasTerminalDatos.pantallaDatosGrabados();
   }
 
   /**

@@ -57,59 +57,60 @@ public class Estudiante extends Sanitario {
 
   @Override
   public String toString() {
-    return "Estudiante: "
-            + this.getTipoSanitario()
-            + "\n"
-            + "NIF: "
-            + this.getNIF()
-            + "\n"
-            + "Nombre: "
-            + this.getNombre()
-            + "\n"
-            + "Primer apellido: "
-            + this.getApellido1()
-            + "\n"
-            + "Segundo apellido: "
-            + this.getApellido2()
-            + "\n"
-            + "Unidad: "
-            + this.getCodigoUnidad().getDescripcion()
-            + "\n"
-            + "Area: "
-            + this.getCodigoArea().getDescripcion()
-            + "\n"
-            + "Actividad: "
-            + this.getCodigoActividad().getDescripcion()
-            + "\n"
-            + "Especialidad: "
-            + this.getCodigoEspecialidad().getDescripcion()
-            + "\n"
-            + "Experiencia: "
-            + this.getExperiencia()
-            + "\n"
-            + "Centro: "
-            + this.getNombreCentro();
+    return "Sanitario: "
+        + (this.getTipoSanitario() != null ? this.getTipoSanitario().getDescripcion() : "")
+        + "\n"
+        + "NIF: "
+        + (this.getNIF() != null ? this.getNIF() : "")
+        + "\n"
+        + "Nombre: "
+        + (this.getNombre() != null ? this.getNombre() : "")
+        + "\n"
+        + "Primer apellido: "
+        + (this.getApellido1() != null ? this.getApellido1() : "")
+        + "\n"
+        + "Segundo apellido: "
+        + (this.getApellido2() != null ? this.getApellido2() : "")
+        + "\n"
+        + "Unidad: "
+        + (this.getCodigoUnidad() != null ? this.getCodigoUnidad().getDescripcion() : "")
+        + "\n"
+        + "Area: "
+        + (this.getCodigoArea() != null ? this.getCodigoArea().getDescripcion() : "")
+        + "\n"
+        + "Actividad: "
+        + (this.getCodigoActividad() != null ? this.getCodigoActividad().getDescripcion() : "")
+        + "\n"
+        + "Especialidad: "
+        + (this.getCodigoEspecialidad() != null
+            ? this.getCodigoEspecialidad().getDescripcion()
+            : "")
+        + "\n"
+        + "Experiencia: "
+        + this.getExperiencia()
+        + "\n"
+        + "Centro: "
+        + (this.getNombreCentro() != null ? this.getNombreCentro() : "");
   }
 
   @Override
   public String generarCadenaCSV() {
     return this.getNIF()
-            + ","
-            + this.getNombre()
-            + ","
-            + this.getApellido1()
-            + ","
-            + this.getApellido2()
-            + ","
-            + this.getCodigoArea().getDescripcion()
-            + ","
-            + this.getCodigoActividad().getDescripcion()
-            + ","
-            + this.getCodigoEspecialidad().getDescripcion()
-            + ","
-            + this.getExperiencia()
-            + ","
-            + this.getNombreCentro();
+        + ","
+        + this.getNombre()
+        + ","
+        + this.getApellido1()
+        + ","
+        + this.getApellido2()
+        + ","
+        + this.getCodigoArea().getDescripcion()
+        + ","
+        + this.getCodigoActividad().getDescripcion()
+        + ","
+        + this.getCodigoEspecialidad().getDescripcion()
+        + ","
+        + this.getExperiencia()
+        + ","
+        + this.getNombreCentro();
   }
-
 }

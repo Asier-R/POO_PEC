@@ -128,28 +128,28 @@ public class Administrativo extends Personal {
   @Override
   public String toString() {
     return "NIF: "
-        + this.getNIF()
+        + (this.getNIF()!=null? this.getNIF():"")
         + "\n"
         + "Nombre: "
-        + this.getNombre()
+        + (this.getNombre()!=null? this.getNombre():"")
         + "\n"
         + "Primer apellido: "
-        + this.getApellido1()
+        + (this.getApellido1()!=null? this.getApellido1():"")
         + "\n"
         + "Segundo apellido: "
-        + this.getApellido2()
+        + (this.getApellido2()!=null? this.getApellido2():"")
         + "\n"
         + "Unidad: "
-        + this.getCodigoUnidad().getDescripcion()
+        + (this.getCodigoUnidad()!=null? this.getCodigoUnidad().getDescripcion():"")
         + "\n"
         + "Area: "
-        + this.getCodigoArea().getDescripcion()
+        + (this.getCodigoArea()!=null? this.getCodigoArea().getDescripcion():"")
         + "\n"
         + "Actividad: "
-        + this.getCodigoActividad().getDescripcion()
+        + (this.getCodigoActividad()!=null? this.getCodigoActividad().getDescripcion():"")
         + "\n"
         + "Grupo: "
-        + this.getGrupo().getCodigo();
+        + (this.getGrupo()!=null? this.getGrupo().getCodigo():"");
   }
 
   @Override
