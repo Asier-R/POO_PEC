@@ -1,7 +1,6 @@
  
 
 import entidad.Hospital;
-import enumerado.CodigoUnidadEnum;
 import servicio.LogicaTerminalDatos;
 
 import static servicio.LecturaEscrituraFichero.iniciarHospital;
