@@ -51,8 +51,13 @@ public final class LecturaEscrituraFichero {
   private static final String PATH_ENFERMEROS = PATH_ADAPTADO + "\\zz_recursos\\enfermeros.csv";
   private static final String PATH_ESTUDIANTES = PATH_ADAPTADO + "\\zz_recursos\\estudiantes.csv";
 
+  /**
+   * Crea una instancia de Hospital a partir de los datos guardados en los ficheros csv.
+   * @return Instancia de Hospital.
+   */
   public static Hospital iniciarHospital() {
     System.out.println(">>> Inicialización de hospital");
+
     // Generar una unidad de cada tipo
     System.out.println(">>> Generación de unidades");
     List<Unidad> unidades = new ArrayList<>();
@@ -80,7 +85,11 @@ public final class LecturaEscrituraFichero {
     return new Hospital(unidades, pacientes, personal);
   }
 
-  public static void grabarPersona(Grabable grabable) {
+  /**
+   * Graba en un fichero csv los datos de las personas que interactúan con un hospital.
+   * @param grabable Objeto de tipo Grabable.
+   */
+  private static void grabarPersona(Grabable grabable) {
     if (grabable instanceof Paciente) grabarDatos(grabable, PATH_PACIENTE);
     else if (grabable instanceof Administrativo) grabarDatos(grabable, PATH_ADMINISTRATIVO);
     else if (grabable instanceof MantenimientoServicio)
@@ -90,6 +99,11 @@ public final class LecturaEscrituraFichero {
     else if (grabable instanceof Estudiante) grabarDatos(grabable, PATH_ESTUDIANTES);
   }
 
+  /**
+   * Método privado encargado de grabar los datos en un fichero csv determinado.
+   * @param grabable Objeto cuyos datos se graban.
+   * @param path Ruta del fichero.
+   */
   private static void grabarDatos(Grabable grabable, String path) {
     try {
       Files.write(
@@ -101,6 +115,10 @@ public final class LecturaEscrituraFichero {
     }
   }
 
+  /**
+   * Instancia los pacientes de un hospital a partir de los datos grabados en un fichero csv.
+   * @param pacientes Las instancias de pacientes.
+   */
   private static void generarPacientes(List<Paciente> pacientes) {
     System.out.println(">>> Generación de pacientes");
     System.out.println(">>> Path fichero: "+PATH_PACIENTE);
@@ -131,6 +149,10 @@ public final class LecturaEscrituraFichero {
     System.out.println(">>> Total generados: "+contador);
   }
 
+  /**
+   * Instancia el personal administrativo de un hospital a partir de los datos grabados en un fichero csv.
+   * @param personal Las instancias de personal.
+   */
   private static void generarAdministrativos(List<Personal> personal) {
     System.out.println(">>> Generación de administrativos");
     System.out.println(">>> Path fichero: "+PATH_ADMINISTRATIVO);
@@ -158,6 +180,10 @@ public final class LecturaEscrituraFichero {
     System.out.println(">>> Total generados: "+contador);
   }
 
+  /**
+   * Instancia el personal de mantenimiento y servicios de un hospital a partir de los datos grabados en un fichero csv.
+   * @param personal Las instancias de personal.
+   */
   private static void generarMantenimientoServicios(List<Personal> personal) {
     System.out.println(">>> Generación de personal de mantenimiento");
     System.out.println(">>> Path fichero: "+PATH_MANTENIMIENTOSERVICIO);
@@ -189,6 +215,10 @@ public final class LecturaEscrituraFichero {
     System.out.println(">>> Total generados: "+contador);
   }
 
+  /**
+   * Instancia médicos de un hospital a partir de los datos grabados en un fichero csv.
+   * @param personal Las instancias de personal.
+   */
   private static void generarMedicos(List<Personal> personal) {
     System.out.println(">>> Generación de médicos");
     System.out.println(">>> Path fichero: "+PATH_MEDICOS);
@@ -224,6 +254,10 @@ public final class LecturaEscrituraFichero {
     System.out.println(">>> Total generados: "+contador);
   }
 
+  /**
+   * Instancia enfermeros de un hospital a partir de los datos grabados en un fichero csv.
+   * @param personal Las instancias de personal.
+   */
   private static void generarEnfermeros(List<Personal> personal) {
     System.out.println(">>> Generación de enfermeros");
     System.out.println(">>> Path fichero: "+PATH_ENFERMEROS);
@@ -256,6 +290,10 @@ public final class LecturaEscrituraFichero {
     System.out.println(">>> Total generados: "+contador);
   }
 
+  /**
+   * Instancia estudiantes de un hospital a partir de los datos grabados en un fichero csv.
+   * @param personal Las instancias de personal.
+   */
   private static void generarEstudiantes(List<Personal> personal) {
     System.out.println(">>> Generación de estudiantes");
     System.out.println(">>> Path fichero: "+PATH_ESTUDIANTES);
@@ -289,6 +327,12 @@ public final class LecturaEscrituraFichero {
     System.out.println(">>> Total generados: "+contador);
   }
 
+  /**
+   * Genera unidades para una instancia de hospital.
+   * @param codigo Código de actividad de la unidad.
+   * @param nombre Nombre de la unidad.
+   * @return Instancia de unidad.
+   */
   private static Unidad generarUnidad(CodigoActividadEnum codigo, String nombre) {
     Unidad unidad;
     switch (codigo) {

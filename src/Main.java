@@ -33,10 +33,6 @@ public class Main {
 //            "UNIVERSIDAD");
 //    grabarPersona(estudiante);
 
-    // TODO: agregar ordenados Pacientes y Personal
-    // TODO: implementar Hashmap<String, Integer> para dar pesos a los caracteres.
-    // TODO: revisar si es necesario implementar un comparator o con el hashmap solo es suficiente.
-    // TODO: los datos se insertan de forma ordenada en listas.
 
   }
 }
