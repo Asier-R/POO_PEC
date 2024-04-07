@@ -5,6 +5,7 @@ import entidad.persona.Personal;
 import entidad.unidad.Unidad;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Clase que representa a un hospital junto a todas sus unidades, pacientes y personal del hospital.
@@ -43,6 +44,7 @@ public class Hospital {
    */
   public void registrarUnidad(Unidad unidad) {
     this.unidades.add(unidad);
+    this.unidades.sort(Unidad::compareTo);
   }
 
   /**
@@ -51,6 +53,16 @@ public class Hospital {
    */
   public void registrarPaciente(Paciente paciente) {
     this.pacientes.add(paciente);
+    this.pacientes.sort(Paciente::compareTo);
+  }
+
+  /**
+   * Borra un paciente del hospital.
+   * @param paciente Paciente a borrar.
+   */
+  public void borrarPaciente(Paciente paciente) {
+    this.pacientes = this.pacientes.stream().filter(p -> !p.equals(paciente)).collect(Collectors.toList());
+    this.pacientes.sort(Paciente::compareTo);
   }
 
   /**
@@ -59,6 +71,16 @@ public class Hospital {
    */
   public void registrarPersonal(Personal personal) {
     this.personal.add(personal);
+    this.personal.sort(Personal::compareTo);
+  }
+
+  /**
+   * Borra un miembro del personal del hospital.
+   * @param personal Miembro del personal a borrar.
+   */
+  public void borrarPersonal(Personal personal) {
+    this.personal = this.personal.stream().filter(p -> !p.equals(personal)).collect(Collectors.toList());
+    this.personal.sort(Personal::compareTo);
   }
 
   /**

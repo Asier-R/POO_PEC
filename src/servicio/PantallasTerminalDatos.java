@@ -140,18 +140,8 @@ public final class PantallasTerminalDatos {
     opcionesComunes();
   }
 
-  /** Pantalla común de selección de personal a consultar */
-  static void pantallaConsultaSeleccionPersonal() {
-    System.out.println(">> Consultar personal");
-    System.out.println("> 2. Consultar personal administrativos");
-    System.out.println("> 3. Consultar personal de mantenimiento y servicio");
-    System.out.println("> 4. Consultar estudiantes");
-    System.out.println("> 2. Consultar enfermeros");
-    System.out.println("> 5. Consultar médicos");
-  }
-
   /** Pantalla de gestión de bajas de personal con las opciones disponibles. */
-  static void pantallaGestionPersonalBaja() {
+  static void pantallaGestionBajaPersonal() {
     separarPantalla();
     System.out.println(">>> 1.1.2. GESTIÓN DE BAJAS DE PERSONAL");
     System.out.println("> 1. Baja por NIF");
@@ -166,8 +156,6 @@ public final class PantallasTerminalDatos {
     System.out.println(">>> 1.1.2.1. BAJA DE PERSONAL");
     System.out.println("> Introduzca el NIF del empleado o estudiante a dar de baja...");
     System.out.println();
-    System.out.println();
-    opcionesComunes();
   }
 
   /** Pantalla de baja de personal administrativo. */
@@ -188,6 +176,16 @@ public final class PantallasTerminalDatos {
     System.out.println();
     System.out.println();
     opcionesComunes();
+  }
+
+  /** Pantalla común de selección de personal a consultar */
+  private static void pantallaConsultaSeleccionPersonal() {
+    System.out.println(">> Consultar personal");
+    System.out.println("> 2. Consultar personal administrativo");
+    System.out.println("> 3. Consultar personal de mantenimiento y servicio");
+    System.out.println("> 4. Consultar estudiantes");
+    System.out.println("> 5. Consultar enfermeros");
+    System.out.println("> 6. Consultar médicos");
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
@@ -226,9 +224,19 @@ public final class PantallasTerminalDatos {
     System.out.println("> AVISO: se va a finalizar el programa...");
   }
 
+  /** Pantalla cierre de programa */
+  static void pantallaCierre() {
+    System.out.println("> ...programa cerrado");
+  }
+
   /** Pantalla aviso de grabado de datos */
   static void pantallaAvisoGrabado() {
     System.out.println("> AVISO: se van a grabar los datos...");
+  }
+
+  /** Pantalla aviso persona no encontrada */
+  static void pantallaAvisoPersonaNoEncontrada(String nif) {
+    System.out.println("> AVISO: No se ha encontrado la persona con NIF "+nif);
   }
 
   /** Pantalla datos grabados */

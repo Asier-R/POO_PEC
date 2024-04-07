@@ -6,6 +6,8 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
+import java.util.NoSuchElementException;
+
 /** Clase encargada de la gestión de altas y bajas de personas. */
 public final class AltaBajaPersona {
 
@@ -49,7 +51,7 @@ public final class AltaBajaPersona {
   static Administrativo.Grupo grupo;
 
   /* ------------------------------------------------------------------------------------------------------------------
-     MÉTODOS PERSONA
+     MÉTODOS ALTA PERSONA
   ------------------------------------------------------------------------------------------------------------------ */
 
   static void iniciarAdmin() {
@@ -67,12 +69,13 @@ public final class AltaBajaPersona {
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
-        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+        LTDGerencia.pantallaGestionPersonalAlta();
+        return;
       }
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
-      LogicaTerminalDatos.pantallaAltaAdministrativo();
     }
+    LTDGerencia.pantallaAltaAdministrativo();
   }
 
   static void iniciarMantenimientoServicio() {
@@ -91,12 +94,13 @@ public final class AltaBajaPersona {
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
-        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+        LTDGerencia.pantallaGestionPersonalAlta();
+        return;
       }
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
-      LogicaTerminalDatos.pantallaAltaMantenimientoServicio();
     }
+    LTDGerencia.pantallaAltaMantenimientoServicio();
   }
 
   static void iniciarEstudiante() {
@@ -127,12 +131,13 @@ public final class AltaBajaPersona {
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
-        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+        LTDGerencia.pantallaGestionPersonalAlta();
+        return;
       }
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
-      LogicaTerminalDatos.pantallaAltaEstudiante();
     }
+    LTDGerencia.pantallaAltaEstudiante();
   }
 
   static void iniciarEnfermero() {
@@ -161,12 +166,13 @@ public final class AltaBajaPersona {
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
-        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+        LTDGerencia.pantallaGestionPersonalAlta();
+        return;
       }
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
-      LogicaTerminalDatos.pantallaAltaEnfermero();
     }
+    LTDGerencia.pantallaAltaEnfermero();
   }
 
   static void iniciarMedico() {
@@ -197,12 +203,39 @@ public final class AltaBajaPersona {
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
-        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+        LTDGerencia.pantallaGestionPersonalAlta();
+        return;
       }
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
-      LogicaTerminalDatos.pantallaAltaMedico();
     }
+    LTDGerencia.pantallaAltaMedico();
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS BAJA PERSONA
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  static void bajaPorNIFPersona() {
+    String nif = Utiles.leerLinea(); // Obtener nif
+    try {
+      Personal personal =
+              LogicaTerminalDatos.getHospital().getPersonal().stream()
+                      .filter(p -> p.getNIF().equals(nif))
+                      .findFirst()
+                      .orElseThrow();
+
+      mostrarDatosPersona(personal);
+
+      PantallasTerminalDatos.pantallaConfirmacion(); // Confirmar baja
+      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+        LogicaTerminalDatos.borrarPersonal(personal);
+        // TODO: LLAMAR A METODO LECTURAESCRITURA PARA ACTUALIZAR CSV CON LO DE LA LISTA
+      }
+    } catch (NoSuchElementException e) {
+      PantallasTerminalDatos.pantallaAvisoPersonaNoEncontrada(nif);
+    }
+    LTDGerencia.pantallaGestionBajaPersonal();
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
@@ -220,6 +253,7 @@ public final class AltaBajaPersona {
   static void grabarPersona() {
     if (tmpPersona != null) {
       LecturaEscrituraFichero.grabarPersona(tmpPersona);
+      registrarPersonal();
       resetCampos();
       tmpPersona = null;
     }
@@ -228,6 +262,11 @@ public final class AltaBajaPersona {
   static void mostrarDatosPersona() {
     PantallasTerminalDatos.separarPantalla();
     System.out.println(tmpPersona);
+  }
+
+  static void mostrarDatosPersona(Persona persona) {
+    PantallasTerminalDatos.separarPantalla();
+    System.out.println(persona);
   }
 
   private static String validarCampo(String dato, String falta, String campo) {
@@ -263,5 +302,9 @@ public final class AltaBajaPersona {
     codigoArea = null;
     codigoActividad = null;
     grupo = null;
+  }
+
+  private static void registrarPersonal() {
+    LogicaTerminalDatos.registrarPersonal((Personal) tmpPersona);
   }
 }

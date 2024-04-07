@@ -1,8 +1,4 @@
-
-import entidad.Hospital;
 import servicio.LogicaTerminalDatos;
-
-import static servicio.LecturaEscrituraFichero.iniciarHospital;
 
 public class Main {
 
@@ -10,12 +6,12 @@ public class Main {
     // Se genera javadoc con opciones: -encoding utf8 -docencoding utf8 -charset utf8
     System.out.println("Inicio de Hospital");
 
-    final Hospital hospital = iniciarHospital();
     LogicaTerminalDatos.iniciarLogicaTerminalDatos();
 
     // TODO: instanciar la consola con la que interactua el usuario
     // TODO: añadir las pantallas de las funcionalidades
     // TODO: crear lógica de navegación entre pantallas
+    // TODO: guardar lista personas despues de borrar una
 
     System.out.println();
 
