@@ -73,7 +73,7 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de altas de personal de mantenimiento y servicio. */
-  static void pantallaAltaMantServ() {
+  static void pantallaAltaMantenimientoServicio() {
     separarPantalla();
     System.out.println(">>> 1.1.1.2. ALTAS DE PERSONAL DE MANTENIMIENTO Y SERVICIO");
     System.out.println("> 1. Introducir NIF");
@@ -82,6 +82,8 @@ public final class PantallasTerminalDatos {
     System.out.println("> 4. Introducir segundo apellido");
     System.out.println("> 5. Seleccionar código área");
     System.out.println("> 6. Seleccionar código actividad");
+    System.out.println("> 7. Mostrar datos");
+    System.out.println("> 8. Finalizar Alta");
     opcionesComunes();
   }
 

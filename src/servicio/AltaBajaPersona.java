@@ -1,6 +1,7 @@
 package servicio;
 
 import entidad.persona.Administrativo;
+import entidad.persona.MantenimientoServicio;
 import entidad.persona.Persona;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
@@ -52,6 +53,10 @@ public final class AltaBajaPersona {
      MÉTODOS PERSONA
   ------------------------------------------------------------------------------------------------------------------ */
 
+  static void iniciarAdmin() {
+    tmpPersona = new Administrativo(NIF, nombre, apellido1, apellido2, codigoActividad, grupo);
+  }
+
   static void validarGrabarAdministrador() {
     String falta = "";
     falta = validarCampo(NIF, falta, STR_NIF);
@@ -62,9 +67,9 @@ public final class AltaBajaPersona {
     falta = validarCampoEnum(grupo, falta, STR_COD_GRUPO);
 
     if (falta.isEmpty()) {
-      tmpPersona = new Administrativo(NIF, nombre, apellido1, apellido2, codigoActividad, grupo);
+      iniciarAdmin();
       PantallasTerminalDatos.pantallaConfirmacion();
-      if(Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)){
+      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
         LogicaTerminalDatos.pantallaGestionPersonalAlta();
       }
@@ -74,23 +79,54 @@ public final class AltaBajaPersona {
     }
   }
 
-  static void grabarPersona(){
-    if(tmpPersona != null){
-      resetCampos();
-      LecturaEscrituraFichero.grabarPersona(tmpPersona);
-      tmpPersona = null;
-    }
+  static void iniciarMantenimientoServicio() {
+    tmpPersona =
+        new MantenimientoServicio(NIF, nombre, apellido1, apellido2, codigoArea, codigoActividad);
   }
 
-  static void mostrarDatosPersona(){
-    PantallasTerminalDatos.separarPantalla();
-    tmpPersona = new Administrativo(NIF, nombre, apellido1, apellido2, codigoActividad, grupo);
-    System.out.println(tmpPersona);
+  static void validarGrabarMantenimientoServicio() {
+    String falta = "";
+    falta = validarCamposComunes(falta);
+    falta = validarCampoEnum(codigoArea, falta, STR_COD_ACTIVIDAD);
+    falta = validarCampoEnum(codigoActividad, falta, STR_COD_ACTIVIDAD);
+
+    if (falta.isEmpty()) {
+      iniciarMantenimientoServicio();
+      PantallasTerminalDatos.pantallaConfirmacion();
+      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+        AltaBajaPersona.grabarPersona();
+        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+      }
+    } else {
+      System.out.println("Faltan los siguientes campos: " + falta);
+      LogicaTerminalDatos.pantallaAltaMantenimientoServicio();
+    }
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
+
+  private static String validarCamposComunes(String falta) {
+    falta = validarCampo(NIF, falta, STR_NIF);
+    falta = validarCampo(nombre, falta, STR_NOMBRE);
+    falta = validarCampo(apellido1, falta, STR_APELLIDO1);
+    falta = validarCampo(apellido2, falta, STR_APELLIDO2);
+    return falta;
+  }
+
+  static void grabarPersona() {
+    if (tmpPersona != null) {
+      LecturaEscrituraFichero.grabarPersona(tmpPersona);
+      resetCampos();
+      tmpPersona = null;
+    }
+  }
+
+  static void mostrarDatosPersona() {
+    PantallasTerminalDatos.separarPantalla();
+    System.out.println(tmpPersona);
+  }
 
   private static String validarCampo(String dato, String falta, String campo) {
     if (dato == null || dato.isEmpty() || dato.isBlank()) {

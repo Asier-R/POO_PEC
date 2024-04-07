@@ -8,7 +8,7 @@ public final class LogicaTerminalDatos {
     // Constructor vacío
   }
 
-  public static void iniciarLogicaTerminalDatos(){
+  public static void iniciarLogicaTerminalDatos() {
     Utiles.abrirLectorDeEntradas();
     pantallaInicio();
   }
@@ -100,7 +100,7 @@ public final class LogicaTerminalDatos {
         pantallaAltaAdministrativo();
         break;
       case "2": // 2. Alta de personal de mantenimiento y servicio
-        // pantallaAltaMantenimientoServicio();
+        pantallaAltaMantenimientoServicio();
         break;
       case "3": // 3. Alta de estudiantes
         break;
@@ -123,6 +123,7 @@ public final class LogicaTerminalDatos {
   /** Lógica de pantalla 1.1.1.1. ALTAS DE ADMINISTRATIVO */
   static void pantallaAltaAdministrativo() {
     PantallasTerminalDatos.pantallaAltaAdministrativo();
+    AltaBajaPersona.iniciarAdmin(); // Se inicia tipo de persona para poder mostrar sus datos
     String opt = Utiles.leerLinea().toUpperCase();
 
     switch (opt) {
@@ -167,13 +168,56 @@ public final class LogicaTerminalDatos {
         pantallaAltaAdministrativo();
         break;
     }
-
-
   }
 
   /** Lógica de pantalla 1.1.1.2. ALTAS DE PERSONAL DE MANTENIMIENTO Y SERVICIO */
   static void pantallaAltaMantenimientoServicio() {
-    PantallasTerminalDatos.pantallaAltaAdministrativo();
+    PantallasTerminalDatos.pantallaAltaMantenimientoServicio();
+    AltaBajaPersona.iniciarMantenimientoServicio();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Introducir NIF
+        AltaBajaPersona.NIF = Utiles.inputNIF();
+        pantallaAltaMantenimientoServicio(); // Se vuelve a la pantalla
+        break;
+      case "2": // 2. Introducir nombre
+        AltaBajaPersona.nombre = Utiles.inputNombre();
+        pantallaAltaMantenimientoServicio(); // Se vuelve a la pantalla
+        break;
+      case "3": // 3. Introducir primer apellido
+        AltaBajaPersona.apellido1 = Utiles.inputApellido1();
+        pantallaAltaMantenimientoServicio(); // Se vuelve a la pantalla
+        break;
+      case "4": // 4. Introducir segundo apellido
+        AltaBajaPersona.apellido2 = Utiles.inputApellido2();
+        pantallaAltaMantenimientoServicio(); // Se vuelve a la pantalla
+        break;
+      case "5": // 5. Seleccionar código área
+        AltaBajaPersona.codigoArea = Utiles.inputCodArea();
+        pantallaAltaMantenimientoServicio(); // Se vuelve a la pantalla
+        break;
+      case "6": // 6. Seleccionar código actividad
+        AltaBajaPersona.codigoActividad = Utiles.inputCodActividad();
+        pantallaAltaMantenimientoServicio(); // Se vuelve a la pantalla
+        break;
+      case "7": // 7. Mostrar datos
+        AltaBajaPersona.mostrarDatosPersona();
+        pantallaAltaMantenimientoServicio(); // Se vuelve a la pantalla
+        break;
+      case "8": // 8. Finalizar Alta
+        AltaBajaPersona.validarGrabarMantenimientoServicio(); // Validación y alta
+        break;
+      case "X": // X. Volver a 1.1.1. GESTIÓN DE ALTAS DE PERSONAL
+        pantallaGestionPersonalAlta();
+        break;
+      case "Z": // Z. Finalizar
+        if (!finPrograma()) pantallaAltaMantenimientoServicio();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaAltaMantenimientoServicio();
+        break;
+    }
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
@@ -195,5 +239,4 @@ public final class LogicaTerminalDatos {
     }
     return false;
   }
-
 }
