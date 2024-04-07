@@ -1,9 +1,6 @@
 package servicio;
 
-import entidad.persona.Administrativo;
-import entidad.persona.Estudiante;
-import entidad.persona.MantenimientoServicio;
-import entidad.persona.Persona;
+import entidad.persona.*;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
@@ -11,19 +8,6 @@ import enumerado.CodigoUnidadEnum;
 
 /** Clase encargada de la gestión de altas y bajas de personas. */
 public final class AltaBajaPersona {
-
-  //private static final String STR_NIF = "NIF";
-  //private static final String STR_NOMBRE = "Nombre";
-  //private static final String STR_APELLIDO1 = "Primer apellido";
-  //private static final String STR_APELLIDO2 = "Segundo apellido";
-  //private static final String STR_COD_UNIDAD = "Código unidad";
-  //private static final String STR_COD_AREA = "Código área";
-  //private static final String STR_COD_ACTIVIDAD = "Código actividad";
-  //private static final String STR_COD_ESPECIALIDAD = "Especialidad";
-  //private static final String STR_COD_SEGUNDAESPECIALIDAD = "Segunda especialidad";
-  //private static final String STR_COD_GRUPO = "Grupo administrativo";
-  //private static final String STR_EXPERIENCIA = "Experiencia";
-  //private static final String STR_CENTRO = "Nombre del centro";
 
   /** Variable temporal para conservar los datos de una persona */
   private static Persona tmpPersona;
@@ -136,6 +120,7 @@ public final class AltaBajaPersona {
     falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
     falta = validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
     falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
+    falta = validarCampo(nombreCentro, falta, Utiles.STR_CENTRO);
 
     if (falta.isEmpty()) {
       iniciarEstudiante();
@@ -147,6 +132,76 @@ public final class AltaBajaPersona {
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
       LogicaTerminalDatos.pantallaAltaEstudiante();
+    }
+  }
+
+  static void iniciarEnfermero() {
+    tmpPersona =
+        new Enfermero(
+            NIF,
+            nombre,
+            apellido1,
+            apellido2,
+            codigoArea,
+            codigoActividad,
+            codigoEspecialidad,
+            experiencia);
+  }
+
+  static void validarGrabarEnfermero() {
+    String falta = "";
+    falta = validarCamposComunes(falta);
+    falta = validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
+    falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
+
+    if (falta.isEmpty()) {
+      iniciarEstudiante();
+      PantallasTerminalDatos.pantallaConfirmacion();
+      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+        AltaBajaPersona.grabarPersona();
+        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+      }
+    } else {
+      System.out.println("Faltan los siguientes campos: " + falta);
+      LogicaTerminalDatos.pantallaAltaEnfermero();
+    }
+  }
+
+  static void iniciarMedico() {
+    tmpPersona =
+        new Medico(
+            NIF,
+            nombre,
+            apellido1,
+            apellido2,
+            codigoArea,
+            codigoActividad,
+            codigoEspecialidad,
+            codigoSegundaEspecialidad,
+            experiencia);
+  }
+
+  static void validarGrabarMedico() {
+    String falta = "";
+    falta = validarCamposComunes(falta);
+    falta = validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
+    falta = validarCampoEnum(codigoSegundaEspecialidad, falta, Utiles.STR_COD_SEGUNDAESPECIALIDAD);
+    falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
+
+    if (falta.isEmpty()) {
+      iniciarEstudiante();
+      PantallasTerminalDatos.pantallaConfirmacion();
+      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+        AltaBajaPersona.grabarPersona();
+        LogicaTerminalDatos.pantallaGestionPersonalAlta();
+      }
+    } else {
+      System.out.println("Faltan los siguientes campos: " + falta);
+      LogicaTerminalDatos.pantallaAltaEnfermero();
     }
   }
 

@@ -69,6 +69,21 @@ public enum CodigoEspecialidadEnum {//implements CodigosEnum{
   }
 
   /**
+   * Devuelve un Código de especialidad en función de la descripción.
+   *
+   * @param descripcion descripción.
+   * @return código de especialidad correspondiente al código de entrada.
+   */
+  public static CodigoEspecialidadEnum getFromDescripcion(String descripcion) {
+    for (CodigoEspecialidadEnum c : values()) {
+      if (c.descripcion.equals(descripcion)) {
+        return c;
+      }
+    }
+    return null;
+  }
+
+  /**
    * Muestra por pantalla los diferentes códigos del enumerado.
    */
   public static void mostrarPorPantalla() {

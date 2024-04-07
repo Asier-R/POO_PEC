@@ -108,7 +108,7 @@ public final class PantallasTerminalDatos {
   /** Pantalla de altas de enfermeros. */
   static void pantallaAltaEnfermero() {
     separarPantalla();
-    System.out.println(">>> 1.1.1.2. ALTAS DE ENFERMERO");
+    System.out.println(">>> 1.1.1.4. ALTAS DE ENFERMERO");
     System.out.println("> 1. Introducir NIF");
     System.out.println("> 2. Introducir nombre");
     System.out.println("> 3. Introducir primer apellido");
@@ -117,13 +117,15 @@ public final class PantallasTerminalDatos {
     System.out.println("> 6. Seleccionar código actividad");
     System.out.println("> 7. Seleccionar código especialidad");
     System.out.println("> 8. Introducir experiencia");
+    System.out.println("> 9. Mostrar datos");
+    System.out.println("> 10. Finalizar Alta");
     opcionesComunes();
   }
 
   /** Pantalla de altas de médicos. */
-  static void pantallaAltaMedicos() {
+  static void pantallaAltaMedico() {
     separarPantalla();
-    System.out.println(">>> 1.1.1.2. ALTAS DE MÉDICO");
+    System.out.println(">>> 1.1.1.5. ALTAS DE MÉDICO");
     System.out.println("> 1. Introducir NIF");
     System.out.println("> 2. Introducir nombre");
     System.out.println("> 3. Introducir primer apellido");
@@ -133,6 +135,8 @@ public final class PantallasTerminalDatos {
     System.out.println("> 7. Seleccionar código especialidad");
     System.out.println("> 8. Seleccionar código segunda especialidad");
     System.out.println("> 9. Introducir experiencia");
+    System.out.println("> 10. Mostrar datos");
+    System.out.println("> 11. Finalizar Alta");
     opcionesComunes();
   }
 
