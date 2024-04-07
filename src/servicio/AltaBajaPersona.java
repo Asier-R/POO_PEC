@@ -157,7 +157,7 @@ public final class AltaBajaPersona {
     falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
 
     if (falta.isEmpty()) {
-      iniciarEstudiante();
+      iniciarEnfermero();
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
@@ -193,7 +193,7 @@ public final class AltaBajaPersona {
     falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
 
     if (falta.isEmpty()) {
-      iniciarEstudiante();
+      iniciarMedico();
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         AltaBajaPersona.grabarPersona();
@@ -201,7 +201,7 @@ public final class AltaBajaPersona {
       }
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
-      LogicaTerminalDatos.pantallaAltaEnfermero();
+      LogicaTerminalDatos.pantallaAltaMedico();
     }
   }
 

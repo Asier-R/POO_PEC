@@ -100,13 +100,13 @@ public class Medico extends Sanitario {
         + ","
         + this.getApellido2()
         + ","
-        + this.getCodigoArea().getDescripcion()
+        + this.getCodigoArea().name()
         + ","
-        + this.getCodigoActividad().getDescripcion()
+        + this.getCodigoActividad().name()
         + ","
-        + this.getCodigoEspecialidad().getDescripcion()
+        + this.getCodigoEspecialidad().name()
         + ","
-        + this.getSegundaEspecialidad().getDescripcion()
+        + this.getSegundaEspecialidad().name()
         + ","
         + this.getExperiencia();
   }

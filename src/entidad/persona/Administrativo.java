@@ -160,12 +160,12 @@ public class Administrativo extends Personal {
         + ","
         + this.getApellido2()
         + ","
-        + this.getCodigoUnidad().getDescripcion()
+        + this.getCodigoUnidad().name()
         + ","
-        + this.getCodigoArea().getDescripcion()
+        + this.getCodigoArea().name()
         + ","
-        + this.getCodigoActividad().getDescripcion()
+        + this.getCodigoActividad().name()
         + ","
-        + this.getGrupo().getCodigo();
+        + this.getGrupo().name();
   }
 }

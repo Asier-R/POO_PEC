@@ -133,7 +133,7 @@ public class Paciente extends Persona implements Comparable<Paciente>{
         + ","
         + this.getEdad()
         + ","
-        + this.getSexo();
+        + this.getSexo().name();
   }
 
   @Override
