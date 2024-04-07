@@ -3,23 +3,25 @@ package servicio;
 import entidad.persona.Administrativo;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
+import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
 import java.util.Scanner;
 
 public final class Utiles {
 
-    private static final String STR_NIF = "NIF";
-    private static final String STR_NOMBRE = "Nombre";
-    private static final String STR_APELLIDO1 = "Primer apellido";
-    private static final String STR_APELLIDO2 = "Segundo apellido";
-    private static final String STR_COD_UNIDAD = "Código unidad";
-    private static final String STR_COD_AREA = "Código área";
-    private static final String STR_COD_ACTIVIDAD = "Código actividad";
-    private static final String STR_COD_ESPECIALIDAD = "Especialidad";
-    private static final String STR_COD_SEGUNDAESPECIALIDAD = "Segunda especialidad";
-    private static final String STR_COD_GRUPO = "Grupo administrativo";
-    private static final String STR_EXPERIENCIA = "Experiencia";
+    static final String STR_NIF = "NIF";
+    static final String STR_NOMBRE = "Nombre";
+    static final String STR_APELLIDO1 = "Primer apellido";
+    static final String STR_APELLIDO2 = "Segundo apellido";
+    static final String STR_COD_UNIDAD = "Código unidad";
+    static final String STR_COD_AREA = "Código área";
+    static final String STR_COD_ACTIVIDAD = "Código actividad";
+    static final String STR_COD_ESPECIALIDAD = "Especialidad";
+    static final String STR_COD_SEGUNDAESPECIALIDAD = "Segunda especialidad";
+    static final String STR_COD_GRUPO = "Grupo administrativo";
+    static final String STR_EXPERIENCIA = "Experiencia";
+    static final String STR_CENTRO = "Nombre del centro";
     static final String SI = "S";
 
     /** Lector de input de usuario. */
@@ -88,6 +90,18 @@ public final class Utiles {
         return leerLinea();
     }
 
+    /** Método para obtener el nombre del centro. */
+    static String inputNombreCentro() {
+        PantallasTerminalDatos.pantallaIntroducirDato(STR_CENTRO);
+        return leerLinea();
+    }
+
+    /** Método para obtener la experiencia del sanitario. */
+    static int inputExperiencia() {
+        PantallasTerminalDatos.pantallaIntroducirDato(STR_EXPERIENCIA);
+        return leerNumero();
+    }
+
     /** Método para obtener el código de unidad. */
     static CodigoUnidadEnum inputCodUnidad() {
         PantallasTerminalDatos.pantallaSeleccionarCodigo(STR_COD_UNIDAD);
@@ -110,6 +124,14 @@ public final class Utiles {
         CodigoActividadEnum.mostrarPorPantalla();
         int opt = leerNumero();
         return CodigoActividadEnum.getFromId(opt);
+    }
+
+    /** Método para obtener el código de especialidad. */
+    static CodigoEspecialidadEnum inputCodEspecialidad() {
+        PantallasTerminalDatos.pantallaSeleccionarCodigo(STR_COD_ESPECIALIDAD);
+        CodigoEspecialidadEnum.mostrarPorPantalla();
+        int opt = leerNumero();
+        return CodigoEspecialidadEnum.getFromId(opt);
     }
 
     /** Método para obtener el grupo administrativo. */

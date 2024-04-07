@@ -88,9 +88,9 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de altas de estudiantes. */
-  static void pantallaAltaEstudiantes() {
+  static void pantallaAltaEstudiante() {
     separarPantalla();
-    System.out.println(">>> 1.1.1.2. ALTAS DE ESTUDIANTE");
+    System.out.println(">>> 1.1.1.3. ALTAS DE ESTUDIANTE");
     System.out.println("> 1. Introducir NIF");
     System.out.println("> 2. Introducir nombre");
     System.out.println("> 3. Introducir primer apellido");
@@ -98,6 +98,10 @@ public final class PantallasTerminalDatos {
     System.out.println("> 5. Seleccionar código área");
     System.out.println("> 6. Seleccionar código actividad");
     System.out.println("> 7. Seleccionar código especialidad");
+    System.out.println("> 8. Introducir experiencia");
+    System.out.println("> 9. Introducir nombre de centro");
+    System.out.println("> 10. Mostrar datos");
+    System.out.println("> 11. Finalizar Alta");
     opcionesComunes();
   }
 

@@ -103,6 +103,7 @@ public final class LogicaTerminalDatos {
         pantallaAltaMantenimientoServicio();
         break;
       case "3": // 3. Alta de estudiantes
+        pantallaAltaEstudiante();
         break;
       case "4": // 4. Alta de enfermeros
         break;
@@ -216,6 +217,68 @@ public final class LogicaTerminalDatos {
         break;
       default: // Permanecer en la pantalla
         pantallaAltaMantenimientoServicio();
+        break;
+    }
+  }
+
+  /** Lógica de pantalla 1.1.1.2. ALTAS DE ESTUDIANTE */
+  static void pantallaAltaEstudiante() {
+    PantallasTerminalDatos.pantallaAltaEstudiante();
+    AltaBajaPersona.iniciarEstudiante();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Introducir NIF
+        AltaBajaPersona.NIF = Utiles.inputNIF();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "2": // 2. Introducir nombre
+        AltaBajaPersona.nombre = Utiles.inputNombre();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "3": // 3. Introducir primer apellido
+        AltaBajaPersona.apellido1 = Utiles.inputApellido1();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "4": // 4. Introducir segundo apellido
+        AltaBajaPersona.apellido2 = Utiles.inputApellido2();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "5": // 5. Seleccionar código área
+        AltaBajaPersona.codigoArea = Utiles.inputCodArea();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "6": // 6. Seleccionar código actividad
+        AltaBajaPersona.codigoActividad = Utiles.inputCodActividad();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "7": // 7. Seleccionar código especialidad
+        AltaBajaPersona.codigoEspecialidad = Utiles.inputCodEspecialidad();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "8": // 8. Introducir experiencia
+        AltaBajaPersona.experiencia = Utiles.inputExperiencia();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "9": // 9. Introducir nombre de centro
+        AltaBajaPersona.nombreCentro = Utiles.inputNombreCentro();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "10": // 10. Mostrar datos
+        AltaBajaPersona.mostrarDatosPersona();
+        pantallaAltaEstudiante(); // Se vuelve a la pantalla
+        break;
+      case "11": // 11. Finalizar Alta
+        AltaBajaPersona.validarGrabarEstudiante(); // Validación y alta
+        break;
+      case "X": // X. Volver a 1.1.1. GESTIÓN DE ALTAS DE PERSONAL
+        pantallaGestionPersonalAlta();
+        break;
+      case "Z": // Z. Finalizar
+        if (!finPrograma()) pantallaAltaEstudiante();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaAltaEstudiante();
         break;
     }
   }
