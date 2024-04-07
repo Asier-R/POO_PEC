@@ -32,6 +32,10 @@ import java.util.Scanner;
  * Clase encargada de escribir en ficheros y leer de ficheros para poder iniciar el hospital con unos datos determinados.
  */
 public final class LecturaEscrituraFichero {
+
+  private static final String DELIMITADOR = "\r\n";
+  private static final String SEPARADOR = ",";
+
   /**
    * Path devuelto por el sistema.
    */
@@ -105,11 +109,11 @@ public final class LecturaEscrituraFichero {
    * @param path Ruta del fichero.
    */
   private static void grabarDatos(Grabable grabable, String path) {
-    PantallasTerminalDatos.pantallaAvisoAlta();
+    PantallasTerminalDatos.pantallaAvisoGrabado();
     try {
       Files.write(
           Paths.get(path),
-          ("\n" + grabable.generarCadenaCSV()).getBytes(),
+          (DELIMITADOR + grabable.generarCadenaCSV()).getBytes(),
           StandardOpenOption.APPEND);
     } catch (IOException e) {
       System.err.println("IOException: " + e.getMessage());
@@ -129,10 +133,10 @@ public final class LecturaEscrituraFichero {
     int contador = 0;
     try {
       sc = new Scanner(new File(PATH_PACIENTE));
-      sc.useDelimiter("\r\n");
+      sc.useDelimiter(DELIMITADOR);
       while (sc.hasNext()) {
         String sig = sc.next();
-        String[] datos = sig.split(",");
+        String[] datos = sig.split(SEPARADOR);
         paciente =
             new Paciente(
                 datos[0],
@@ -163,10 +167,10 @@ public final class LecturaEscrituraFichero {
     int contador = 0;
     try {
       sc = new Scanner(new File(PATH_ADMINISTRATIVO));
-      sc.useDelimiter("\r\n");
+      sc.useDelimiter(DELIMITADOR);
       while (sc.hasNext()) {
         String sig = sc.next();
-        String[] datos = sig.split(",");
+        String[] datos = sig.split(SEPARADOR);
         CodigoActividadEnum codigoActividad = CodigoActividadEnum.valueOf(datos[6]);
         Administrativo.Grupo grupo =
             datos[7].equals("null") ? null : Administrativo.Grupo.valueOf(datos[7]);
@@ -194,10 +198,10 @@ public final class LecturaEscrituraFichero {
     int contador = 0;
     try {
       sc = new Scanner(new File(PATH_MANTENIMIENTOSERVICIO));
-      sc.useDelimiter("\r\n");
+      sc.useDelimiter(DELIMITADOR);
       while (sc.hasNext()) {
         String sig = sc.next();
-        String[] datos = sig.split(",");
+        String[] datos = sig.split(SEPARADOR);
         CodigoActividadEnum codigoActividad = CodigoActividadEnum.valueOf(datos[6]);
         persona =
             new MantenimientoServicio(
@@ -229,10 +233,10 @@ public final class LecturaEscrituraFichero {
     int contador = 0;
     try {
       sc = new Scanner(new File(PATH_MEDICOS));
-      sc.useDelimiter("\r\n");
+      sc.useDelimiter(DELIMITADOR);
       while (sc.hasNext()) {
         String sig = sc.next();
-        String[] datos = sig.split(",");
+        String[] datos = sig.split(SEPARADOR);
         CodigoEspecialidadEnum segundaEspecialidad =
             datos[7].equals("null") ? null : CodigoEspecialidadEnum.valueOf(datos[7]);
         persona =
@@ -268,10 +272,10 @@ public final class LecturaEscrituraFichero {
     int contador = 0;
     try {
       sc = new Scanner(new File(PATH_ENFERMEROS));
-      sc.useDelimiter("\r\n");
+      sc.useDelimiter(DELIMITADOR);
       while (sc.hasNext()) {
         String sig = sc.next();
-        String[] datos = sig.split(",");
+        String[] datos = sig.split(SEPARADOR);
         persona =
             new Enfermero(
                 datos[0],
@@ -304,10 +308,10 @@ public final class LecturaEscrituraFichero {
     int contador = 0;
     try {
       sc = new Scanner(new File(PATH_ESTUDIANTES));
-      sc.useDelimiter("\r\n");
+      sc.useDelimiter(DELIMITADOR);
       while (sc.hasNext()) {
         String sig = sc.next();
-        String[] datos = sig.split(",");
+        String[] datos = sig.split(SEPARADOR);
         persona =
             new Estudiante(
                 datos[0],

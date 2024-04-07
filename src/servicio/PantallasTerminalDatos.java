@@ -216,14 +216,14 @@ public final class PantallasTerminalDatos {
     System.out.println("> AVISO: se va a finalizar el programa...");
   }
 
-  /** Pantalla aviso alta */
-  static void pantallaAvisoAlta() {
-    System.out.println("> AVISO: se va a realizar el alta...");
+  /** Pantalla aviso de grabado de datos */
+  static void pantallaAvisoGrabado() {
+    System.out.println("> AVISO: se van a grabar los datos...");
   }
 
   /** Pantalla datos grabados */
   static void pantallaDatosGrabados() {
-    System.out.println("> ÉXITO...se han grabado los datos");
+    System.out.println("> ÉXITO: ...se han grabado los datos");
   }
 
   /** Pantalla de confirmación */
