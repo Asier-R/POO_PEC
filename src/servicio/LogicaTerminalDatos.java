@@ -4,6 +4,8 @@ import entidad.Hospital;
 import entidad.persona.Personal;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /** Clase encargada de la lógica de interacción entre pantallas del terminal de datos. */
 public final class LogicaTerminalDatos {
@@ -76,8 +78,6 @@ public final class LogicaTerminalDatos {
     }
   }
 
-
-
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
@@ -91,18 +91,18 @@ public final class LogicaTerminalDatos {
     PantallasTerminalDatos.pantallaFin();
     PantallasTerminalDatos.pantallaConfirmacion();
     String opt = Utiles.leerLinea().toUpperCase();
-    if(opt.equals(Utiles.SI)){
+    if (opt.equals(Utiles.SI)) {
       pantallaCierre();
       return true;
     }
     return false;
   }
 
-  /**
-   * Actualiza los csv con los datos actuales del hospital.
-   */
-  static void pantallaCierre(){
-    LecturaEscrituraFichero.actualizarDatos(hospital.getPersonal());
+  /** Actualiza los csv con los datos actuales del hospital. */
+  static void pantallaCierre() {
+    LecturaEscrituraFichero.actualizarDatos(
+        Stream.concat(hospital.getPersonal().stream(), hospital.getPacientes().stream())
+            .collect(Collectors.toList()));
   }
 
   static Hospital getHospital() {

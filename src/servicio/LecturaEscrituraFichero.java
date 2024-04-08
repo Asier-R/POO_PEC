@@ -149,7 +149,7 @@ public final class LecturaEscrituraFichero {
   }
 
   /** Borra el contenido de todos los ficheros csv. */
-  private static void borrarDatosFicheros(List<? extends Grabable> grabables) {
+  private static void borrarDatosFicheros() {
     paths.forEach(
         p -> {
           try {
@@ -168,7 +168,7 @@ public final class LecturaEscrituraFichero {
    * @param grabables Los datos a grabar.
    */
   public static void actualizarDatos(List<? extends Grabable> grabables) {
-    borrarDatosFicheros(grabables);
+    borrarDatosFicheros();
     grabables.forEach(LecturaEscrituraFichero::grabarDatos);
   }
 
