@@ -169,7 +169,7 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de baja de personal administrativo. */
-  static void pantallaSeleccionarPersonal2() {
+  static void pantallaDatosPersonal() {
     separarPantalla();
     System.out.println(">>> 1.1.3.1. GESTIÓN DE PERSONAL");
     System.out.println("> Introduzca el NIF del empleado o estudiante a gestionar...");
@@ -177,6 +177,10 @@ public final class PantallasTerminalDatos {
     System.out.println();
     opcionesComunes();
   }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     PANTALLAS DE CONSULTA
+  ------------------------------------------------------------------------------------------------------------------ */
 
   /** Pantalla común de selección de personal a consultar */
   private static void pantallaConsultaSeleccionPersonal() {
@@ -186,6 +190,26 @@ public final class PantallasTerminalDatos {
     System.out.println("> 4. Consultar estudiantes");
     System.out.println("> 5. Consultar enfermeros");
     System.out.println("> 6. Consultar médicos");
+  }
+
+  /** Pantalla común de consulta de personas */
+  static void pantallaConsultaComun() {
+    System.out.println(">> Criterios de consulta de personal");
+    System.out.println("> 1. NIF");
+    System.out.println("> 2. Nombre");
+    System.out.println("> 3. Primer apellido");
+    System.out.println("> 4. Segundo apellido");
+    System.out.println("> 5. Código unidad");
+    System.out.println("> 6. Código área");
+    System.out.println("> 7. Código actividad");
+  }
+
+  static void pantallaCriterioConsulta(String criterio){
+    System.out.println("> Introduzca/seleccione el "+criterio);
+  }
+
+  static void pantallaConsultaSinResultados(){
+    System.out.println("> AVISO: No se han encontrado resultados...");
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

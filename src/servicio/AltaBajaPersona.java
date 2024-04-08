@@ -220,17 +220,16 @@ public final class AltaBajaPersona {
     String nif = Utiles.leerLinea(); // Obtener nif
     try {
       Personal personal =
-              LogicaTerminalDatos.getHospital().getPersonal().stream()
-                      .filter(p -> p.getNIF().equals(nif))
-                      .findFirst()
-                      .orElseThrow();
+          LogicaTerminalDatos.getHospital().getPersonal().stream()
+              .filter(p -> p.getNIF().equals(nif))
+              .findFirst()
+              .orElseThrow();
 
       mostrarDatosPersona(personal);
 
       PantallasTerminalDatos.pantallaConfirmacion(); // Confirmar baja
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
         LogicaTerminalDatos.borrarPersonal(personal);
-        // TODO: LLAMAR A METODO LECTURAESCRITURA PARA ACTUALIZAR CSV CON LO DE LA LISTA
       }
     } catch (NoSuchElementException e) {
       PantallasTerminalDatos.pantallaAvisoPersonaNoEncontrada(nif);
