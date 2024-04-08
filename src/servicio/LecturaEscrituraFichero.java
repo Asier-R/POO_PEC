@@ -21,6 +21,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
@@ -29,23 +30,24 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Clase encargada de escribir en ficheros y leer de ficheros para poder iniciar el hospital con unos datos determinados.
+ * Clase encargada de escribir en ficheros y leer de ficheros para poder iniciar el hospital con
+ * unos datos determinados.
  */
 public final class LecturaEscrituraFichero {
 
   private static final String DELIMITADOR = "\r\n";
   private static final String SEPARADOR = ",";
 
-  /**
-   * Path devuelto por el sistema.
-   */
+  /** Path devuelto por el sistema. */
   private static final String PATH_BASE = System.getProperty("user.dir");
+
   /**
-   * Path adaptado para poder arrancar la aplicación tanto en IntelliJ como en BlueJ.
-   * Si el proyecto está ubicado en un fichero llamado src, es posible que no funcione, adaptar esta ruta.
+   * Path adaptado para poder arrancar la aplicación tanto en IntelliJ como en BlueJ. Si el proyecto
+   * está ubicado en un fichero llamado src, es posible que no funcione, adaptar esta ruta.
    */
   private static final String PATH_ADAPTADO =
       PATH_BASE.endsWith("src") ? PATH_BASE : PATH_BASE + "\\src";
+
   private static final String PATH_PACIENTE = PATH_ADAPTADO + "\\zz_recursos\\pacientes.csv";
   private static final String PATH_MANTENIMIENTOSERVICIO =
       PATH_ADAPTADO + "\\zz_recursos\\mantenimientoServicios.csv";
@@ -54,9 +56,18 @@ public final class LecturaEscrituraFichero {
   private static final String PATH_MEDICOS = PATH_ADAPTADO + "\\zz_recursos\\medicos.csv";
   private static final String PATH_ENFERMEROS = PATH_ADAPTADO + "\\zz_recursos\\enfermeros.csv";
   private static final String PATH_ESTUDIANTES = PATH_ADAPTADO + "\\zz_recursos\\estudiantes.csv";
+  private static final List<String> paths =
+      List.of(
+          PATH_PACIENTE,
+          PATH_MANTENIMIENTOSERVICIO,
+          PATH_ADMINISTRATIVO,
+          PATH_MEDICOS,
+          PATH_ENFERMEROS,
+          PATH_ESTUDIANTES);
 
   /**
    * Crea una instancia de Hospital a partir de los datos guardados en los ficheros csv.
+   *
    * @return Instancia de Hospital.
    */
   public static Hospital iniciarHospital() {
@@ -91,43 +102,84 @@ public final class LecturaEscrituraFichero {
 
   /**
    * Graba en un fichero csv los datos de las personas que interactúan con un hospital.
+   *
    * @param grabable Objeto de tipo Grabable.
    */
   public static void grabarPersona(Grabable grabable) {
-    if (grabable instanceof Paciente) grabarDatos(grabable, PATH_PACIENTE);
-    else if (grabable instanceof Administrativo) grabarDatos(grabable, PATH_ADMINISTRATIVO);
-    else if (grabable instanceof MantenimientoServicio)
-      grabarDatos(grabable, PATH_MANTENIMIENTOSERVICIO);
-    else if (grabable instanceof Medico) grabarDatos(grabable, PATH_MEDICOS);
-    else if (grabable instanceof Enfermero) grabarDatos(grabable, PATH_ENFERMEROS);
-    else if (grabable instanceof Estudiante) grabarDatos(grabable, PATH_ESTUDIANTES);
-  }
-
-  /**
-   * Método privado encargado de grabar los datos en un fichero csv determinado.
-   * @param grabable Objeto cuyos datos se graban.
-   * @param path Ruta del fichero.
-   */
-  private static void grabarDatos(Grabable grabable, String path) {
     PantallasTerminalDatos.pantallaAvisoGrabado();
-    try {
-      Files.write(
-          Paths.get(path),
-          (DELIMITADOR + grabable.generarCadenaCSV()).getBytes(),
-          StandardOpenOption.APPEND);
-    } catch (IOException e) {
-      System.err.println("IOException: " + e.getMessage());
-    }
+    grabarDatos(grabable);
     PantallasTerminalDatos.pantallaDatosGrabados();
   }
 
   /**
+   * Método privado encargado de grabar los datos en un fichero csv determinado.
+   *
+   * @param grabable Objeto cuyos datos se graban.
+   */
+  private static void grabarDatos(Grabable grabable) {
+    Path path;
+    if (grabable instanceof Paciente) path = Paths.get(PATH_PACIENTE);
+    else if (grabable instanceof Administrativo) path = Paths.get(PATH_ADMINISTRATIVO);
+    else if (grabable instanceof MantenimientoServicio)
+      path = Paths.get(PATH_MANTENIMIENTOSERVICIO);
+    else if (grabable instanceof Medico) path = Paths.get(PATH_MEDICOS);
+    else if (grabable instanceof Enfermero) path = Paths.get(PATH_ENFERMEROS);
+    else path = Paths.get(PATH_ESTUDIANTES); // if (grabable instanceof Estudiante)
+
+    try {
+      StandardOpenOption opcion;
+      String datos;
+      if (Files.readAllBytes(path).length == 0) {
+        opcion = StandardOpenOption.WRITE;
+        datos = grabable.generarCadenaCSV();
+      }
+      else {
+        opcion = StandardOpenOption.APPEND;
+        datos = DELIMITADOR + grabable.generarCadenaCSV();
+      }
+
+      Files.write(
+          path,
+          (datos).getBytes(),
+          StandardOpenOption.CREATE,
+          opcion);
+    } catch (IOException e) {
+      System.err.println("IOException: " + e.getMessage());
+    }
+  }
+
+  /** Borra el contenido de todos los ficheros csv. */
+  private static void borrarDatosFicheros(List<? extends Grabable> grabables) {
+    paths.forEach(
+        p -> {
+          try {
+            System.out.println(p);
+            Files.delete(Paths.get(p));
+            Files.createFile(Paths.get(p));
+          } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
+          }
+        });
+  }
+
+  /**
+   * Actualiza los ficheros csv con los datos de las personas del hospital de la sesión actual.
+   *
+   * @param grabables Los datos a grabar.
+   */
+  public static void actualizarDatos(List<? extends Grabable> grabables) {
+    borrarDatosFicheros(grabables);
+    grabables.forEach(LecturaEscrituraFichero::grabarDatos);
+  }
+
+  /**
    * Instancia los pacientes de un hospital a partir de los datos grabados en un fichero csv.
+   *
    * @param pacientes Las instancias de pacientes.
    */
   private static void generarPacientes(List<Paciente> pacientes) {
     System.out.println(">>> Generación de pacientes");
-    System.out.println(">>> Path fichero: "+PATH_PACIENTE);
+    System.out.println(">>> Path fichero: " + PATH_PACIENTE);
     Paciente paciente;
     Scanner sc;
     int contador = 0;
@@ -152,16 +204,18 @@ public final class LecturaEscrituraFichero {
       throw new RuntimeException(e);
     }
     sc.close();
-    System.out.println(">>> Total generados: "+contador);
+    System.out.println(">>> Total generados: " + contador);
   }
 
   /**
-   * Instancia el personal administrativo de un hospital a partir de los datos grabados en un fichero csv.
+   * Instancia el personal administrativo de un hospital a partir de los datos grabados en un
+   * fichero csv.
+   *
    * @param personal Las instancias de personal.
    */
   private static void generarAdministrativos(List<Personal> personal) {
     System.out.println(">>> Generación de administrativos");
-    System.out.println(">>> Path fichero: "+PATH_ADMINISTRATIVO);
+    System.out.println(">>> Path fichero: " + PATH_ADMINISTRATIVO);
     Personal persona;
     Scanner sc;
     int contador = 0;
@@ -183,16 +237,18 @@ public final class LecturaEscrituraFichero {
       throw new RuntimeException(e);
     }
     sc.close();
-    System.out.println(">>> Total generados: "+contador);
+    System.out.println(">>> Total generados: " + contador);
   }
 
   /**
-   * Instancia el personal de mantenimiento y servicios de un hospital a partir de los datos grabados en un fichero csv.
+   * Instancia el personal de mantenimiento y servicios de un hospital a partir de los datos
+   * grabados en un fichero csv.
+   *
    * @param personal Las instancias de personal.
    */
   private static void generarMantenimientoServicios(List<Personal> personal) {
     System.out.println(">>> Generación de personal de mantenimiento");
-    System.out.println(">>> Path fichero: "+PATH_MANTENIMIENTOSERVICIO);
+    System.out.println(">>> Path fichero: " + PATH_MANTENIMIENTOSERVICIO);
     Personal persona;
     Scanner sc;
     int contador = 0;
@@ -218,16 +274,17 @@ public final class LecturaEscrituraFichero {
       throw new RuntimeException(e);
     }
     sc.close();
-    System.out.println(">>> Total generados: "+contador);
+    System.out.println(">>> Total generados: " + contador);
   }
 
   /**
    * Instancia médicos de un hospital a partir de los datos grabados en un fichero csv.
+   *
    * @param personal Las instancias de personal.
    */
   private static void generarMedicos(List<Personal> personal) {
     System.out.println(">>> Generación de médicos");
-    System.out.println(">>> Path fichero: "+PATH_MEDICOS);
+    System.out.println(">>> Path fichero: " + PATH_MEDICOS);
     Personal persona;
     Scanner sc;
     int contador = 0;
@@ -257,16 +314,17 @@ public final class LecturaEscrituraFichero {
       throw new RuntimeException(e);
     }
     sc.close();
-    System.out.println(">>> Total generados: "+contador);
+    System.out.println(">>> Total generados: " + contador);
   }
 
   /**
    * Instancia enfermeros de un hospital a partir de los datos grabados en un fichero csv.
+   *
    * @param personal Las instancias de personal.
    */
   private static void generarEnfermeros(List<Personal> personal) {
     System.out.println(">>> Generación de enfermeros");
-    System.out.println(">>> Path fichero: "+PATH_ENFERMEROS);
+    System.out.println(">>> Path fichero: " + PATH_ENFERMEROS);
     Personal persona;
     Scanner sc;
     int contador = 0;
@@ -293,16 +351,17 @@ public final class LecturaEscrituraFichero {
       throw new RuntimeException(e);
     }
     sc.close();
-    System.out.println(">>> Total generados: "+contador);
+    System.out.println(">>> Total generados: " + contador);
   }
 
   /**
    * Instancia estudiantes de un hospital a partir de los datos grabados en un fichero csv.
+   *
    * @param personal Las instancias de personal.
    */
   private static void generarEstudiantes(List<Personal> personal) {
     System.out.println(">>> Generación de estudiantes");
-    System.out.println(">>> Path fichero: "+PATH_ESTUDIANTES);
+    System.out.println(">>> Path fichero: " + PATH_ESTUDIANTES);
     Personal persona;
     Scanner sc;
     int contador = 0;
@@ -330,11 +389,12 @@ public final class LecturaEscrituraFichero {
       throw new RuntimeException(e);
     }
     sc.close();
-    System.out.println(">>> Total generados: "+contador);
+    System.out.println(">>> Total generados: " + contador);
   }
 
   /**
    * Genera unidades para una instancia de hospital.
+   *
    * @param codigo Código de actividad de la unidad.
    * @param nombre Nombre de la unidad.
    * @return Instancia de unidad.

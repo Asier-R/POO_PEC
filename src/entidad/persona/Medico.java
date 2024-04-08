@@ -106,7 +106,7 @@ public class Medico extends Sanitario {
         + ","
         + this.getCodigoEspecialidad().name()
         + ","
-        + this.getSegundaEspecialidad().name()
+        + (this.getSegundaEspecialidad()!=null? this.getSegundaEspecialidad().name():"null")
         + ","
         + this.getExperiencia();
   }

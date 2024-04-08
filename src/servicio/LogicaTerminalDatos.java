@@ -3,6 +3,8 @@ package servicio;
 import entidad.Hospital;
 import entidad.persona.Personal;
 
+import java.util.List;
+
 /** Clase encargada de la lógica de interacción entre pantallas del terminal de datos. */
 public final class LogicaTerminalDatos {
 
@@ -89,7 +91,18 @@ public final class LogicaTerminalDatos {
     PantallasTerminalDatos.pantallaFin();
     PantallasTerminalDatos.pantallaConfirmacion();
     String opt = Utiles.leerLinea().toUpperCase();
-    return opt.equals(Utiles.SI);
+    if(opt.equals(Utiles.SI)){
+      pantallaCierre();
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Actualiza los csv con los datos actuales del hospital.
+   */
+  static void pantallaCierre(){
+    LecturaEscrituraFichero.actualizarDatos(hospital.getPersonal());
   }
 
   static Hospital getHospital() {
