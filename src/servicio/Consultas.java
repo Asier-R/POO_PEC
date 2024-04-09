@@ -1,9 +1,9 @@
 package servicio;
 
-import entidad.persona.Persona;
-import entidad.persona.Personal;
+import entidad.persona.*;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
+import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
 import java.util.List;
@@ -96,12 +96,113 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
+  /** Consulta por experiencia. */
+  static void consultarPorExperiencia(int experiencia) {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(
+                p -> {
+                  if (p instanceof Sanitario)
+                    return ((Sanitario) p).getExperiencia() == (experiencia);
+                  else return false;
+                })
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
+  /** Consulta por código especialidad. */
+  static void consultarPorCodigoEspecialidad(CodigoEspecialidadEnum codigo) {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(
+                p -> {
+                  if (p instanceof Sanitario)
+                    return ((Sanitario) p).getCodigoEspecialidad().equals(codigo);
+                  else return false;
+                })
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
+  /** Consulta por código segunda especialidad. */
+  static void consultarPorCodigoSegundaEspecialidad(CodigoEspecialidadEnum codigo) {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(
+                p -> {
+                  if (p instanceof Medico)
+                    return ((Medico) p).getSegundaEspecialidad().equals(codigo);
+                  else return false;
+                })
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
+  /** Consultar todos los pacientes */
+  static void consultarPacientes() {
+    List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
+    if (pacientes.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else pacientes.forEach(Consultas::presentar);
+  }
+
+  /** Consultar todos los administrativos */
+  static void consultarAdministrativos() {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(p -> p instanceof Administrativo)
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
+  /** Consultar todos los de mantenimiento y servicio */
+  static void consultarMantenimientoServicio() {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(p -> p instanceof Administrativo)
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
+  /** Consultar todos los estudiantes */
+  static void consultarEstudiantes() {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(p -> p instanceof Estudiante)
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
+  /** Consultar todos los enfermeros */
+  static void consultarEnfermeros() {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(p -> p instanceof Enfermero)
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
+  /** Consultar todos los médicos */
+  static void consultarMedicos() {
+    List<Personal> personal =
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(p -> p instanceof Medico)
+            .collect(Collectors.toList());
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personal.forEach(Consultas::presentar);
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
 
-  private static void presentar(Persona persona){
+  private static void presentar(Persona persona) {
     System.out.println(persona.toString().replace("\n", "  "));
   }
-
 }

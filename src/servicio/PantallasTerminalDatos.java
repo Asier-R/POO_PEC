@@ -158,22 +158,25 @@ public final class PantallasTerminalDatos {
     System.out.println();
   }
 
-  /** Pantalla de baja de personal administrativo. */
+  /** Pantalla de gestión de personal administrativo. */
   static void pantallaGestionDatosPersonal() {
     separarPantalla();
     System.out.println(">>> 1.1.3. GESTIÓN DE DATOS DEL PERSONAL");
-    System.out.println("> 1. Selección por NIF");
+    System.out.println("> 1. Crear Cita");
+    System.out.println("> 2. Consultar agenda del personal sanitario");
+    System.out.println("> 3. Modificar agenda del personal sanitario");
     System.out.println();
-    pantallaConsultaSeleccionPersonal();
     opcionesComunes();
   }
 
-  /** Pantalla de baja de personal administrativo. */
-  static void pantallaDatosPersonal() {
+  /** Pantalla para la creación de citas. */
+  static void pantallaCrearCita() {
     separarPantalla();
-    System.out.println(">>> 1.1.3.1. GESTIÓN DE PERSONAL");
-    System.out.println("> Introduzca el NIF del empleado o estudiante a gestionar...");
-    System.out.println();
+    System.out.println(">>> 1.1.3.1. CREAR CITA");
+    System.out.println("> 1. Seleccionar Paciente");
+    System.out.println("> 2. Seleccionar Sanitario");
+    System.out.println("> 3. Introducir fecha");
+    System.out.println("> 4. Seleccionar lugar de la cita");
     System.out.println();
     opcionesComunes();
   }
@@ -190,11 +193,12 @@ public final class PantallasTerminalDatos {
     System.out.println("> 4. Consultar estudiantes");
     System.out.println("> 5. Consultar enfermeros");
     System.out.println("> 6. Consultar médicos");
+    System.out.println("> 7. Otros Criterios");
   }
 
   /** Pantalla común de consulta de personas */
-  static void pantallaConsultaComun() {
-    System.out.println(">> Criterios de consulta de personal");
+  static void pantallaConsultaPersonas() {
+    System.out.println(">> Criterios de consulta de personas");
     System.out.println("> 1. NIF");
     System.out.println("> 2. Nombre");
     System.out.println("> 3. Primer apellido");
@@ -202,19 +206,45 @@ public final class PantallasTerminalDatos {
     System.out.println("> 5. Código unidad");
     System.out.println("> 6. Código área");
     System.out.println("> 7. Código actividad");
+    System.out.println("> 8. Código especialidad");
+    System.out.println("> 9. Código segunda especialidad");
+    System.out.println("> 10. Experiencia");
+    System.out.println("> 11. Nombre centro");
   }
 
-  static void pantallaCriterioConsulta(String criterio){
-    System.out.println("> Introduzca/seleccione el "+criterio);
+  /** Pantalla búsqueda de personas. */
+  static void pantallaBuscarPersona(String persona) {
+    separarPantalla();
+    System.out.println(">>> PANTALLA DE SELECCIÓN");
+    System.out.println("> Introduzca el NIF del "+persona);
+    System.out.println();
+    pantallaConsultaSeleccionPersonal();
+    opcionesComunes();
   }
 
-  static void pantallaConsultaSinResultados(){
+
+  static void pantallaCriterioConsulta(String criterio) {
+    System.out.println("> Introduzca/seleccione el " + criterio);
+  }
+
+  static void pantallaConsultaSinResultados() {
     System.out.println("> AVISO: No se han encontrado resultados...");
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE PACIENTES
   ------------------------------------------------------------------------------------------------------------------ */
+
+  /** Pantalla de gestión de pacientes con las opciones disponibles. */
+  static void pantallaGestionPacientes() {
+    separarPantalla();
+    System.out.println(">>> 1.1. GESTIÓN DE PACIENTES");
+    System.out.println("> 1. Alta de nuevo paciente");
+    System.out.println("> 2. Alta ingreso hospitalario");
+    System.out.println("> 2. Baja ingreso hospitalario");
+    System.out.println("> 3. Gestión");
+    opcionesComunes();
+  }
 
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE CONTABLE
@@ -260,7 +290,7 @@ public final class PantallasTerminalDatos {
 
   /** Pantalla aviso persona no encontrada */
   static void pantallaAvisoPersonaNoEncontrada(String nif) {
-    System.out.println("> AVISO: No se ha encontrado la persona con NIF "+nif);
+    System.out.println("> AVISO: No se ha encontrado la persona con NIF " + nif);
   }
 
   /** Pantalla datos grabados */
@@ -279,5 +309,4 @@ public final class PantallasTerminalDatos {
     System.out.println("> X. Volver");
     System.out.println("> Z. Finalizar programa");
   }
-
 }

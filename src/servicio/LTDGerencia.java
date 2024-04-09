@@ -1,9 +1,15 @@
 package servicio;
 
+import entidad.persona.*;
+
 /**
  * Clase encargada de la lógica de interacción entre pantallas de Gerencia del terminal de datos.
  */
 public final class LTDGerencia {
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     PANTALLAS DE GESTIÓN DE PERSONAL
+  ------------------------------------------------------------------------------------------------------------------ */
 
   /** Lógica de pantalla 1.1. GESTIÓN DEL PERSONAL */
   static void pantallaGestionPersonal() {
@@ -18,6 +24,7 @@ public final class LTDGerencia {
         pantallaGestionBajaPersonal();
         break;
       case "3": // 3. Gestión
+        pantallaGestionDatosPersonal();
         break;
       case "X": // X. Volver a 1. GERENCIA
         LogicaTerminalDatos.pantallaGerencia();
@@ -365,23 +372,27 @@ public final class LTDGerencia {
         AltaBajaPersona.bajaPorNIFPersona();
         break;
       case "2": // 2. Consultar personal administrativo
-        LTDConsulta.pantallaConsultaPersonal();
+        LTDConsulta.pantallaConsultaPersonal(Administrativo.class);
         pantallaGestionBajaPersonal();
         break;
       case "3": // 3. Consultar personal de mantenimiento y servicio
-        LTDConsulta.pantallaConsultaPersonal();
+        LTDConsulta.pantallaConsultaPersonal(MantenimientoServicio.class);
         pantallaGestionBajaPersonal();
         break;
       case "4": // 4. Consultar estudiantes
-        LTDConsulta.pantallaConsultaPersonal();
+        LTDConsulta.pantallaConsultaPersonal(Estudiante.class);
         pantallaGestionBajaPersonal();
         break;
       case "5": // 5. Consultar enfermeros
-        LTDConsulta.pantallaConsultaPersonal();
+        LTDConsulta.pantallaConsultaPersonal(Enfermero.class);
         pantallaGestionBajaPersonal();
         break;
       case "6": // 6. Consultar médicos
-        LTDConsulta.pantallaConsultaPersonal();
+        LTDConsulta.pantallaConsultaPersonal(Medico.class);
+        pantallaGestionBajaPersonal();
+        break;
+      case "7": // 7. Otros Criterios
+        LTDConsulta.pantallaConsultaPersonas();
         pantallaGestionBajaPersonal();
         break;
       case "X": // X. Volver a 1.1.1. GESTIÓN DE ALTAS DE PERSONAL
@@ -396,4 +407,75 @@ public final class LTDGerencia {
         break;
     }
   }
+
+  /** Lógica de pantalla 1.1.3. GESTIÓN DE DATOS DEL PERSONAL */
+  static void pantallaGestionDatosPersonal(){
+    PantallasTerminalDatos.pantallaGestionDatosPersonal();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Crear Cita
+        pantallaCrearCita();
+        pantallaGestionDatosPersonal();
+        break;
+      case "2": // 2. Consultar agenda del personal sanitario
+
+        break;
+      case "3": // 3. Modificar agenda del personal sanitario
+
+        break;
+      case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
+        pantallaGestionPersonal();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaGestionDatosPersonal();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaGestionDatosPersonal();
+        break;
+    }
+  }
+
+  /** Lógica de pantalla 1.1.3.1. CREAR CITA */
+  static void pantallaCrearCita(){
+    PantallasTerminalDatos.pantallaGestionDatosPersonal();
+    String opt = Utiles.leerLinea().toUpperCase();
+    // TODO: crear la cita con las personas implicadas, lugar (tarde mañana) y fecha
+
+    switch (opt) {
+      case "1": // 1. Seleccionar Paciente
+        PantallasTerminalDatos.pantallaBuscarPersona(Utiles.STR_PACIENTE);
+        // TODO: selección de paciente
+        break;
+      case "2": // 2. Seleccionar Sanitario
+        PantallasTerminalDatos.pantallaBuscarPersona(Utiles.STR_SANITARIO);
+        // TODO: selección de sanitario
+        break;
+      case "3": // 3. Introducir fecha
+        // TODO: pantalla fecha
+        // TODO: selección de fecha
+        break;
+      case "4": // 4. Seleccionar lugar de la cita
+        // TODO: pantalla lugar
+        // TODO: selección de lugar
+        break;
+      case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
+        pantallaGestionPersonal();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaGestionDatosPersonal();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaGestionDatosPersonal();
+        break;
+    }
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     PANTALLAS DE GESTIÓN DE PACIENTES
+  ------------------------------------------------------------------------------------------------------------------ */
+
+
 }
