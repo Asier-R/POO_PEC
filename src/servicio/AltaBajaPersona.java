@@ -61,8 +61,8 @@ public final class AltaBajaPersona {
   static void validarGrabarAdministrador() {
     String falta = "";
     falta = validarCamposComunes(falta);
-    falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(grupo, falta, Utiles.STR_COD_GRUPO);
+    falta = Utiles.validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(grupo, falta, Utiles.STR_COD_GRUPO);
 
     if (falta.isEmpty()) {
       iniciarAdmin();
@@ -86,8 +86,8 @@ public final class AltaBajaPersona {
   static void validarGrabarMantenimientoServicio() {
     String falta = "";
     falta = validarCamposComunes(falta);
-    falta = validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
 
     if (falta.isEmpty()) {
       iniciarMantenimientoServicio();
@@ -120,11 +120,11 @@ public final class AltaBajaPersona {
   static void validarGrabarEstudiante() {
     String falta = "";
     falta = validarCamposComunes(falta);
-    falta = validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
-    falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
-    falta = validarCampo(nombreCentro, falta, Utiles.STR_CENTRO);
+    falta = Utiles.validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
+    falta = Utiles.validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
+    falta = Utiles.validarCampo(nombreCentro, falta, Utiles.STR_CENTRO);
 
     if (falta.isEmpty()) {
       iniciarEstudiante();
@@ -156,10 +156,10 @@ public final class AltaBajaPersona {
   static void validarGrabarEnfermero() {
     String falta = "";
     falta = validarCamposComunes(falta);
-    falta = validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
-    falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
+    falta = Utiles.validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
+    falta = Utiles.validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
 
     if (falta.isEmpty()) {
       iniciarEnfermero();
@@ -192,11 +192,11 @@ public final class AltaBajaPersona {
   static void validarGrabarMedico() {
     String falta = "";
     falta = validarCamposComunes(falta);
-    falta = validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
-    falta = validarCampoEnum(codigoSegundaEspecialidad, falta, Utiles.STR_COD_SEGUNDAESPECIALIDAD);
-    falta = validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
+    falta = Utiles.validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
+    falta = Utiles.validarCampoEnum(codigoSegundaEspecialidad, falta, Utiles.STR_COD_SEGUNDAESPECIALIDAD);
+    falta = Utiles.validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
 
     if (falta.isEmpty()) {
       iniciarMedico();
@@ -225,7 +225,7 @@ public final class AltaBajaPersona {
               .findFirst()
               .orElseThrow();
 
-      mostrarDatosPersona(personal);
+      Utiles.mostrarDatosPersona(personal);
 
       PantallasTerminalDatos.pantallaConfirmacion(); // Confirmar baja
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
@@ -242,10 +242,10 @@ public final class AltaBajaPersona {
   ------------------------------------------------------------------------------------------------------------------ */
 
   private static String validarCamposComunes(String falta) {
-    falta = validarCampo(NIF, falta, Utiles.STR_NIF);
-    falta = validarCampo(nombre, falta, Utiles.STR_NOMBRE);
-    falta = validarCampo(apellido1, falta, Utiles.STR_APELLIDO1);
-    falta = validarCampo(apellido2, falta, Utiles.STR_APELLIDO2);
+    falta = Utiles.validarCampo(NIF, falta, Utiles.STR_NIF);
+    falta = Utiles.validarCampo(nombre, falta, Utiles.STR_NOMBRE);
+    falta = Utiles.validarCampo(apellido1, falta, Utiles.STR_APELLIDO1);
+    falta = Utiles.validarCampo(apellido2, falta, Utiles.STR_APELLIDO2);
     return falta;
   }
 
@@ -261,35 +261,6 @@ public final class AltaBajaPersona {
   static void mostrarDatosPersona() {
     PantallasTerminalDatos.separarPantalla();
     System.out.println(tmpPersona);
-  }
-
-  static void mostrarDatosPersona(Persona persona) {
-    PantallasTerminalDatos.separarPantalla();
-    System.out.println(persona);
-  }
-
-  private static String validarCampo(String dato, String falta, String campo) {
-    if (dato == null || dato.isEmpty() || dato.isBlank()) {
-      return falta.isEmpty() ? campo : falta + ", " + campo;
-    } else {
-      return falta;
-    }
-  }
-
-  private static String validarCampoNumero(int dato, String falta, String campo) {
-    if (dato < 0) {
-      return falta.isEmpty() ? campo : falta + ", " + campo;
-    } else {
-      return falta;
-    }
-  }
-
-  private static String validarCampoEnum(Enum dato, String falta, String campo) {
-    if (dato == null) {
-      return falta.isEmpty() ? campo : falta + ", " + campo;
-    } else {
-      return falta;
-    }
   }
 
   private static void resetCampos() {

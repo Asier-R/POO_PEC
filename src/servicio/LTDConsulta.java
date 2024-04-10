@@ -14,47 +14,36 @@ public final class LTDConsulta {
 
     switch (opt) {
       case "1": // 1. NIF
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_NIF);
         Consultas.consultarPorNIF(Utiles.inputNIF());
         break;
       case "2": // 2. Nombre
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_NOMBRE);
         Consultas.consultarPorNombre(Utiles.inputNombre());
         break;
       case "3": // 3. Primer apellido
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_APELLIDO1);
         Consultas.consultarPorPrimerApellido(Utiles.inputApellido1());
         break;
       case "4": // 4. Segundo apellido
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_APELLIDO2);
         Consultas.consultarPorSegundoApellido(Utiles.inputApellido2());
         break;
       case "5": // 5. Código unidad
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_COD_UNIDAD);
         Consultas.consultarPorCodigoUnidad(Utiles.inputCodUnidad());
         break;
       case "6": // 6. Código área
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_COD_AREA);
         Consultas.consultarPorCodigoArea(Utiles.inputCodArea());
         break;
       case "7": // 7. Código actividad
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_COD_ACTIVIDAD);
         Consultas.consultarPorCodigoActividad(Utiles.inputCodActividad());
         break;
       case "8": // 8. Código especialidad
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_COD_ACTIVIDAD);
         Consultas.consultarPorCodigoEspecialidad(Utiles.inputCodEspecialidad());
         break;
       case "9": // 9. Código segunda especialidad
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_COD_SEGUNDAESPECIALIDAD);
         Consultas.consultarPorCodigoSegundaEspecialidad(Utiles.inputCodEspecialidad());
         break;
       case "10": // 10. Experiencia
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_EXPERIENCIA);
         Consultas.consultarPorExperiencia(Utiles.inputExperiencia());
         break;
       case "11": // 11. Nombre centro
-        //PantallasTerminalDatos.pantallaCriterioConsulta(Utiles.STR_COD_ACTIVIDAD);
         Consultas.consultarPorCodigoActividad(Utiles.inputCodActividad());
         break;
       case "X": // X. Volver
@@ -84,6 +73,52 @@ public final class LTDConsulta {
       Consultas.consultarEnfermeros();
     } else { // Estudiante
       Consultas.consultarEstudiantes();
+    }
+  }
+
+  static void pantallaConsultaCualquierPersona(){
+    PantallasTerminalDatos.pantallaConsultaCualquierPersona();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Consultar personal administrativo
+        LTDConsulta.pantallaConsultaPersonal(Administrativo.class);
+        pantallaConsultaCualquierPersona();
+        break;
+      case "2": // 2. Consultar personal de mantenimiento y servicio
+        LTDConsulta.pantallaConsultaPersonal(MantenimientoServicio.class);
+        pantallaConsultaCualquierPersona();
+        break;
+      case "3": // 3. Consultar estudiantes
+        LTDConsulta.pantallaConsultaPersonal(Estudiante.class);
+        pantallaConsultaCualquierPersona();
+        break;
+      case "4": // 4. Consultar enfermeros
+        LTDConsulta.pantallaConsultaPersonal(Enfermero.class);
+        pantallaConsultaCualquierPersona();
+        break;
+      case "5": // 5. Consultar médicos
+        LTDConsulta.pantallaConsultaPersonal(Medico.class);
+        pantallaConsultaCualquierPersona();
+        break;
+      case "6": // 6. Consultar pacientes
+        LTDConsulta.pantallaConsultaPersonal(Paciente.class);
+        pantallaConsultaCualquierPersona();
+        break;
+      case "7": // 7. Otros Criterios
+        LTDConsulta.pantallaConsultaPersonas();
+        pantallaConsultaCualquierPersona();
+        break;
+      case "X": // X. Volver
+        // No hace falta nada
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaConsultaCualquierPersona();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaConsultaCualquierPersona();
+        break;
     }
   }
 }

@@ -371,28 +371,8 @@ public final class LTDGerencia {
         PantallasTerminalDatos.pantallaBajaPersonal(); // 1.1.2.1. BAJA DE PERSONAL
         AltaBajaPersona.bajaPorNIFPersona();
         break;
-      case "2": // 2. Consultar personal administrativo
-        LTDConsulta.pantallaConsultaPersonal(Administrativo.class);
-        pantallaGestionBajaPersonal();
-        break;
-      case "3": // 3. Consultar personal de mantenimiento y servicio
-        LTDConsulta.pantallaConsultaPersonal(MantenimientoServicio.class);
-        pantallaGestionBajaPersonal();
-        break;
-      case "4": // 4. Consultar estudiantes
-        LTDConsulta.pantallaConsultaPersonal(Estudiante.class);
-        pantallaGestionBajaPersonal();
-        break;
-      case "5": // 5. Consultar enfermeros
-        LTDConsulta.pantallaConsultaPersonal(Enfermero.class);
-        pantallaGestionBajaPersonal();
-        break;
-      case "6": // 6. Consultar médicos
-        LTDConsulta.pantallaConsultaPersonal(Medico.class);
-        pantallaGestionBajaPersonal();
-        break;
-      case "7": // 7. Otros Criterios
-        LTDConsulta.pantallaConsultaPersonas();
+      case "2": // 2. Consultar personal
+        LTDConsulta.pantallaConsultaCualquierPersona();
         pantallaGestionBajaPersonal();
         break;
       case "X": // X. Volver a 1.1.1. GESTIÓN DE ALTAS DE PERSONAL
@@ -409,20 +389,21 @@ public final class LTDGerencia {
   }
 
   /** Lógica de pantalla 1.1.3. GESTIÓN DE DATOS DEL PERSONAL */
-  static void pantallaGestionDatosPersonal(){
+  static void pantallaGestionDatosPersonal() {
     PantallasTerminalDatos.pantallaGestionDatosPersonal();
     String opt = Utiles.leerLinea().toUpperCase();
 
     switch (opt) {
       case "1": // 1. Crear Cita
+        Gerencia.tmpCita = null;
         pantallaCrearCita();
         pantallaGestionDatosPersonal();
         break;
       case "2": // 2. Consultar agenda del personal sanitario
-
+        // TODO: crear consulta
         break;
       case "3": // 3. Modificar agenda del personal sanitario
-
+        // TODO: crear modificación de citas
         break;
       case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
         pantallaGestionPersonal();
@@ -438,25 +419,26 @@ public final class LTDGerencia {
   }
 
   /** Lógica de pantalla 1.1.3.1. CREAR CITA */
-  static void pantallaCrearCita(){
-    PantallasTerminalDatos.pantallaGestionDatosPersonal();
+  static void pantallaCrearCita() {
+    PantallasTerminalDatos.pantallaCrearCita();
     String opt = Utiles.leerLinea().toUpperCase();
     // TODO: crear la cita con las personas implicadas, lugar (tarde mañana) y fecha
 
     switch (opt) {
       case "1": // 1. Seleccionar Paciente
-        PantallasTerminalDatos.pantallaBuscarPersona(Utiles.STR_PACIENTE);
-        // TODO: selección de paciente
+        pantallaSeleccionarPaciente();
         break;
       case "2": // 2. Seleccionar Sanitario
-        PantallasTerminalDatos.pantallaBuscarPersona(Utiles.STR_SANITARIO);
-        // TODO: selección de sanitario
+        pantallaSeleccionarPersonal();
         break;
       case "3": // 3. Introducir fecha
-        // TODO: pantalla fecha
-        // TODO: selección de fecha
+        Gerencia.fechaCita = Utiles.inputFecha();
         break;
       case "4": // 4. Seleccionar lugar de la cita
+        Gerencia.seleccionarUbicacion();
+        break;
+      case "5": // 5. Crea cita
+        Gerencia.crearCita();
         // TODO: pantalla lugar
         // TODO: selección de lugar
         break;
@@ -468,7 +450,57 @@ public final class LTDGerencia {
         PantallasTerminalDatos.pantallaCierre();
         break;
       default: // Permanecer en la pantalla
-        pantallaGestionDatosPersonal();
+        pantallaCrearCita();
+        break;
+    }
+  }
+
+  static void pantallaSeleccionarPaciente() {
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Seleccionar por NIF
+        Gerencia.seleccionarPaciente();
+        pantallaSeleccionarPaciente();
+        break;
+      case "2": // 2. Consultar personas
+        LTDConsulta.pantallaConsultaCualquierPersona();
+        pantallaSeleccionarPaciente();
+        break;
+      case "X": // X. Volver a 1.1.3.1. CREAR CITA
+        pantallaCrearCita();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaSeleccionarPaciente();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaSeleccionarPaciente();
+        break;
+    }
+  }
+
+  static void pantallaSeleccionarPersonal() {
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Seleccionar por NIF
+        Gerencia.seleccionarPersonal();
+        pantallaSeleccionarPaciente();
+        break;
+      case "2": // 2. Consultar personas
+        LTDConsulta.pantallaConsultaCualquierPersona();
+        pantallaSeleccionarPaciente();
+        break;
+      case "X": // X. Volver a 1.1.3.1. CREAR CITA
+        pantallaCrearCita();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaSeleccionarPaciente();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaSeleccionarPaciente();
         break;
     }
   }
@@ -476,6 +508,5 @@ public final class LTDGerencia {
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE PACIENTES
   ------------------------------------------------------------------------------------------------------------------ */
-
 
 }

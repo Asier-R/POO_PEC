@@ -146,7 +146,7 @@ public final class PantallasTerminalDatos {
     System.out.println(">>> 1.1.2. GESTIÓN DE BAJAS DE PERSONAL");
     System.out.println("> 1. Baja por NIF");
     System.out.println();
-    pantallaConsultaSeleccionPersonal();
+    System.out.println("> 2. Consultar personas");
     opcionesComunes();
   }
 
@@ -177,6 +177,8 @@ public final class PantallasTerminalDatos {
     System.out.println("> 2. Seleccionar Sanitario");
     System.out.println("> 3. Introducir fecha");
     System.out.println("> 4. Seleccionar lugar de la cita");
+    System.out.println("> 5. Crea cita");
+    System.out.println("> 6. Consultar");
     System.out.println();
     opcionesComunes();
   }
@@ -193,6 +195,18 @@ public final class PantallasTerminalDatos {
     System.out.println("> 4. Consultar estudiantes");
     System.out.println("> 5. Consultar enfermeros");
     System.out.println("> 6. Consultar médicos");
+    System.out.println("> 7. Otros Criterios");
+  }
+
+  /** Pantalla común de selección de personas a consultar */
+  static void pantallaConsultaCualquierPersona() {
+    System.out.println(">> Consultar personal");
+    System.out.println("> 1. Consultar personal administrativo");
+    System.out.println("> 2. Consultar personal de mantenimiento y servicio");
+    System.out.println("> 3. Consultar estudiantes");
+    System.out.println("> 4. Consultar enfermeros");
+    System.out.println("> 5. Consultar médicos");
+    System.out.println("> 6. Consultar pacientes");
     System.out.println("> 7. Otros Criterios");
   }
 
@@ -213,15 +227,15 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla búsqueda de personas. */
-  static void pantallaBuscarPersona(String persona) {
+  static void pantallaBuscarPersona() {
     separarPantalla();
     System.out.println(">>> PANTALLA DE SELECCIÓN");
-    System.out.println("> Introduzca el NIF del "+persona);
+    System.out.println("> 1. Seleccionar por NIF");
     System.out.println();
-    pantallaConsultaSeleccionPersonal();
+    System.out.println("> 2. Consultar personas");
+    pantallaConsultaCualquierPersona();
     opcionesComunes();
   }
-
 
   static void pantallaCriterioConsulta(String criterio) {
     System.out.println("> Introduzca/seleccione el " + criterio);
@@ -291,6 +305,11 @@ public final class PantallasTerminalDatos {
   /** Pantalla aviso persona no encontrada */
   static void pantallaAvisoPersonaNoEncontrada(String nif) {
     System.out.println("> AVISO: No se ha encontrado la persona con NIF " + nif);
+  }
+
+  /** Pantalla aviso de formato de fecha errónea */
+  static void pantallaAvisoFormatoErroneo() {
+    System.out.println("> AVISO: formato de fecha no válido...vuelva a intentarlo...");
   }
 
   /** Pantalla datos grabados */

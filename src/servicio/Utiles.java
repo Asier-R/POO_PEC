@@ -1,11 +1,14 @@
 package servicio;
 
 import entidad.persona.Administrativo;
+import entidad.persona.Persona;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Scanner;
 
 public final class Utiles {
@@ -25,6 +28,8 @@ public final class Utiles {
   static final String SI = "S";
   static final String STR_PACIENTE = "Paciente";
   static final String STR_SANITARIO = "Sanitario";
+  static final String STR_FECHA = "Fecha";
+  static final String STR_FORMATO_FECHA = "HH:MM:SS DD/MM/AAAA";
 
   /** Lector de input de usuario. */
   private static Scanner reader;
@@ -40,6 +45,11 @@ public final class Utiles {
 
   static void cerrarLectorDeEntradas() {
     reader.close();
+  }
+
+  static void mostrarDatosPersona(Persona persona) {
+    PantallasTerminalDatos.separarPantalla();
+    System.out.println(persona);
   }
 
   /**
@@ -143,5 +153,73 @@ public final class Utiles {
     Administrativo.Grupo.mostrarPorPantalla();
     int opt = leerNumero();
     return Administrativo.Grupo.getFromId(opt);
+  }
+
+  /** Método recursivo para obtener una fecha. */
+  static ZonedDateTime inputFecha() {
+    PantallasTerminalDatos.pantallaIntroducirDato(STR_FECHA+" en el formato "+STR_FORMATO_FECHA);
+    String str = leerLinea();
+    ZonedDateTime fecha = null;
+    try {
+      fecha = ZonedDateTime.parse(str);
+    } catch (Exception e) {
+      PantallasTerminalDatos.pantallaAvisoFormatoErroneo();
+      fecha = inputFecha();
+    }
+    return fecha;
+  }
+
+  /** Método para validar un campo de texto. */
+  static String validarCampo(String dato, String falta, String campo) {
+    if (dato == null || dato.isEmpty() || dato.isBlank()) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
+  }
+
+  /** Método para validar un campo numérico. */
+  static String validarCampoNumero(int dato, String falta, String campo) {
+    if (dato < 0) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
+  }
+
+  /** Método para validar un campo enumerable. */
+  static String validarCampoEnum(Enum dato, String falta, String campo) {
+    if (dato == null) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
+  }
+
+  /** Método para validar un campo fecha. */
+  static String validarCampoFecha(ZonedDateTime dato, String falta, String campo) {
+    if (dato == null) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
+  }
+
+  /** Método para validar un campo persona. */
+  static String validarCampoPersona(Persona dato, String falta, String campo) {
+    if (dato == null) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
+  }
+
+  /** Método para validar un campo persona. */
+  static String validarCampoPersona(List<? extends Persona> dato, String falta, String campo) {
+    if (dato == null || dato.isEmpty()) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
   }
 }

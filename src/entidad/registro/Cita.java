@@ -6,7 +6,6 @@ import entidad.unidad.Unidad;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 /** Apunte en la agenda de un sanitario que tiene resguardo en el expediente */
@@ -22,7 +21,7 @@ public class Cita implements Comparable<Cita> {
     N(22);
 
     /** Hora inicial rango. */
-    private int inicio;
+    private final int inicio;
 
     /**
      * Constructor de Horario.
@@ -38,19 +37,19 @@ public class Cita implements Comparable<Cita> {
   private Horario horario;
 
   /** Fecha en la que se ha creado la cita. */
-  private ZonedDateTime fechaCreacion;
+  private final ZonedDateTime fechaCreacion;
 
   /** Fecha en la que se cita al paciente en una unidad junto con el sanitario que le atiende. */
   private ZonedDateTime fechaCita;
 
   /** Paciente citado para recibir la atención sanitaria */
-  private Paciente paciente;
+  private final Paciente paciente;
 
   /** Personal sanitario implicado en la cita. Pueden ser médicos, enfermeros o estudiantes. */
-  private List<Sanitario> sanitarios;
+  private final List<Sanitario> sanitarios;
 
   /** Unidad destíno de la cita. */
-  private Unidad unidad;
+  private final Unidad ubicacion;
 
   /** Indica si la cita ha vencido. */
   private boolean vencida;
@@ -63,12 +62,14 @@ public class Cita implements Comparable<Cita> {
    * @param fechaCita Fecha de la cita.
    * @param paciente Paciente.
    */
-  public Cita(ZonedDateTime fechaCreacion, ZonedDateTime fechaCita, Paciente paciente) {
+  public Cita(
+      ZonedDateTime fechaCreacion, ZonedDateTime fechaCita, Paciente paciente, Unidad ubicacion) {
     this.fechaCreacion = ZonedDateTime.now();
     this.fechaCita = fechaCita;
     this.paciente = paciente;
     this.sanitarios = new ArrayList<>();
     this.vencida = false;
+    this.ubicacion = ubicacion;
     determinarHorario(fechaCreacion);
   }
 
@@ -87,10 +88,6 @@ public class Cita implements Comparable<Cita> {
     return fechaCita;
   }
 
-  public void setFechaCita(ZonedDateTime fechaCita) {
-    this.fechaCita = fechaCita;
-  }
-
   public Paciente getPaciente() {
     return paciente;
   }
@@ -105,6 +102,18 @@ public class Cita implements Comparable<Cita> {
 
   public void setVencida() {
     this.vencida = true;
+  }
+
+  public Horario getHorario() {
+    return horario;
+  }
+
+  public Unidad getUbicacion() {
+    return ubicacion;
+  }
+
+  public boolean isVencida() {
+    return vencida;
   }
 
   @Override

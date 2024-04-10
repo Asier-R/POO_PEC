@@ -34,8 +34,10 @@ public final class LogicaTerminalDatos {
         pantallaGerencia();
         break;
       case "2": // 2. Servicios de Mantenimiento
+        // TODO: meter algo
         break;
       case "3": // 3. Servicios Médicos
+        // TODO: importante implementarlo
         break;
       case "X": // X. Volver. En este punto es igual a finalizar.
         if (!finPrograma()) pantallaInicio();
@@ -60,10 +62,13 @@ public final class LogicaTerminalDatos {
         LTDGerencia.pantallaGestionPersonal();
         break;
       case "2": // 2. Gestión de pacientes
+        // TODO: hacer gestión de pacientes
         break;
       case "3": // 3. Gestión Contable
+        // TODO: lo que toque aquí
         break;
       case "4": // 4. Gestión mantenimiento
+        // TODO: meter alguna historia
         break;
       case "X": // X. Volver a 0. INICIO
         pantallaInicio();
