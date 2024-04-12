@@ -8,11 +8,6 @@ public class Main {
 
     LogicaTerminalDatos.iniciarLogicaTerminalDatos();
 
-    // TODO: instanciar la consola con la que interactua el usuario
-    // TODO: añadir las pantallas de las funcionalidades
-    // TODO: crear lógica de navegación entre pantallas
-    // TODO: guardar lista personas despues de borrar una
-
     System.out.println();
 
   }

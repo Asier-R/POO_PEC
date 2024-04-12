@@ -5,31 +5,36 @@ import entidad.persona.Sanitario;
 import entidad.unidad.Unidad;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 /** Apunte en la agenda de un sanitario que tiene resguardo en el expediente */
 public class Cita implements Comparable<Cita> {
 
+  final String STR_FORMATO_FECHA = "HH:mm:ss dd-MM-uuuu";
+
   /**
    * Horario de la cita. Puede ser de mañana o de tarde. Mañana (M) de 6am a 2pm, Tarde (T) de 2pm a
    * 10pm y Noche (N) de 10pm a 6am.
    */
   public enum Horario {
-    M(6),
-    T(13),
-    N(22);
+    M(6, "Mañana"),
+    T(13,"Tarde"),
+    N(22, "Noche");
 
     /** Hora inicial rango. */
     private final int inicio;
+    private final String descripcion;
 
     /**
      * Constructor de Horario.
      *
      * @param inicio Hora inicial.
      */
-    private Horario(int inicio) {
+    private Horario(int inicio, String descripcion) {
       this.inicio = inicio;
+      this.descripcion = descripcion;
     }
   }
 
@@ -43,13 +48,13 @@ public class Cita implements Comparable<Cita> {
   private ZonedDateTime fechaCita;
 
   /** Paciente citado para recibir la atención sanitaria */
-  private final Paciente paciente;
+  private Paciente paciente;
 
   /** Personal sanitario implicado en la cita. Pueden ser médicos, enfermeros o estudiantes. */
   private final List<Sanitario> sanitarios;
 
   /** Unidad destíno de la cita. */
-  private final Unidad ubicacion;
+  private Unidad ubicacion;
 
   /** Indica si la cita ha vencido. */
   private boolean vencida;
@@ -88,8 +93,17 @@ public class Cita implements Comparable<Cita> {
     return fechaCita;
   }
 
+  public void setFechaCita(ZonedDateTime fechaCita){
+    this.fechaCita = fechaCita;
+    if(this.fechaCita!=null)determinarHorario(this.fechaCita);
+  }
+
   public Paciente getPaciente() {
     return paciente;
+  }
+
+  public void setPaciente(Paciente paciente){
+    this.paciente = paciente;
   }
 
   public List<Sanitario> getSanitarios() {
@@ -112,6 +126,10 @@ public class Cita implements Comparable<Cita> {
     return ubicacion;
   }
 
+  public void setUbicacion(Unidad ubicacion){
+    this.ubicacion = ubicacion;
+  }
+
   public boolean isVencida() {
     return vencida;
   }
@@ -119,5 +137,49 @@ public class Cita implements Comparable<Cita> {
   @Override
   public int compareTo(Cita c) {
     return this.getFechaCita().compareTo(c.getFechaCita());
+  }
+
+  @Override
+  public String toString() {
+    return "Cita: "
+            + "\n"
+            + "Fecha Creación: " + (printFecha(this.getFechaCreacion()))
+            + "\n"
+            + "Fecha Cita: " + (printFecha(this.getFechaCita()))
+            + "\n"
+            + "Horario: " + printHorario()
+            + "\n"
+            + "Vencida: " + this.isVencida()
+            + "\n"
+            + "Ubicación: " + (this.getUbicacion()==null?"":this.getUbicacion().getNombre())
+            + "\n"
+            + "Paciente: " + printPaciente()
+            + "\n"
+            + "Sanitarios: " + printSanitarios();
+  }
+
+  public String printHorario(){
+    if(this.getHorario()!= null) return this.getHorario().descripcion;
+    else return "";
+  }
+
+  public String printPaciente(){
+    String paciente = "";
+    if(this.getPaciente()!=null) paciente = this.getPaciente().toString().replace("\n","  ");
+    return paciente;
+  }
+
+  public String printSanitarios(){
+    StringBuilder sanitarios = new StringBuilder("\n");
+    if(this.getSanitarios()!=null)this.getSanitarios().forEach(s -> sanitarios.append(s.toString().replace("\n","  ")).append("\n"));
+    return sanitarios.toString();
+  }
+
+  public String printFecha(ZonedDateTime fecha){
+    if(fecha != null){
+      return fecha.format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
+    }else {
+      return "";
+    }
   }
 }

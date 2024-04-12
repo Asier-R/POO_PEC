@@ -2,12 +2,16 @@ package servicio;
 
 import entidad.persona.Administrativo;
 import entidad.persona.Persona;
+import entidad.unidad.Unidad;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,7 +33,9 @@ public final class Utiles {
   static final String STR_PACIENTE = "Paciente";
   static final String STR_SANITARIO = "Sanitario";
   static final String STR_FECHA = "Fecha";
-  static final String STR_FORMATO_FECHA = "HH:MM:SS DD/MM/AAAA";
+  static final String STR_FECHA_CITA = "Fecha Cita";
+  static final String STR_FORMATO_FECHA = "HH:mm:ss dd-MM-uuuu";
+  static final String STR_ZONA = "Europe/Madrid";
 
   /** Lector de input de usuario. */
   private static Scanner reader;
@@ -133,7 +139,7 @@ public final class Utiles {
   /** Método para obtener el código de área. */
   static CodigoActividadEnum inputCodActividad() {
     PantallasTerminalDatos.pantallaSeleccionarCodigo(
-        STR_COD_ACTIVIDAD + " (lugar donde realiza su actividad)");
+        STR_COD_ACTIVIDAD + " (lugar donde se realiza la actividad)");
     CodigoActividadEnum.mostrarPorPantalla();
     int opt = leerNumero();
     return CodigoActividadEnum.getFromId(opt);
@@ -157,11 +163,14 @@ public final class Utiles {
 
   /** Método recursivo para obtener una fecha. */
   static ZonedDateTime inputFecha() {
-    PantallasTerminalDatos.pantallaIntroducirDato(STR_FECHA+" en el formato "+STR_FORMATO_FECHA);
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern(STR_FORMATO_FECHA);
+    PantallasTerminalDatos.pantallaIntroducirDato(
+        STR_FECHA + " en el formato " + STR_FORMATO_FECHA);
     String str = leerLinea();
-    ZonedDateTime fecha = null;
+    ZonedDateTime fecha;
     try {
-      fecha = ZonedDateTime.parse(str);
+      LocalDateTime ldt = LocalDateTime.parse(str, dtf);
+      fecha = ldt.atZone(ZoneId.of(STR_ZONA));
     } catch (Exception e) {
       PantallasTerminalDatos.pantallaAvisoFormatoErroneo();
       fecha = inputFecha();
@@ -217,6 +226,15 @@ public final class Utiles {
   /** Método para validar un campo persona. */
   static String validarCampoPersona(List<? extends Persona> dato, String falta, String campo) {
     if (dato == null || dato.isEmpty()) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
+  }
+
+  /** Método para validar un campo unidad. */
+  static String validarCampoUnidad(Unidad dato, String falta, String campo) {
+    if (dato == null) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
     } else {
       return falta;

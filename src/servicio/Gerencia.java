@@ -6,38 +6,26 @@ import entidad.unidad.Unidad;
 import enumerado.CodigoActividadEnum;
 
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 
 /** Clase encargada de implementar las operaciones o actividades llevadas a cabo por gerencia. */
 public final class Gerencia {
 
-  /** Variable temporal para conservar el horario de la cita. */
-  static Cita.Horario horario;
-
-  /** Variable temporal para conservar la fecha de creación de la cita. */
-  static ZonedDateTime fechaCreacion;
-
   /** Variable temporal para conservar la fecha de la cita. */
   static ZonedDateTime fechaCita;
 
-  /** Variable temporal para conservar el paciente de la cita. */
-  static Paciente paciente;
-
-  /** Variable temporal para conservar los sanitarios de la cita. */
-  static List<Sanitario> sanitarios;
-
-  /** Variable temporal para conservar el lugar de la cita. */
-  static Unidad ubicacion;
-
-  /** Variable temporal para conservar el estado de la cita. */
-  static boolean vencida;
-
   static Cita tmpCita;
 
+  static void iniciarCita(){
+    tmpCita = new Cita(ZonedDateTime.now(), ZonedDateTime.now(), null, null);
+  }
+
+  static void seleccionarFechaCita(){
+    tmpCita.setFechaCita(Utiles.inputFecha());
+  }
+
   static void seleccionarPaciente() {
-    String nif = Utiles.leerLinea(); // Obtener nif
+    String nif = Utiles.inputNIF(); // Obtener nif
     try {
       Paciente pct =
           LogicaTerminalDatos.getHospital().getPacientes().stream()
@@ -49,7 +37,7 @@ public final class Gerencia {
 
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
-        paciente = pct;
+        tmpCita.setPaciente(pct);
       }
     } catch (NoSuchElementException e) {
       PantallasTerminalDatos.pantallaAvisoPersonaNoEncontrada(nif);
@@ -58,7 +46,7 @@ public final class Gerencia {
   }
 
   static void seleccionarPersonal() {
-    String nif = Utiles.leerLinea(); // Obtener nif
+    String nif = Utiles.inputNIF(); // Obtener nif
     try {
       Personal sanitario =
           LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -74,8 +62,7 @@ public final class Gerencia {
 
       PantallasTerminalDatos.pantallaConfirmacion();
       if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
-        if (sanitarios == null) sanitarios = new ArrayList<>();
-        sanitarios.add((Sanitario) sanitario);
+        tmpCita.addSanitario((Sanitario) sanitario);
       }
     } catch (NoSuchElementException e) {
       PantallasTerminalDatos.pantallaAvisoPersonaNoEncontrada(nif);
@@ -90,30 +77,25 @@ public final class Gerencia {
             .filter(u -> u.getCodigoActividad().equals(cod))
             .findFirst()
             .orElseThrow();
-    ubicacion = unidad;
+    tmpCita.setUbicacion(unidad);
   }
 
-
-
   static void crearCita(){
-    tmpCita = new Cita(fechaCreacion, fechaCita, paciente, ubicacion);
     String falta = "";
     falta = validarCita(falta);
-    // TODO: terminar creación de citas
 
-//    if (falta.isEmpty()) {
-//      iniciarEstudiante();
-//      PantallasTerminalDatos.pantallaConfirmacion();
-//      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
-//        AltaBajaPersona.grabarPersona();
-//        LTDGerencia.pantallaGestionPersonalAlta();
-//        return;
-//      }
-//    } else {
-//      System.out.println("Faltan los siguientes campos: " + falta);
-//    }
-//    LTDGerencia.pantallaAltaEstudiante();
+    if (falta.isEmpty()) {
+      PantallasTerminalDatos.pantallaConfirmacion();
 
+      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+        asignarCita();
+        LTDGerencia.pantallaCrearCita();
+        return;
+      }
+    } else {
+      System.out.println("Faltan los siguientes campos: " + falta);
+    }
+    LTDGerencia.pantallaCrearCita();
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
@@ -121,10 +103,21 @@ public final class Gerencia {
   ------------------------------------------------------------------------------------------------------------------ */
 
   private static String validarCita(String falta) {
-    falta = Utiles.validarCampoFecha(fechaCita, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = Utiles.validarCampoPersona(paciente, falta, Utiles.STR_COD_ACTIVIDAD);
-    falta = Utiles.validarCampoPersona(sanitarios, falta, Utiles.STR_COD_ACTIVIDAD);
+    falta = Utiles.validarCampoFecha(tmpCita.getFechaCita(), falta, Utiles.STR_FECHA_CITA);
+    falta = Utiles.validarCampoPersona(tmpCita.getPaciente(), falta, Utiles.STR_PACIENTE);
+    falta = Utiles.validarCampoPersona(tmpCita.getSanitarios(), falta, Utiles.STR_SANITARIO);
+    falta = Utiles.validarCampoUnidad(tmpCita.getUbicacion(), falta, Utiles.STR_COD_ACTIVIDAD);
     return falta;
+  }
+
+  static void mostrarDatosCita() {
+    PantallasTerminalDatos.separarPantalla();
+    System.out.println(tmpCita);
+  }
+
+  private static void asignarCita(){
+    tmpCita.getPaciente().setCita(tmpCita);
+    tmpCita.getSanitarios().forEach(s -> s.getCitas().add(tmpCita));
   }
 
 }

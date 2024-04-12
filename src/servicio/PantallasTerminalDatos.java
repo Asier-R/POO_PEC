@@ -179,24 +179,12 @@ public final class PantallasTerminalDatos {
     System.out.println("> 4. Seleccionar lugar de la cita");
     System.out.println("> 5. Crea cita");
     System.out.println("> 6. Consultar");
-    System.out.println();
     opcionesComunes();
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE CONSULTA
   ------------------------------------------------------------------------------------------------------------------ */
-
-  /** Pantalla común de selección de personal a consultar */
-  private static void pantallaConsultaSeleccionPersonal() {
-    System.out.println(">> Consultar personal");
-    System.out.println("> 2. Consultar personal administrativo");
-    System.out.println("> 3. Consultar personal de mantenimiento y servicio");
-    System.out.println("> 4. Consultar estudiantes");
-    System.out.println("> 5. Consultar enfermeros");
-    System.out.println("> 6. Consultar médicos");
-    System.out.println("> 7. Otros Criterios");
-  }
 
   /** Pantalla común de selección de personas a consultar */
   static void pantallaConsultaCualquierPersona() {
@@ -208,6 +196,7 @@ public final class PantallasTerminalDatos {
     System.out.println("> 5. Consultar médicos");
     System.out.println("> 6. Consultar pacientes");
     System.out.println("> 7. Otros Criterios");
+    opcionesComunes();
   }
 
   /** Pantalla común de consulta de personas */
@@ -224,6 +213,7 @@ public final class PantallasTerminalDatos {
     System.out.println("> 9. Código segunda especialidad");
     System.out.println("> 10. Experiencia");
     System.out.println("> 11. Nombre centro");
+    opcionesComunes();
   }
 
   /** Pantalla búsqueda de personas. */
@@ -233,16 +223,15 @@ public final class PantallasTerminalDatos {
     System.out.println("> 1. Seleccionar por NIF");
     System.out.println();
     System.out.println("> 2. Consultar personas");
-    pantallaConsultaCualquierPersona();
     opcionesComunes();
-  }
-
-  static void pantallaCriterioConsulta(String criterio) {
-    System.out.println("> Introduzca/seleccione el " + criterio);
   }
 
   static void pantallaConsultaSinResultados() {
     System.out.println("> AVISO: No se han encontrado resultados...");
+  }
+
+  static void pantallaConsultaAgendaVacia() {
+    System.out.println("> INFO: Este sanitario tiene la agenda vacía.");
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

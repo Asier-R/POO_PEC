@@ -395,15 +395,16 @@ public final class LTDGerencia {
 
     switch (opt) {
       case "1": // 1. Crear Cita
-        Gerencia.tmpCita = null;
+        Gerencia.iniciarCita();
         pantallaCrearCita();
-        pantallaGestionDatosPersonal();
         break;
       case "2": // 2. Consultar agenda del personal sanitario
-        // TODO: crear consulta
+        pantallaConsultaAgenda();
         break;
       case "3": // 3. Modificar agenda del personal sanitario
         // TODO: crear modificación de citas
+        // TODO: probar pantallaConsulta
+
         break;
       case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
         pantallaGestionPersonal();
@@ -422,7 +423,6 @@ public final class LTDGerencia {
   static void pantallaCrearCita() {
     PantallasTerminalDatos.pantallaCrearCita();
     String opt = Utiles.leerLinea().toUpperCase();
-    // TODO: crear la cita con las personas implicadas, lugar (tarde mañana) y fecha
 
     switch (opt) {
       case "1": // 1. Seleccionar Paciente
@@ -432,18 +432,22 @@ public final class LTDGerencia {
         pantallaSeleccionarPersonal();
         break;
       case "3": // 3. Introducir fecha
-        Gerencia.fechaCita = Utiles.inputFecha();
+        Gerencia.seleccionarFechaCita();
+        pantallaCrearCita();
         break;
       case "4": // 4. Seleccionar lugar de la cita
         Gerencia.seleccionarUbicacion();
+        pantallaCrearCita();
         break;
       case "5": // 5. Crea cita
         Gerencia.crearCita();
-        // TODO: pantalla lugar
-        // TODO: selección de lugar
+        break;
+      case "6": // 6. Consultar
+        Gerencia.mostrarDatosCita();
+        pantallaCrearCita();
         break;
       case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
-        pantallaGestionPersonal();
+        pantallaGestionDatosPersonal();
         break;
       case "Z": // Z. Finalizar
         if (!LogicaTerminalDatos.finPrograma()) pantallaGestionDatosPersonal();
@@ -456,6 +460,7 @@ public final class LTDGerencia {
   }
 
   static void pantallaSeleccionarPaciente() {
+    PantallasTerminalDatos.pantallaBuscarPersona();
     String opt = Utiles.leerLinea().toUpperCase();
 
     switch (opt) {
@@ -481,28 +486,56 @@ public final class LTDGerencia {
   }
 
   static void pantallaSeleccionarPersonal() {
+    PantallasTerminalDatos.pantallaBuscarPersona();
     String opt = Utiles.leerLinea().toUpperCase();
 
     switch (opt) {
       case "1": // 1. Seleccionar por NIF
         Gerencia.seleccionarPersonal();
-        pantallaSeleccionarPaciente();
+        pantallaSeleccionarPersonal();
         break;
       case "2": // 2. Consultar personas
         LTDConsulta.pantallaConsultaCualquierPersona();
-        pantallaSeleccionarPaciente();
+        pantallaSeleccionarPersonal();
         break;
       case "X": // X. Volver a 1.1.3.1. CREAR CITA
         pantallaCrearCita();
         break;
       case "Z": // Z. Finalizar
-        if (!LogicaTerminalDatos.finPrograma()) pantallaSeleccionarPaciente();
+        if (!LogicaTerminalDatos.finPrograma()) pantallaSeleccionarPersonal();
         PantallasTerminalDatos.pantallaCierre();
         break;
       default: // Permanecer en la pantalla
-        pantallaSeleccionarPaciente();
+        pantallaSeleccionarPersonal();
         break;
     }
+  }
+
+  static void pantallaConsultaAgenda(){
+    PantallasTerminalDatos.pantallaBuscarPersona();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Seleccionar por NIF
+        Consultas.consultarAgendaPorNIF(Utiles.inputNIF());
+        pantallaConsultaAgenda();
+        break;
+      case "2": // 2. Consultar personas
+        LTDConsulta.pantallaConsultaCualquierPersona();
+        pantallaConsultaAgenda();
+        break;
+      case "X": // X. Volver
+        pantallaGestionDatosPersonal();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaConsultaAgenda();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaConsultaAgenda();
+        break;
+    }
+
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

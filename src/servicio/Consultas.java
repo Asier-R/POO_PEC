@@ -1,6 +1,7 @@
 package servicio;
 
 import entidad.persona.*;
+import entidad.registro.Cita;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
@@ -8,6 +9,7 @@ import enumerado.CodigoUnidadEnum;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Clase encargada de realizar consultas necesarias para complementar a {@link LogicaTerminalDatos}
@@ -21,46 +23,50 @@ public final class Consultas {
 
   /** Consulta por NIF. */
   static void consultarPorNIF(String NIF) {
-    List<Personal> personal =
-        LogicaTerminalDatos.getHospital().getPersonal().stream()
+    List<Persona> personas = obtenerTodasLasPersonas();
+    personas =
+        personas.stream()
             .filter(p -> p.getNIF().toUpperCase().contains(NIF.toUpperCase()))
             .collect(Collectors.toList());
 
-    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
-    else personal.forEach(Consultas::presentar);
+    if (personas.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personas.forEach(Consultas::presentar);
   }
 
   /** Consulta por nombre. */
   static void consultarPorNombre(String nombre) {
-    List<Personal> personal =
-        LogicaTerminalDatos.getHospital().getPersonal().stream()
+    List<Persona> personas = obtenerTodasLasPersonas();
+    personas =
+        personas.stream()
             .filter(p -> p.getNombre().toUpperCase().contains(nombre.toUpperCase()))
             .collect(Collectors.toList());
 
-    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
-    else personal.forEach(Consultas::presentar);
+    if (personas.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personas.forEach(Consultas::presentar);
   }
 
   /** Consulta por primer apellido. */
   static void consultarPorPrimerApellido(String apellido) {
-    List<Personal> personal =
-        LogicaTerminalDatos.getHospital().getPersonal().stream()
+    List<Persona> personas = obtenerTodasLasPersonas();
+    personas =
+        personas.stream()
             .filter(p -> p.getApellido1().toUpperCase().contains(apellido.toUpperCase()))
             .collect(Collectors.toList());
 
-    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
-    else personal.forEach(Consultas::presentar);
+    if (personas.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personas.forEach(Consultas::presentar);
   }
 
   /** Consulta por segundo apellido. */
   static void consultarPorSegundoApellido(String apellido) {
-    List<Personal> personal =
-        LogicaTerminalDatos.getHospital().getPersonal().stream()
+    List<Persona> personas = obtenerTodasLasPersonas();
+    personas =
+        personas.stream()
             .filter(p -> p.getApellido2().toUpperCase().contains(apellido.toUpperCase()))
             .collect(Collectors.toList());
 
-    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
-    else personal.forEach(Consultas::presentar);
+    if (personas.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else personas.forEach(Consultas::presentar);
   }
 
   /** Consulta por código unidad. */
@@ -198,11 +204,52 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
+  /** Consulta por NIF. */
+  static void consultarAgendaPorNIF(String NIF) {
+    List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+    Sanitario sanitario =
+        (Sanitario)
+            personal.stream()
+                .filter(p -> p.getNIF().toUpperCase().contains(NIF.toUpperCase()))
+                .findFirst()
+                .orElseThrow();
+
+    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else verAgenda(sanitario);
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
 
   private static void presentar(Persona persona) {
     System.out.println(persona.toString().replace("\n", "  "));
+  }
+
+  private static void verAgenda(Sanitario sanitario) {
+    List<Cita> citas = sanitario.getCitas();
+    if (citas != null) {
+      int contador = 1;
+      citas.forEach(c -> printAgenda(String.valueOf(contador), c));
+    } else {
+      PantallasTerminalDatos.pantallaConsultaAgendaVacia();
+    }
+  }
+
+  private static String printAgenda(String contador, Cita cita) {
+    return contador
+        + ". Cita -> "
+        + "Fecha Cita: "
+        + (cita.printFecha(cita.getFechaCita()))
+        + "Horario: "
+        + cita.printHorario()
+        + "Ubicación: "
+        + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre());
+  }
+
+  private static List<Persona> obtenerTodasLasPersonas() {
+    List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+    List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
+    return Stream.concat(personal.stream(), pacientes.stream()).collect(Collectors.toList());
   }
 }

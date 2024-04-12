@@ -6,6 +6,7 @@ import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /** Subclase abstracta de {@link Personal} para representar el personal Sanitario de un Hospital. */
@@ -80,6 +81,7 @@ public abstract class Sanitario extends Personal {
     this.experiencia = experiencia;
     this.tipoSanitario = tipoSanitario;
     this.codigoEspecialidad = codigoEspecialidad;
+    this.citas = new ArrayList<>();
   }
 
   /**
