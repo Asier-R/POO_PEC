@@ -182,6 +182,26 @@ public final class PantallasTerminalDatos {
     opcionesComunes();
   }
 
+  /** Pantalla selección de cita */
+  static void pantallaSeleccionarCita() {
+    System.out.println("> Seleccione el número de cita a borrar...");
+  }
+
+  /** Pantalla de aviso selección de cita */
+  static void pantallaAvisoSeleccionCita() {
+    System.out.println("> Número de cita no válido...");
+  }
+
+  /** Pantalla de aviso no creación de cita. */
+  static void pantallaAvisoCitaNoCreada() {
+    System.out.println("> AVISO: No se ha creado la cita...");
+  }
+
+  /** Pantalla de aviso sanitario ya asignado. */
+  static void pantallaAvisoSanitarioYaAsignado() {
+    System.out.println("> AVISO: El sanitario ya ha sido asignado previamente...");
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE CONSULTA
   ------------------------------------------------------------------------------------------------------------------ */
@@ -226,10 +246,7 @@ public final class PantallasTerminalDatos {
     opcionesComunes();
   }
 
-  static void pantallaConsultaSinResultados() {
-    System.out.println("> AVISO: No se han encontrado resultados...");
-  }
-
+  /** Pantalla informativa de agenda vacía. */
   static void pantallaConsultaAgendaVacia() {
     System.out.println("> INFO: Este sanitario tiene la agenda vacía.");
   }
@@ -291,9 +308,24 @@ public final class PantallasTerminalDatos {
     System.out.println("> AVISO: se van a grabar los datos...");
   }
 
+  /** Pantalla aviso de borrado de datos */
+  static void pantallaAvisoBorrado() {
+    System.out.println("> AVISO: se van a borrar los datos...");
+  }
+
   /** Pantalla aviso persona no encontrada */
   static void pantallaAvisoPersonaNoEncontrada(String nif) {
     System.out.println("> AVISO: No se ha encontrado la persona con NIF " + nif);
+  }
+
+  /** Pantalla aviso de no disponibilidad de agenda */
+  static void pantallaAvisoAgendaOcupada() {
+    System.out.println("> AVISO: Ya existe una cita para esa fecha...");
+  }
+
+  /** Pantalla aviso sin resultados */
+  static void pantallaConsultaSinResultados() {
+    System.out.println("> AVISO: No se han encontrado resultados...");
   }
 
   /** Pantalla aviso de formato de fecha errónea */
@@ -304,6 +336,11 @@ public final class PantallasTerminalDatos {
   /** Pantalla datos grabados */
   static void pantallaDatosGrabados() {
     System.out.println("> ÉXITO: ...se han grabado los datos");
+  }
+
+  /** Pantalla datos borrados */
+  static void pantallaDatosBorrados() {
+    System.out.println("> ÉXITO: ...se han borrado los datos");
   }
 
   /** Pantalla de confirmación */

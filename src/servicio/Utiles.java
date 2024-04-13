@@ -34,6 +34,7 @@ public final class Utiles {
   static final String STR_SANITARIO = "Sanitario";
   static final String STR_FECHA = "Fecha";
   static final String STR_FECHA_CITA = "Fecha Cita";
+  static final String STR_CITA = "Cita";
   static final String STR_FORMATO_FECHA = "HH:mm:ss dd-MM-uuuu";
   static final String STR_ZONA = "Europe/Madrid";
 
@@ -71,15 +72,16 @@ public final class Utiles {
 
   /**
    * Método común para leer input de usuario.
-   *
+   * El número debe ser un entero positivo.
    * @return Cadena de texto del input de usuario.
    */
   static int leerNumero() {
-    int num = -1;
+    int num;
     try {
       num = reader.nextInt();
     } catch (Exception e) {
-      System.out.println("> Opción no válida...");
+      System.out.println("> Opción no válida...debe ser un número entero positivo...");
+      return leerNumero();
     }
     return num;
   }

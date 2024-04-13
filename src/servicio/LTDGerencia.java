@@ -404,6 +404,7 @@ public final class LTDGerencia {
       case "3": // 3. Modificar agenda del personal sanitario
         // TODO: crear modificación de citas
         // TODO: probar pantallaConsulta
+        pantallaModificacionAgenda();
 
         break;
       case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
@@ -459,6 +460,7 @@ public final class LTDGerencia {
     }
   }
 
+  /** Lógica de selección de paciente */
   static void pantallaSeleccionarPaciente() {
     PantallasTerminalDatos.pantallaBuscarPersona();
     String opt = Utiles.leerLinea().toUpperCase();
@@ -485,6 +487,7 @@ public final class LTDGerencia {
     }
   }
 
+  /** Lógica de selección de personal */
   static void pantallaSeleccionarPersonal() {
     PantallasTerminalDatos.pantallaBuscarPersona();
     String opt = Utiles.leerLinea().toUpperCase();
@@ -511,6 +514,7 @@ public final class LTDGerencia {
     }
   }
 
+  /** Lógica de consulta de agenda */
   static void pantallaConsultaAgenda(){
     PantallasTerminalDatos.pantallaBuscarPersona();
     String opt = Utiles.leerLinea().toUpperCase();
@@ -536,6 +540,33 @@ public final class LTDGerencia {
         break;
     }
 
+  }
+
+  /** Lógica de pantalla de modificación de agenda. */
+  static void pantallaModificacionAgenda(){
+    PantallasTerminalDatos.pantallaBuscarPersona();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Seleccionar por NIF
+        Gerencia.borrarCitaSanitario();
+        pantallaModificacionAgenda();
+        break;
+      case "2": // 2. Consultar personas
+        LTDConsulta.pantallaConsultaCualquierPersona();
+        pantallaModificacionAgenda();
+        break;
+      case "X": // X. Volver
+        pantallaGestionDatosPersonal();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaModificacionAgenda();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaModificacionAgenda();
+        break;
+    }
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

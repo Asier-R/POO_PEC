@@ -204,7 +204,25 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
-  /** Consulta por NIF. */
+  /**
+   * Devuelve el sanitario cuyo NIF coincida con la entrada.
+   * @param NIF NIF del sanitario a obtener.
+   * @return Sanitario encontrado o null si no existe.
+   */
+  static Sanitario obtenerSanitarioPorNIF(String NIF) {
+    List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+    return (Sanitario)
+        personal.stream()
+            .filter(p -> p.getNIF().toUpperCase().contains(NIF.toUpperCase()))
+            .findFirst()
+            .orElse(null);
+  }
+
+  /**
+   * Consulta por NIF.
+   *
+   * @param NIF NIF del sanitario.
+   */
   static void consultarAgendaPorNIF(String NIF) {
     List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
     Sanitario sanitario =
@@ -212,9 +230,9 @@ public final class Consultas {
             personal.stream()
                 .filter(p -> p.getNIF().toUpperCase().contains(NIF.toUpperCase()))
                 .findFirst()
-                .orElseThrow();
+                .orElse(null);
 
-    if (personal.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
+    if (sanitario == null) PantallasTerminalDatos.pantallaConsultaSinResultados();
     else verAgenda(sanitario);
   }
 
@@ -222,13 +240,21 @@ public final class Consultas {
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
 
+  /**
+   * Muestra por pantalla y en solo una línea los datos de una persona.
+   * @param persona
+   */
   private static void presentar(Persona persona) {
     System.out.println(persona.toString().replace("\n", "  "));
   }
 
+  /**
+   * Muestra por pantalla las citas (numeradas) de un sanitario.
+   * @param sanitario Sanitario cuyas citas se van a mostrar.
+   */
   private static void verAgenda(Sanitario sanitario) {
     List<Cita> citas = sanitario.getCitas();
-    if (citas != null) {
+    if (citas != null && !citas.isEmpty()) {
       int contador = 1;
       citas.forEach(c -> printAgenda(String.valueOf(contador), c));
     } else {
@@ -236,17 +262,29 @@ public final class Consultas {
     }
   }
 
-  private static String printAgenda(String contador, Cita cita) {
-    return contador
-        + ". Cita -> "
-        + "Fecha Cita: "
-        + (cita.printFecha(cita.getFechaCita()))
-        + "Horario: "
-        + cita.printHorario()
-        + "Ubicación: "
-        + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre());
+  /**
+   * Muestra por pantalla, de forma simplificada, una cita numerada.
+   * @param contador Número de la cita.
+   * @param cita Cita a mostrar.
+   */
+  private static void printAgenda(String contador, Cita cita) {
+    System.out.println(
+        contador
+            + ". Cita -> "
+            + "Fecha Cita: "
+            + (cita.printFecha(cita.getFechaCita()))
+            + "  "
+            + "Horario: "
+            + cita.printHorario()
+            + "  "
+            + "Ubicación: "
+            + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre()));
   }
 
+  /**
+   * Devuelve todas las personas de un hospital combinando los pacientes con el personal.
+   * @return Lista de personas del hospital.
+   */
   private static List<Persona> obtenerTodasLasPersonas() {
     List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
     List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
