@@ -38,7 +38,7 @@ public final class PantallasTerminalDatos {
   /** Pantalla de gestión del personal con las opciones disponibles. */
   static void pantallaGestionPersonal() {
     separarPantalla();
-    System.out.println(">>> 1.1. GESTIÓN DEL PERSONAL");
+    System.out.println(">>> 1.1. GESTIÓN DE PERSONAS");
     System.out.println("> 1. Alta");
     System.out.println("> 2. Baja");
     System.out.println("> 3. Gestión");
@@ -141,9 +141,9 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de gestión de bajas de personal con las opciones disponibles. */
-  static void pantallaGestionBajaPersonal() {
+  static void pantallaGestionBajaPersonas() {
     separarPantalla();
-    System.out.println(">>> 1.1.2. GESTIÓN DE BAJAS DE PERSONAL");
+    System.out.println(">>> 1.1.2. GESTIÓN DE BAJAS DE PERSONAS");
     System.out.println("> 1. Baja por NIF");
     System.out.println();
     System.out.println("> 2. Consultar personas");
@@ -151,10 +151,10 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de baja de personal administrativo. */
-  static void pantallaBajaPersonal() {
+  static void pantallaBajaPersonas() {
     separarPantalla();
-    System.out.println(">>> 1.1.2.1. BAJA DE PERSONAL");
-    System.out.println("> Introduzca el NIF del empleado o estudiante a dar de baja...");
+    System.out.println(">>> 1.1.2.1. BAJA DE PERSONAS");
+    System.out.println("> Introduzca el NIF de la persona a dar de baja...");
     System.out.println();
   }
 
@@ -291,7 +291,8 @@ public final class PantallasTerminalDatos {
     separarPantalla();
     System.out.println(">>> 1.2. GESTIÓN DE PACIENTES");
     System.out.println("> 1. Alta de nuevo paciente");
-    System.out.println("> 2. Crear cita");
+    System.out.println("> 2. Baja de paciente");
+    System.out.println("> 3. Crear cita");
     opcionesComunes();
   }
 

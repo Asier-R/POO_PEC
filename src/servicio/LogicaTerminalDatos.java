@@ -146,4 +146,13 @@ public final class LogicaTerminalDatos {
   static void borrarPersonal(Personal personal) {
     hospital.borrarPersonal(personal);
   }
+
+  /**
+   * Borra un paciente del hospital.
+   *
+   * @param paciente Paciente a borrar.
+   */
+  static void borrarPaciente(Paciente paciente) {
+    hospital.borrarPaciente(paciente);
+  }
 }

@@ -275,18 +275,34 @@ public final class AltaBajaPersona {
           LogicaTerminalDatos.getHospital().getPersonal().stream()
               .filter(p -> p.getNIF().equals(nif))
               .findFirst()
-              .orElseThrow();
+              .orElse(null);
 
-      Utiles.mostrarDatosPersona(personal);
+      Paciente paciente =
+              LogicaTerminalDatos.getHospital().getPacientes().stream()
+                      .filter(p -> p.getNIF().equals(nif))
+                      .findFirst()
+                      .orElse(null);
+
+      if(personal == null && paciente == null) throw new NoSuchElementException();
+
+      Utiles.mostrarDatosPersona(personal==null?paciente:personal);
 
       PantallasTerminalDatos.pantallaConfirmacion(); // Confirmar baja
-      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
-        LogicaTerminalDatos.borrarPersonal(personal);
+      if(personal != null && paciente == null){
+        if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+          LogicaTerminalDatos.borrarPersonal(personal);
+          LTDGerencia.pantallaGestionBajaPersonas();
+        }
+      } else {
+        if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+          LogicaTerminalDatos.borrarPaciente(paciente);
+          LTDGerencia.pantallaGestionPacientes();
+        }
       }
+
     } catch (NoSuchElementException e) {
       PantallasTerminalDatos.pantallaAvisoPersonaNoEncontrada(nif);
     }
-    LTDGerencia.pantallaGestionBajaPersonal();
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

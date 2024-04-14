@@ -9,7 +9,7 @@ public final class LTDGerencia {
      PANTALLAS DE GESTIÓN DE PERSONAL
   ------------------------------------------------------------------------------------------------------------------ */
 
-  /** Lógica de pantalla 1.1. GESTIÓN DEL PERSONAL */
+  /** Lógica de pantalla 1.1. GESTIÓN DE PERSONAS */
   static void pantallaGestionPersonal() {
     PantallasTerminalDatos.pantallaGestionPersonal();
     String opt = Utiles.leerLinea().toUpperCase();
@@ -19,7 +19,7 @@ public final class LTDGerencia {
         pantallaGestionPersonalAlta();
         break;
       case "2": // 2. Baja
-        pantallaGestionBajaPersonal();
+        pantallaGestionBajaPersonas();
         break;
       case "3": // 3. Gestión
         pantallaGestionDatosPersonas();
@@ -358,30 +358,30 @@ public final class LTDGerencia {
     }
   }
 
-  /** Lógica de pantalla 1.1.2. GESTIÓN DE BAJAS DE PERSONAL */
-  static void pantallaGestionBajaPersonal() {
-    PantallasTerminalDatos.pantallaGestionBajaPersonal();
+  /** Lógica de pantalla 1.1.2. GESTIÓN DE BAJAS DE PERSONAS */
+  static void pantallaGestionBajaPersonas() {
+    PantallasTerminalDatos.pantallaGestionBajaPersonas();
     AltaBajaPersona.iniciarMedico();
     String opt = Utiles.leerLinea().toUpperCase();
 
     switch (opt) {
       case "1": // 1. Baja por NIF
-        PantallasTerminalDatos.pantallaBajaPersonal(); // 1.1.2.1. BAJA DE PERSONAL
+        PantallasTerminalDatos.pantallaBajaPersonas(); // 1.1.2.1. BAJA DE PERSONAL
         AltaBajaPersona.bajaPorNIFPersona();
         break;
       case "2": // 2. Consultar personal
         LTDConsulta.pantallaConsultaCualquierPersona();
-        pantallaGestionBajaPersonal();
+        pantallaGestionBajaPersonas();
         break;
-      case "X": // X. Volver a 1.1.1. GESTIÓN DE ALTAS DE PERSONAL
-        pantallaGestionPersonalAlta();
+      case "X": // X. Volver a 1.1. GESTIÓN DE PERSONAS
+        pantallaGestionPersonal();
         break;
       case "Z": // Z. Finalizar
-        if (!LogicaTerminalDatos.finPrograma()) pantallaGestionBajaPersonal();
+        if (!LogicaTerminalDatos.finPrograma()) pantallaGestionBajaPersonas();
         PantallasTerminalDatos.pantallaCierre();
         break;
       default: // Permanecer en la pantalla
-        pantallaGestionBajaPersonal();
+        pantallaGestionBajaPersonas();
         break;
     }
   }
@@ -671,7 +671,10 @@ public final class LTDGerencia {
       case "1": // 1. Alta de nuevo paciente
         pantallaAltaPaciente();
         break;
-      case "2": // 2. Crear cita
+      case "2": // 2. Baja de paciente
+        pantallaGestionBajaPersonas();
+        break;
+      case "3": // 3. Crear cita
         pantallaGestionDatosPersonas();
         break;
       case "X": // X. Volver a 1. GERENCIA
