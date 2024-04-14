@@ -291,9 +291,7 @@ public final class PantallasTerminalDatos {
     separarPantalla();
     System.out.println(">>> 1.2. GESTIÓN DE PACIENTES");
     System.out.println("> 1. Alta de nuevo paciente");
-    System.out.println("> 2. Alta ingreso hospitalario");
-    System.out.println("> 3. Baja ingreso hospitalario");
-    System.out.println("> 4. Crear cita");
+    System.out.println("> 2. Crear cita");
     opcionesComunes();
   }
 

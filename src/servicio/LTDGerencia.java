@@ -671,13 +671,7 @@ public final class LTDGerencia {
       case "1": // 1. Alta de nuevo paciente
         pantallaAltaPaciente();
         break;
-      case "2": // 2. Alta ingreso hospitalario
-        //pantallaGestionBajaPersonal();
-        break;
-      case "3": // 3. Baja ingreso hospitalario
-        //pantallaGestionDatosPersonal();
-        break;
-      case "4": // 4. Crear cita
+      case "2": // 2. Crear cita
         pantallaGestionDatosPersonas();
         break;
       case "X": // X. Volver a 1. GERENCIA
