@@ -3,7 +3,6 @@ package servicio;
 import entidad.Hospital;
 import entidad.persona.Personal;
 
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 

@@ -16,7 +16,7 @@ public class Laboratorio extends Formacion {
    */
   public Laboratorio(String nombre) {
     super(CodigoAreaEnum.LABORATORIO, nombre);
-    this.codigoActividad = CodigoActividadEnum.CAFETERIA;
+    this.codigoActividad = CodigoActividadEnum.LABORATORIO;
   }
 
   public CodigoActividadEnum getCodigoActividad() {

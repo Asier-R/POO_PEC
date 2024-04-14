@@ -61,12 +61,28 @@ public abstract class Personal extends Persona implements Comparable<Personal>{
   }
 
   /**
+   * Establece el código de área.
+   * @param codigoArea Código de área.
+   */
+  public void setCodigoArea(CodigoAreaEnum codigoArea) {
+    this.codigoArea = codigoArea;
+  }
+
+  /**
    * Devuelve el código de actividad de la unidad asociado a la persona.
    *
    * @return Código de actividad.
    */
   public CodigoActividadEnum getCodigoActividad() {
     return codigoActividad;
+  }
+
+  /**
+   * Establece el código de actividad.
+   * @param codigoActividad Código de actividad.
+   */
+  public void setCodigoActividad(CodigoActividadEnum codigoActividad) {
+    this.codigoActividad = codigoActividad;
   }
 
   @Override

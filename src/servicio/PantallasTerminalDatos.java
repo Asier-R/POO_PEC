@@ -161,10 +161,11 @@ public final class PantallasTerminalDatos {
   /** Pantalla de gestión de personal administrativo. */
   static void pantallaGestionDatosPersonal() {
     separarPantalla();
-    System.out.println(">>> 1.1.3. GESTIÓN DE DATOS DEL PERSONAL");
+    System.out.println(">>> 1.1.3. GESTIÓN DEL PERSONAL");
     System.out.println("> 1. Crear Cita");
     System.out.println("> 2. Consultar agenda del personal sanitario");
     System.out.println("> 3. Modificar agenda del personal sanitario");
+    System.out.println("> 4. Preparar formación de estudiantes");
     System.out.println();
     opcionesComunes();
   }
@@ -182,6 +183,26 @@ public final class PantallasTerminalDatos {
     opcionesComunes();
   }
 
+  /** Pantalla para la preparación de la formación de estudiantes. */
+  static void pantallaPrepararFormacionEstudiantes() {
+    separarPantalla();
+    System.out.println(">>> 1.1.4.1. PREPARAR FORMACIÓN DE ESTUDIANTES");
+    System.out.println("> 1. Seleccionar Instructor");
+    System.out.println("> 2. Seleccionar Estudiantes");
+    System.out.println("> 3. Seleccionar lugar de la formación");
+    System.out.println("> 4. Preparar formación");
+    System.out.println("> 5. Consultar");
+    opcionesComunes();
+  }
+
+  /** Pantalla para seleccionar unidad de formación. */
+  static void pantallaSeleccionarUnidadFormacion() {
+    separarPantalla();
+    System.out.println(">> UNIDADES DE FORMACIÓN");
+    System.out.println("> 1. Laboratorio");
+    System.out.println("> 2. Clase");
+  }
+
   /** Pantalla selección de cita */
   static void pantallaSeleccionarCita() {
     System.out.println("> Seleccione el número de cita a borrar...");
@@ -192,6 +213,11 @@ public final class PantallasTerminalDatos {
     System.out.println("> Número de cita no válido...");
   }
 
+  /** Pantalla de info instructor. */
+  static void pantallaInfoInstructor() {
+    System.out.println("> INFO: Un instructor solo puede ser un médico o un enfermero.");
+  }
+
   /** Pantalla de aviso no creación de cita. */
   static void pantallaAvisoCitaNoCreada() {
     System.out.println("> AVISO: No se ha creado la cita...");
@@ -200,6 +226,11 @@ public final class PantallasTerminalDatos {
   /** Pantalla de aviso sanitario ya asignado. */
   static void pantallaAvisoSanitarioYaAsignado() {
     System.out.println("> AVISO: El sanitario ya ha sido asignado previamente...");
+  }
+
+  /** Pantalla de aviso estudiante ya asignado. */
+  static void pantallaAvisoEstudianteYaAsignado() {
+    System.out.println("> AVISO: El estudiante ya ha sido asignado previamente...");
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

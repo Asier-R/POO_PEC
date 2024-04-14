@@ -388,7 +388,7 @@ public final class LTDGerencia {
     }
   }
 
-  /** Lógica de pantalla 1.1.3. GESTIÓN DE DATOS DEL PERSONAL */
+  /** Lógica de pantalla 1.1.3. GESTIÓN DEL PERSONAL */
   static void pantallaGestionDatosPersonal() {
     PantallasTerminalDatos.pantallaGestionDatosPersonal();
     String opt = Utiles.leerLinea().toUpperCase();
@@ -402,10 +402,10 @@ public final class LTDGerencia {
         pantallaConsultaAgenda();
         break;
       case "3": // 3. Modificar agenda del personal sanitario
-        // TODO: crear modificación de citas
-        // TODO: probar pantallaConsulta
         pantallaModificacionAgenda();
-
+        break;
+      case "4": // 4. Preparar formación de estudiantes
+        pantallaPrepararFormacionEstudiantes();
         break;
       case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
         pantallaGestionPersonal();
@@ -456,6 +456,97 @@ public final class LTDGerencia {
         break;
       default: // Permanecer en la pantalla
         pantallaCrearCita();
+        break;
+    }
+  }
+
+  /** Lógica de pantalla 1.1.4.1. PREPARAR FORMACIÓN DE ESTUDIANTES */
+  static void pantallaPrepararFormacionEstudiantes() {
+    PantallasTerminalDatos.pantallaPrepararFormacionEstudiantes();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Seleccionar Instructor
+        pantallaSeleccionarInstructor();
+        break;
+      case "2": // 2. Seleccionar Estudiantes
+        pantallaSeleccionarEstudiante();
+        break;
+      case "3": // 3. Seleccionar lugar de la formación
+        Gerencia.seleccionarUbicacionFormacion();
+        pantallaPrepararFormacionEstudiantes();
+        break;
+      case "4": //4. Preparar formación
+        Gerencia.prepararFormacion();
+        pantallaPrepararFormacionEstudiantes();
+        break;
+      case "5": // 5. Consultar
+        Consultas.consultarUnidadesFormacion();
+        pantallaPrepararFormacionEstudiantes();
+        break;
+      case "X": // X. Volver a 1.1. GESTIÓN DEL PERSONAL
+        pantallaGestionDatosPersonal();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaGestionDatosPersonal();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaCrearCita();
+        break;
+    }
+  }
+
+  /** Lógica de selección de instructor */
+  static void pantallaSeleccionarInstructor() {
+    PantallasTerminalDatos.pantallaBuscarPersona();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Seleccionar por NIF
+        Gerencia.seleccionarInstructor();
+        pantallaSeleccionarInstructor();
+        break;
+      case "2": // 2. Consultar personas
+        LTDConsulta.pantallaConsultaCualquierPersona();
+        pantallaSeleccionarInstructor();
+        break;
+      case "X": // X. Volver a 1.1.4.1. PREPARAR FORMACIÓN DE ESTUDIANTES
+        pantallaPrepararFormacionEstudiantes();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaSeleccionarInstructor();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaSeleccionarInstructor();
+        break;
+    }
+  }
+
+  /** Lógica de selección de estudiante */
+  static void pantallaSeleccionarEstudiante() {
+    PantallasTerminalDatos.pantallaBuscarPersona();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Seleccionar por NIF
+        Gerencia.seleccionarEstudiante();
+        pantallaSeleccionarEstudiante();
+        break;
+      case "2": // 2. Consultar personas
+        LTDConsulta.pantallaConsultaCualquierPersona();
+        pantallaSeleccionarEstudiante();
+        break;
+      case "X": // X. Volver a 1.1.4.1. PREPARAR FORMACIÓN DE ESTUDIANTES
+        pantallaPrepararFormacionEstudiantes();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaSeleccionarEstudiante();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaSeleccionarEstudiante();
         break;
     }
   }

@@ -29,12 +29,13 @@ public final class Utiles {
   static final String STR_COD_GRUPO = "Grupo administrativo";
   static final String STR_EXPERIENCIA = "Experiencia";
   static final String STR_CENTRO = "Nombre del centro";
+  static final String STR_UBICACION = "Ubicación";
   static final String SI = "S";
   static final String STR_PACIENTE = "Paciente";
   static final String STR_SANITARIO = "Sanitario";
+  static final String STR_ESTUDIANTE = "Estudiante";
   static final String STR_FECHA = "Fecha";
   static final String STR_FECHA_CITA = "Fecha Cita";
-  static final String STR_CITA = "Cita";
   static final String STR_FORMATO_FECHA = "HH:mm:ss dd-MM-uuuu";
   static final String STR_ZONA = "Europe/Madrid";
 

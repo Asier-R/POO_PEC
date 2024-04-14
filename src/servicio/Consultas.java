@@ -2,6 +2,8 @@ package servicio;
 
 import entidad.persona.*;
 import entidad.registro.Cita;
+import entidad.unidad.Unidad;
+import entidad.unidad.formacion.Formacion;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
@@ -206,6 +208,7 @@ public final class Consultas {
 
   /**
    * Devuelve el sanitario cuyo NIF coincida con la entrada.
+   *
    * @param NIF NIF del sanitario a obtener.
    * @return Sanitario encontrado o null si no existe.
    */
@@ -236,20 +239,48 @@ public final class Consultas {
     else verAgenda(sanitario);
   }
 
+  /**
+   * Consulta de las unidades de formación del hospital.
+   */
+  static void consultarUnidadesFormacion() {
+    List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
+
+    List<Unidad> formacion = unidades.stream().filter(u -> u instanceof Formacion).collect(Collectors.toList());
+
+    if(formacion.isEmpty())PantallasTerminalDatos.pantallaConsultaSinResultados();
+    else formacion.forEach(f -> presentarFormacion((Formacion) f));
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
 
   /**
    * Muestra por pantalla y en solo una línea los datos de una persona.
-   * @param persona
+   *
+   * @param persona Persona cuyos datos se van a mostrar.
    */
   private static void presentar(Persona persona) {
     System.out.println(persona.toString().replace("\n", "  "));
   }
 
   /**
+   * Muestra por pantalla y en solo una línea los datos de una unidad de formación.
+   *
+   * @param formacion Unidad cuyos datos se van a mostrar.
+   */
+  private static void presentarFormacion(Formacion formacion) {
+    String codigo = formacion.getCodigoArea()==null? "":formacion.getCodigoArea().getDescripcion();
+    String instructor = formacion.getInstructor()==null? "":formacion.getInstructor().toString().replace("\n", "  ");
+    StringBuilder estudiantes = new StringBuilder();
+    formacion.getEstudiantes().forEach(e -> estudiantes.append(e.toString().replace("\n", "  ")).append("\n"));
+    String info = "> Unidad: " + codigo + "\n"+"Instructor: "+instructor+"\n"+"Estudiantes:\n"+estudiantes;
+    System.out.println(info);
+  }
+
+  /**
    * Muestra por pantalla las citas (numeradas) de un sanitario.
+   *
    * @param sanitario Sanitario cuyas citas se van a mostrar.
    */
   private static void verAgenda(Sanitario sanitario) {
@@ -264,6 +295,7 @@ public final class Consultas {
 
   /**
    * Muestra por pantalla, de forma simplificada, una cita numerada.
+   *
    * @param contador Número de la cita.
    * @param cita Cita a mostrar.
    */
@@ -283,6 +315,7 @@ public final class Consultas {
 
   /**
    * Devuelve todas las personas de un hospital combinando los pacientes con el personal.
+   *
    * @return Lista de personas del hospital.
    */
   private static List<Persona> obtenerTodasLasPersonas() {
