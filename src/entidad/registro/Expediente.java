@@ -14,6 +14,7 @@ public class Expediente {
     CITADO,
     EN_CONSULTA,
     EN_TRATAMIENTO,
+    DERIVADO,
     SANO;
   }
 

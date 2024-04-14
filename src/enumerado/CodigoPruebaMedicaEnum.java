@@ -1,18 +1,14 @@
 package enumerado;
 
-import entidad.unidad.Unidad;
-
-/** Clase enum que define los códigos de área de las distintas unidades {@link Unidad} */
-public enum CodigoAreaEnum {
-  ADMINISTRACION(1, "ADMINISTRACION"),
-  ALIMENTACION(2, "ALIMENTACION"),
-  GARAJE(3, "GARAJE"),
-  HABITACION(4, "HABITACION"),
-  OPERATORIO(5, "OPERATORIO"),
-  URGENCIAS(6, "URGENCIAS"),
-  CONSULTA(7, "CONSULTA"),
-  CLASE(8, "CLASE"),
-  LABORATORIO(9, "LABORATORIO");
+/**
+ * Clase que define las diferentes pruebas que se le pueden realizar a un paciente {@link
+ * entidad.persona.Paciente}
+ */
+public enum CodigoPruebaMedicaEnum {
+  ANALITICA(1, "Analítica"),
+  RAYOS_X(2, "Rayos X"),
+  RESONANCIA_MAGNETICA(3, "Resonancia magenética"),
+  ECOGRAFIA(4, "Ecografia");
 
   /** Id del enumerado. */
   private int id;
@@ -21,12 +17,12 @@ public enum CodigoAreaEnum {
   private String descripcion;
 
   /**
-   * Constructor de CodigoAreaEnum
+   * Constructor de CodigoPruebaMedicaEnum
    *
    * @param id Id.
    * @param descripcion Descripción.
    */
-  private CodigoAreaEnum(int id, String descripcion) {
+  private CodigoPruebaMedicaEnum(int id, String descripcion) {
     this.id = id;
     this.descripcion = descripcion;
   }
@@ -50,13 +46,13 @@ public enum CodigoAreaEnum {
   }
 
   /**
-   * Devuelve un Código de Área en función de la descripción.
+   * Devuelve un Código de Prueba Médica en función de la descripción.
    *
    * @param descripcion descripción.
-   * @return código de área correspondiente al código de entrada.
+   * @return código de prueba médica correspondiente al código de entrada.
    */
-  public static CodigoAreaEnum getFromDescripcion(String descripcion) {
-    for (CodigoAreaEnum c : values()) {
+  public static CodigoPruebaMedicaEnum getFromDescripcion(String descripcion) {
+    for (CodigoPruebaMedicaEnum c : values()) {
       if (c.descripcion.equals(descripcion)) {
         return c;
       }
@@ -65,13 +61,13 @@ public enum CodigoAreaEnum {
   }
 
   /**
-   * Devuelve un Código de Área en función del ID.
+   * Devuelve un Código de Prueba Médica en función del ID.
    *
    * @param id Id del código a obtener.
-   * @return código de área correspondiente al código de entrada.
+   * @return código de prueba médica correspondiente al código de entrada.
    */
-  public static CodigoAreaEnum getFromId(int id) {
-    for (CodigoAreaEnum c : values()) {
+  public static CodigoPruebaMedicaEnum getFromId(int id) {
+    for (CodigoPruebaMedicaEnum c : values()) {
       if (c.getId() == id) {
         return c;
       }
@@ -81,7 +77,7 @@ public enum CodigoAreaEnum {
 
   /** Muestra por pantalla los diferentes códigos del enumerado. */
   public static void mostrarPorPantalla() {
-    for (CodigoAreaEnum c : values()) {
+    for (CodigoPruebaMedicaEnum c : values()) {
       System.out.println("> " + c.getId() + ". " + c.getDescripcion());
     }
   }

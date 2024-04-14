@@ -35,7 +35,7 @@ public final class LogicaTerminalDatos {
         pantallaGerencia();
         break;
       case "2": // 2. Servicios de Mantenimiento
-        // TODO: meter algo
+        // TODO: opcional meter algo
         break;
       case "3": // 3. Servicios Médicos
         // TODO: importante implementarlo
@@ -66,10 +66,50 @@ public final class LogicaTerminalDatos {
         LTDGerencia.pantallaGestionPacientes();
         break;
       case "3": // 3. Gestión Contable
-        // TODO: lo que toque aquí
+        // TODO: opcional
         break;
       case "4": // 4. Gestión mantenimiento
-        // TODO: meter alguna historia
+        // TODO: opcional
+        break;
+      case "X": // X. Volver a 0. INICIO
+        pantallaInicio();
+        break;
+      case "Z": // Z. Finalizar
+        if (!finPrograma()) pantallaGerencia();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaGerencia();
+        break;
+    }
+  }
+
+  /** Lógica de pantalla 2. SERVICIOS MÉDICOS */
+  static void pantallaServiciosMedicos() {
+    PantallasTerminalDatos.pantallaServiciosMedicos();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Atender nuevos pacientes
+        // TODO: buscar a todos los pacientes sin expedientes, crearlo y derivarlos a consulta primaria.
+        break;
+      case "2": // 2. Actualizar expedientes
+        // TODO: probablemente automatico y mostrar por pantalla las actualizacions (pedir fecha para actualizar los previos)
+        // TODO: los pacientes derivados a consulta primaria son diagnosticados de forma random
+        // TODO: los pacientes que han sido diagnosticados son derivados a la unidad que sea o fuera del hospital
+        // TODO: ¿meter alta sanitaria del paciente? Si, hay campo estado en el expediente
+        break;
+      case "3": // 3. Consultar ocupación
+
+        break;
+      case "4": // 4. Consultar pacientes ingresados
+
+        break;
+      case "5": // 5. Consultar pacientes con cita en consulta externa
+
+        break;
+      case "6": // 6. Consultar pacientes con cita con un especialista
+
         break;
       case "X": // X. Volver a 0. INICIO
         pantallaInicio();

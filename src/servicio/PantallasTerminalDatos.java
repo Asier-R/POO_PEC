@@ -31,6 +31,19 @@ public final class PantallasTerminalDatos {
     opcionesComunes();
   }
 
+  /** Pantalla de servicios médicos con las opciones disponibles. */
+  static void pantallaServiciosMedicos() {
+    separarPantalla();
+    System.out.println(">>> 2. SERVICIOS MÉDICOS");
+    System.out.println("> 1. Atender nuevos pacientes");
+    System.out.println("> 2. Actualizar expedientes");
+    System.out.println("> 3. Consultar ocupación");
+    System.out.println("> 4. Consultar pacientes ingresados");
+    System.out.println("> 5. Consultar pacientes con cita en consulta externa");
+    System.out.println("> 6. Consultar pacientes con cita con un especialista");
+    opcionesComunes();
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE PERSONAL
   ------------------------------------------------------------------------------------------------------------------ */

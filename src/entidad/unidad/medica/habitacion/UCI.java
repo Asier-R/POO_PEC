@@ -2,10 +2,13 @@ package entidad.unidad.medica.habitacion;
 
 import enumerado.CodigoActividadEnum;
 
+import java.util.ArrayList;
+
 /**
  * Subclase de {@link Habitacion} que representa una habitación de la unidad de cuidados intensivos.
  */
 public class UCI extends Habitacion{
+
     /**
      * Constructor de habitaciones de unidades de cuidados intensivos.
      *
@@ -13,6 +16,7 @@ public class UCI extends Habitacion{
      */
     public UCI(String nombre) {
         super(CodigoActividadEnum.UCI, nombre);
+        this.pacientes = new ArrayList<>();
     }
 
     @Override
