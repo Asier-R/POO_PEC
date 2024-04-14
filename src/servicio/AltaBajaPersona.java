@@ -50,14 +50,22 @@ public final class AltaBajaPersona {
   /** Variable temporal para conservar el grupo administrativo de una persona */
   static Administrativo.Grupo grupo;
 
+  /** Variable temporal para conservar la edad del paciente */
+  static int edad;
+
+  /** Variable temporal para conservar el sexo del paciente */
+  static Paciente.Sexo sexo;
+
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS ALTA PERSONA
   ------------------------------------------------------------------------------------------------------------------ */
 
+  /** Inicializa la variable temporal como administrativo. */
   static void iniciarAdmin() {
     tmpPersona = new Administrativo(NIF, nombre, apellido1, apellido2, codigoActividad, grupo);
   }
 
+  /** Valida los datos y graba el administrativo. */
   static void validarGrabarAdministrador() {
     String falta = "";
     falta = validarCamposComunes(falta);
@@ -78,11 +86,13 @@ public final class AltaBajaPersona {
     LTDGerencia.pantallaAltaAdministrativo();
   }
 
+  /** Inicializa la variable temporal como personal de mantenimiento y servicio. */
   static void iniciarMantenimientoServicio() {
     tmpPersona =
         new MantenimientoServicio(NIF, nombre, apellido1, apellido2, codigoArea, codigoActividad);
   }
 
+  /** Valida los datos y graba el personal de mantenimiento y servicio. */
   static void validarGrabarMantenimientoServicio() {
     String falta = "";
     falta = validarCamposComunes(falta);
@@ -103,6 +113,7 @@ public final class AltaBajaPersona {
     LTDGerencia.pantallaAltaMantenimientoServicio();
   }
 
+  /** Inicializa la variable temporal como estudiante. */
   static void iniciarEstudiante() {
     tmpPersona =
         new Estudiante(
@@ -117,6 +128,7 @@ public final class AltaBajaPersona {
             nombreCentro);
   }
 
+  /** Valida los datos y graba el estudiante. */
   static void validarGrabarEstudiante() {
     String falta = "";
     falta = validarCamposComunes(falta);
@@ -140,6 +152,7 @@ public final class AltaBajaPersona {
     LTDGerencia.pantallaAltaEstudiante();
   }
 
+  /** Inicializa la variable temporal como enfermero. */
   static void iniciarEnfermero() {
     tmpPersona =
         new Enfermero(
@@ -153,6 +166,7 @@ public final class AltaBajaPersona {
             experiencia);
   }
 
+  /** Valida los datos y graba el enfermero. */
   static void validarGrabarEnfermero() {
     String falta = "";
     falta = validarCamposComunes(falta);
@@ -175,6 +189,7 @@ public final class AltaBajaPersona {
     LTDGerencia.pantallaAltaEnfermero();
   }
 
+  /** Inicializa la variable temporal como médico. */
   static void iniciarMedico() {
     tmpPersona =
         new Medico(
@@ -189,13 +204,16 @@ public final class AltaBajaPersona {
             experiencia);
   }
 
+  /** Valida los datos y graba el médico. */
   static void validarGrabarMedico() {
     String falta = "";
     falta = validarCamposComunes(falta);
     falta = Utiles.validarCampoEnum(codigoArea, falta, Utiles.STR_COD_ACTIVIDAD);
     falta = Utiles.validarCampoEnum(codigoActividad, falta, Utiles.STR_COD_ACTIVIDAD);
     falta = Utiles.validarCampoEnum(codigoEspecialidad, falta, Utiles.STR_COD_ESPECIALIDAD);
-    falta = Utiles.validarCampoEnum(codigoSegundaEspecialidad, falta, Utiles.STR_COD_SEGUNDAESPECIALIDAD);
+    falta =
+        Utiles.validarCampoEnum(
+            codigoSegundaEspecialidad, falta, Utiles.STR_COD_SEGUNDAESPECIALIDAD);
     falta = Utiles.validarCampoNumero(experiencia, falta, Utiles.STR_EXPERIENCIA);
 
     if (falta.isEmpty()) {
@@ -212,10 +230,44 @@ public final class AltaBajaPersona {
     LTDGerencia.pantallaAltaMedico();
   }
 
+  /** Inicializa la variable temporal como paciente. */
+  static void iniciarPaciente() {
+    tmpPersona =
+            new Paciente(
+                    NIF,
+                    nombre,
+                    apellido1,
+                    apellido2,
+                    edad,
+                    sexo);
+  }
+
+  /** Valida los datos y graba el paciente. */
+  static void validarGrabarPaciente() {
+    String falta = "";
+    falta = validarCamposComunes(falta);
+    falta = Utiles.validarCampoNumero(edad, falta, Utiles.STR_EDAD);
+    falta = Utiles.validarCampoSexo(sexo, falta, Utiles.STR_SEXO);
+
+    if (falta.isEmpty()) {
+      iniciarPaciente();
+      PantallasTerminalDatos.pantallaConfirmacion();
+      if (Utiles.leerLinea().equalsIgnoreCase(Utiles.SI)) {
+        AltaBajaPersona.grabarPersona();
+        LTDGerencia.pantallaGestionPacientes();
+        return;
+      }
+    } else {
+      System.out.println("Faltan los siguientes campos: " + falta);
+    }
+    LTDGerencia.pantallaAltaPaciente();
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS BAJA PERSONA
   ------------------------------------------------------------------------------------------------------------------ */
 
+  /** Realiza la baja de una persona mediante el NIF de esta. */
   static void bajaPorNIFPersona() {
     String nif = Utiles.leerLinea(); // Obtener nif
     try {
@@ -241,6 +293,12 @@ public final class AltaBajaPersona {
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
 
+  /**
+   * Valida los campos comunes de las personas.
+   *
+   * @param falta Texto del mensaje informativo.
+   * @return Texto del mensaje informativo.
+   */
   private static String validarCamposComunes(String falta) {
     falta = Utiles.validarCampo(NIF, falta, Utiles.STR_NIF);
     falta = Utiles.validarCampo(nombre, falta, Utiles.STR_NOMBRE);
@@ -249,20 +307,24 @@ public final class AltaBajaPersona {
     return falta;
   }
 
+  /** Graba la persona almacenada en la variable temporal. */
   static void grabarPersona() {
     if (tmpPersona != null) {
       LecturaEscrituraFichero.grabarPersona(tmpPersona);
-      registrarPersonal();
+      if(tmpPersona instanceof Paciente) registrarPaciente();
+      else registrarPersonal();
       resetCampos();
       tmpPersona = null;
     }
   }
 
+  /** Muestra los datos de la persona almacenada en la variable temporal. */
   static void mostrarDatosPersona() {
     PantallasTerminalDatos.separarPantalla();
     System.out.println(tmpPersona);
   }
 
+  /** Pone a null todas las variables temporales. */
   private static void resetCampos() {
     NIF = null;
     nombre = null;
@@ -274,7 +336,13 @@ public final class AltaBajaPersona {
     grupo = null;
   }
 
+  /** Añade el nuevo miembro del personal a la lista de personal del hospital. */
   private static void registrarPersonal() {
     LogicaTerminalDatos.registrarPersonal((Personal) tmpPersona);
+  }
+
+  /** Añade el nuevo paciente a la lista de pacientes del hospital. */
+  private static void registrarPaciente() {
+    LogicaTerminalDatos.registrarPaciente((Paciente) tmpPersona);
   }
 }

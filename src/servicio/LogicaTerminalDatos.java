@@ -1,6 +1,7 @@
 package servicio;
 
 import entidad.Hospital;
+import entidad.persona.Paciente;
 import entidad.persona.Personal;
 
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ public final class LogicaTerminalDatos {
     // Constructor vacío
   }
 
+  /** Incializa la instancia del hospital con los datos almacenados en los ficheros csv. */
   public static void iniciarLogicaTerminalDatos() {
     hospital = LecturaEscrituraFichero.iniciarHospital();
     Utiles.abrirLectorDeEntradas();
@@ -61,7 +63,7 @@ public final class LogicaTerminalDatos {
         LTDGerencia.pantallaGestionPersonal();
         break;
       case "2": // 2. Gestión de pacientes
-        // TODO: hacer gestión de pacientes
+        LTDGerencia.pantallaGestionPacientes();
         break;
       case "3": // 3. Gestión Contable
         // TODO: lo que toque aquí
@@ -109,14 +111,38 @@ public final class LogicaTerminalDatos {
             .collect(Collectors.toList()));
   }
 
+  /**
+   * Devuelve el hospital.
+   *
+   * @return Hospital.
+   */
   static Hospital getHospital() {
     return hospital;
   }
 
+  /**
+   * Registra un nuevo miembro del personal hospitalario.
+   *
+   * @param personal Personal a registrar.
+   */
   static void registrarPersonal(Personal personal) {
     hospital.registrarPersonal(personal);
   }
 
+  /**
+   * Registra un nuevo paciente en el hospital.
+   *
+   * @param paciente Paciente a registrar.
+   */
+  static void registrarPaciente(Paciente paciente) {
+    hospital.registrarPaciente(paciente);
+  }
+
+  /**
+   * Borra un miembro del personal hospitalario.
+   *
+   * @param personal Personal a borrar.
+   */
   static void borrarPersonal(Personal personal) {
     hospital.borrarPersonal(personal);
   }

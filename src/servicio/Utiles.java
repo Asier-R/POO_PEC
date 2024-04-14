@@ -1,6 +1,7 @@
 package servicio;
 
 import entidad.persona.Administrativo;
+import entidad.persona.Paciente;
 import entidad.persona.Persona;
 import entidad.unidad.Unidad;
 import enumerado.CodigoActividadEnum;
@@ -28,6 +29,8 @@ public final class Utiles {
   static final String STR_COD_SEGUNDAESPECIALIDAD = "Segunda especialidad";
   static final String STR_COD_GRUPO = "Grupo administrativo";
   static final String STR_EXPERIENCIA = "Experiencia";
+  static final String STR_EDAD = "Edad";
+  static final String STR_SEXO = "Sexo";
   static final String STR_CENTRO = "Nombre del centro";
   static final String STR_UBICACION = "Ubicación";
   static final String SI = "S";
@@ -123,6 +126,12 @@ public final class Utiles {
     return leerNumero();
   }
 
+  /** Método para obtener la edad del paciente. */
+  static int inputEdad() {
+    PantallasTerminalDatos.pantallaIntroducirDato(STR_EDAD);
+    return leerNumero();
+  }
+
   /** Método para obtener el código de unidad. */
   static CodigoUnidadEnum inputCodUnidad() {
     PantallasTerminalDatos.pantallaSeleccionarCodigo(STR_COD_UNIDAD);
@@ -164,6 +173,14 @@ public final class Utiles {
     return Administrativo.Grupo.getFromId(opt);
   }
 
+  /** Método para obtener el sexo del paciente. */
+  static Paciente.Sexo inputSexoPaciente() {
+    PantallasTerminalDatos.pantallaIntroducirDato(STR_SEXO);
+    Paciente.Sexo.mostrarPorPantalla();
+    int opt = leerNumero();
+    return Paciente.Sexo.getFromId(opt);
+  }
+
   /** Método recursivo para obtener una fecha. */
   static ZonedDateTime inputFecha() {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern(STR_FORMATO_FECHA);
@@ -193,6 +210,15 @@ public final class Utiles {
   /** Método para validar un campo numérico. */
   static String validarCampoNumero(int dato, String falta, String campo) {
     if (dato < 0) {
+      return falta.isEmpty() ? campo : falta + ", " + campo;
+    } else {
+      return falta;
+    }
+  }
+
+  /** Método para validar campo sexo. */
+  static String validarCampoSexo(Paciente.Sexo sexo, String falta, String campo) {
+    if (sexo == null) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
     } else {
       return falta;

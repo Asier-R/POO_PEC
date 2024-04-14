@@ -10,8 +10,79 @@ public class Paciente extends Persona implements Comparable<Paciente>{
 
   /** Sexo del paciente. */
   public enum Sexo {
-    M,
-    F
+    M(1, "M"),
+    F(2, "F");
+
+    /** Id del sexo. */
+    private int id;
+
+    /** Código del sexo. */
+    private String codigo;
+
+    /**
+     * Constructor de Sexo.
+     *
+     * @param codigo código.
+     */
+    private Sexo(int id, String codigo) {
+      this.id = id;
+      this.codigo = codigo;
+    }
+
+    /**
+     * Devuelve un sexo en función del código.
+     *
+     * @param codigo código.
+     * @return sexo correspondiente al código de entrada.
+     */
+    public static Sexo getFromCodigo(String codigo) {
+      for (Sexo g : values()) {
+        if (g.codigo.equals(codigo)) {
+          return g;
+        }
+      }
+      return null;
+    }
+
+    /**
+     * Devuelve el sexo a partir del ID.
+     *
+     * @param id Id del código a obtener.
+     * @return sexo correspondiente al id.
+     */
+    public static Sexo getFromId(int id) {
+      for (Sexo c : values()) {
+        if (c.getId() == id) {
+          return c;
+        }
+      }
+      return null;
+    }
+
+    /** Muestra por pantalla los diferentes códigos de sexo. */
+    public static void mostrarPorPantalla() {
+      for (Sexo c : values()) {
+        System.out.println("> " + c.getId() + ". " + c.getCodigo());
+      }
+    }
+
+    /**
+     * Devuelve el id del sexo.
+     *
+     * @return Id del sexo.
+     */
+    public int getId() {
+      return this.id;
+    }
+
+    /**
+     * Devuelve el código del sexo.
+     *
+     * @return Código del sexo.
+     */
+    public String getCodigo() {
+      return this.codigo;
+    }
   }
 
   /** Expediente del paciente. */

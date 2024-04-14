@@ -159,9 +159,9 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de gestión de personal administrativo. */
-  static void pantallaGestionDatosPersonal() {
+  static void pantallaGestionDatosPersonas() {
     separarPantalla();
-    System.out.println(">>> 1.1.3. GESTIÓN DEL PERSONAL");
+    System.out.println(">>> 1.1.3. GESTIÓN DE PERSONAS");
     System.out.println("> 1. Crear Cita");
     System.out.println("> 2. Consultar agenda del personal sanitario");
     System.out.println("> 3. Modificar agenda del personal sanitario");
@@ -289,11 +289,26 @@ public final class PantallasTerminalDatos {
   /** Pantalla de gestión de pacientes con las opciones disponibles. */
   static void pantallaGestionPacientes() {
     separarPantalla();
-    System.out.println(">>> 1.1. GESTIÓN DE PACIENTES");
+    System.out.println(">>> 1.2. GESTIÓN DE PACIENTES");
     System.out.println("> 1. Alta de nuevo paciente");
     System.out.println("> 2. Alta ingreso hospitalario");
-    System.out.println("> 2. Baja ingreso hospitalario");
-    System.out.println("> 3. Gestión");
+    System.out.println("> 3. Baja ingreso hospitalario");
+    System.out.println("> 4. Crear cita");
+    opcionesComunes();
+  }
+
+  /** Pantalla de altas de administrativos. */
+  static void pantallaAltaPaciente() {
+    separarPantalla();
+    System.out.println(">>> 1.2.1. ALTA PACIENTE");
+    System.out.println("> 1. Introducir NIF");
+    System.out.println("> 2. Introducir nombre");
+    System.out.println("> 3. Introducir primer apellido");
+    System.out.println("> 4. Introducir segundo apellido");
+    System.out.println("> 5. Introducir edad");
+    System.out.println("> 6. Seleccionar sexo");
+    System.out.println("> 7. Mostrar datos");
+    System.out.println("> 8. Finalizar Alta");
     opcionesComunes();
   }
 
