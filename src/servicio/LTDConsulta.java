@@ -76,7 +76,10 @@ public final class LTDConsulta {
     }
   }
 
-  static void pantallaConsultaCualquierPersona(){
+  /**
+   * Pantalla para seleccionar el tipo de persona a consultar o una consulta por datos de persona.
+   */
+  static void pantallaConsultaCualquierPersona() {
     PantallasTerminalDatos.pantallaConsultaCualquierPersona();
     String opt = Utiles.leerLinea().toUpperCase();
 
@@ -121,6 +124,4 @@ public final class LTDConsulta {
         break;
     }
   }
-
-
 }

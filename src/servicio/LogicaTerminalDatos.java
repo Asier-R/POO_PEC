@@ -38,7 +38,7 @@ public final class LogicaTerminalDatos {
         // TODO: opcional meter algo
         break;
       case "3": // 3. Servicios Médicos
-        // TODO: importante implementarlo
+        pantallaServiciosMedicos();
         break;
       case "X": // X. Volver. En este punto es igual a finalizar.
         if (!finPrograma()) pantallaInicio();
@@ -91,7 +91,9 @@ public final class LogicaTerminalDatos {
 
     switch (opt) {
       case "1": // 1. Atender nuevos pacientes
-        // TODO: buscar a todos los pacientes sin expedientes, crearlo y derivarlos a consulta primaria.
+        PantallasTerminalDatos.pantallaAtenderPacientes();
+        ServicioMedico.atenderPacientes();
+        pantallaServiciosMedicos();
         break;
       case "2": // 2. Actualizar expedientes
         // TODO: probablemente automatico y mostrar por pantalla las actualizacions (pedir fecha para actualizar los previos)

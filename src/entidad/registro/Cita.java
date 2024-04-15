@@ -65,28 +65,26 @@ public class Cita implements Comparable<Cita> {
    * Constructor de Cita, donde se inserta la fecha de creación en el momento de la creación, se
    * inicializa la lista de sanitarios y se determina el horario.
    *
-   * @param fechaCreacion Fecha de creación.
    * @param fechaCita Fecha de la cita.
    * @param paciente Paciente.
    */
-  public Cita(
-      ZonedDateTime fechaCreacion, ZonedDateTime fechaCita, Paciente paciente, Unidad ubicacion) {
+  public Cita(ZonedDateTime fechaCita, Paciente paciente, Unidad ubicacion) {
     this.fechaCreacion = ZonedDateTime.now();
     this.fechaCita = fechaCita;
     this.paciente = paciente;
     this.sanitarios = new ArrayList<>();
     this.vencida = false;
     this.ubicacion = ubicacion;
-    determinarHorario(fechaCreacion);
+    determinarHorario(fechaCita);
   }
 
   /**
    * Determina el horario de la cita.
    *
-   * @param fechaCreacion Fecha de la cita.
+   * @param fechaCita Fecha de la cita.
    */
-  private void determinarHorario(ZonedDateTime fechaCreacion) {
-    final int hora = fechaCreacion.getHour();
+  private void determinarHorario(ZonedDateTime fechaCita) {
+    final int hora = fechaCita.getHour();
     if (Horario.M.inicio <= hora && hora < Horario.T.inicio) this.horario = Horario.M;
     else if (Horario.T.inicio <= hora && hora < Horario.N.inicio) this.horario = Horario.T;
     else this.horario = Horario.N;

@@ -32,7 +32,7 @@ public final class Gerencia {
 
   /** Inicializa la cita temporal. */
   static void iniciarCita() {
-    tmpCita = new Cita(ZonedDateTime.now(), ZonedDateTime.now(), null, null);
+    tmpCita = new Cita(ZonedDateTime.now(), null, null);
   }
 
   /** Establece la fecha de la cita temporal. */

@@ -4,11 +4,13 @@ import entidad.persona.*;
 import entidad.registro.Cita;
 import entidad.unidad.Unidad;
 import entidad.unidad.formacion.Formacion;
+import entidad.unidad.medica.consulta.Primaria;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -221,6 +223,18 @@ public final class Consultas {
             .orElse(null);
   }
 
+  /** Obtener todos los médicos */
+  static List<Medico> obtenerMedicos() {
+    List<Medico> medicos = new ArrayList<>();
+    LogicaTerminalDatos.getHospital()
+        .getPersonal()
+        .forEach(
+            p -> {
+              if (p instanceof Medico) medicos.add((Medico) p);
+            });
+    return medicos;
+  }
+
   /**
    * Consulta por NIF.
    *
@@ -239,23 +253,20 @@ public final class Consultas {
     else verAgenda(sanitario);
   }
 
-  /**
-   * Consulta de las unidades de formación del hospital.
-   */
+  /** Consulta de las unidades de formación del hospital. */
   static void consultarUnidadesFormacion() {
     List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
 
-    List<Unidad> formacion = unidades.stream().filter(u -> u instanceof Formacion).collect(Collectors.toList());
+    List<Unidad> formacion =
+        unidades.stream().filter(u -> u instanceof Formacion).collect(Collectors.toList());
 
-    if(formacion.isEmpty())PantallasTerminalDatos.pantallaConsultaSinResultados();
+    if (formacion.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
     else formacion.forEach(f -> presentarFormacion((Formacion) f));
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS CONSULTA PACIENTES
   ------------------------------------------------------------------------------------------------------------------ */
-
-
 
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
@@ -266,7 +277,7 @@ public final class Consultas {
    *
    * @param persona Persona cuyos datos se van a mostrar.
    */
-  private static void presentar(Persona persona) {
+  static void presentar(Persona persona) {
     System.out.println(persona.toString().replace("\n", "  "));
   }
 
@@ -276,11 +287,25 @@ public final class Consultas {
    * @param formacion Unidad cuyos datos se van a mostrar.
    */
   private static void presentarFormacion(Formacion formacion) {
-    String codigo = formacion.getCodigoArea()==null? "":formacion.getCodigoArea().getDescripcion();
-    String instructor = formacion.getInstructor()==null? "":formacion.getInstructor().toString().replace("\n", "  ");
+    String codigo =
+        formacion.getCodigoArea() == null ? "" : formacion.getCodigoArea().getDescripcion();
+    String instructor =
+        formacion.getInstructor() == null
+            ? ""
+            : formacion.getInstructor().toString().replace("\n", "  ");
     StringBuilder estudiantes = new StringBuilder();
-    formacion.getEstudiantes().forEach(e -> estudiantes.append(e.toString().replace("\n", "  ")).append("\n"));
-    String info = "> Unidad: " + codigo + "\n"+"Instructor: "+instructor+"\n"+"Estudiantes:\n"+estudiantes;
+    formacion
+        .getEstudiantes()
+        .forEach(e -> estudiantes.append(e.toString().replace("\n", "  ")).append("\n"));
+    String info =
+        "> Unidad: "
+            + codigo
+            + "\n"
+            + "Instructor: "
+            + instructor
+            + "\n"
+            + "Estudiantes:\n"
+            + estudiantes;
     System.out.println(info);
   }
 
@@ -305,7 +330,7 @@ public final class Consultas {
    * @param contador Número de la cita.
    * @param cita Cita a mostrar.
    */
-  private static void printAgenda(String contador, Cita cita) {
+  static void printAgenda(String contador, Cita cita) {
     System.out.println(
         contador
             + ". Cita -> "
@@ -328,5 +353,20 @@ public final class Consultas {
     List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
     List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
     return Stream.concat(personal.stream(), pacientes.stream()).collect(Collectors.toList());
+  }
+
+  /**
+   * Devuelve la unidad de consulta primaria.
+   *
+   * @return Unidad consulta primaria.
+   */
+  static Primaria obtenerUnidadConsultaPrimaria() {
+    Unidad unidad =
+        LogicaTerminalDatos.getHospital().getUnidades().stream()
+            .filter(u -> u.getCodigoActividad().equals(CodigoActividadEnum.CONSULTA_PRIMARIA))
+            .findFirst()
+            .orElse(null);
+
+    return unidad == null ? null : ((Primaria) unidad);
   }
 }

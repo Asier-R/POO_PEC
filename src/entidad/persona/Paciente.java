@@ -3,7 +3,6 @@ package entidad.persona;
 import entidad.registro.Cita;
 import entidad.registro.Expediente;
 import entidad.unidad.Unidad;
-import servicio.Grabable;
 
 /** Subclase de {@link Persona} que representa a un paciente. */
 public class Paciente extends Persona implements Comparable<Paciente>{
@@ -115,6 +114,7 @@ public class Paciente extends Persona implements Comparable<Paciente>{
     super(NIF, nombre, apellido1, apellido2);
     this.edad = edad;
     this.sexo = sexo;
+    this.expediente = new Expediente(this);
   }
 
   /**

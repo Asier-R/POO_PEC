@@ -325,6 +325,35 @@ public final class PantallasTerminalDatos {
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
+     PANTALLAS DE SERVICIOS MÉDICOS
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /** Pantalla de atención de pacientes. */
+  static void pantallaAtenderPacientes() {
+    separarPantalla();
+    System.out.println(">>> 2.1. ATENDER NUEVOS PACIENTES");
+    System.out.println("> INFO: Se va a dar cita a los nuevos pacientes para atención primaria.");
+  }
+
+  /** Pantalla de aviso no se puede atender de pacientes. */
+  static void pantallaAvisoSinMedicoPrimaria() {
+    separarPantalla();
+    System.out.println("> AVISO: No se puede atender a los nuevos pacientes sin un médico presente en consulta primaria...");
+  }
+
+  /** Pantalla de aviso no se puede atender de pacientes. */
+  static void pantallaAvisoSinPacientesNuevos() {
+    separarPantalla();
+    System.out.println("> AVISO: No hay nuevos pacientes que atender...");
+  }
+
+  /** Pantalla de info cita pacientes nuevos. */
+  static void pantallaInfoCitaPacientesNuevos() {
+    System.out.println("> INFO: Se ha dado cita a los siguientes pacientes:");
+    System.out.println();
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE CONTABLE
   ------------------------------------------------------------------------------------------------------------------ */
 
