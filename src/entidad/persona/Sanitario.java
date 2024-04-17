@@ -104,6 +104,7 @@ public abstract class Sanitario extends Personal {
 
   /**
    * Devuelve los años de experiencia del sanitario.
+   *
    * @return Años de experiencia.
    */
   public int getExperiencia() {
@@ -112,6 +113,7 @@ public abstract class Sanitario extends Personal {
 
   /**
    * Establece los años de experiencia del sanitario.
+   *
    * @param experiencia Años de experiencia.
    */
   public void setExperiencia(int experiencia) {
@@ -125,6 +127,11 @@ public abstract class Sanitario extends Personal {
    */
   public List<Cita> getCitas() {
     return citas;
+  }
+
+  /** Anota una nueva cita en la agenda del sanitario. */
+  public void anotarCita(Cita cita) {
+    citas.add(cita);
   }
 
   /**

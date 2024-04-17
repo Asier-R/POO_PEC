@@ -39,6 +39,7 @@ public final class ServicioMedico {
     if (medicos.isEmpty()) {
       PantallasTerminalDatos.pantallaAvisoSinMedicoPrimaria();
     }
+    final Medico medicoPrimaria = medicos.get(0);
 
     // Si no existe consulta primaria, se crea.
     if (consutaPrimaria == null) {
@@ -49,16 +50,19 @@ public final class ServicioMedico {
     // Si hay médico en consulta primaria, y hay pacientes, se les da cita.
     if (!medicos.isEmpty() && !pacientes.isEmpty()) {
       // Se da cita para el dia siguiente (valor arbitrario).
-      ZonedDateTime fechaCita = ZonedDateTime.now().plusDays(1L);
+      ZonedDateTime fechaCita = Utiles.getFechaHoraSistema();
       Cita citaCP;
       PantallasTerminalDatos.pantallaInfoCitaPacientesNuevos();
       for (Paciente p : pacientes) {
         citaCP = new Cita(fechaCita, p, consutaPrimaria);
         p.setCita(citaCP);
         p.getExpediente().setEstado(Expediente.Estado.CITADO);
+        medicoPrimaria.anotarCita(citaCP);
+        // Se avanza una hora para asignar la siguiente cita.
+        fechaCita = fechaCita.plusHours(1L);
         // Mostrar por pantalla.
         Consultas.presentar(p);
-        Consultas.printAgenda("..",p.getCita());
+        Consultas.printAgenda("..", p.getCita());
       }
     }
   }

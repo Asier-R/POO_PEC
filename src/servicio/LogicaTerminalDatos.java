@@ -96,6 +96,7 @@ public final class LogicaTerminalDatos {
         pantallaServiciosMedicos();
         break;
       case "2": // 2. Actualizar expedientes
+        // TODO: DAR LA OPCION DE AVANZAR LA FECHA Y HORA DEL SISTEMA
         // TODO: probablemente automatico y mostrar por pantalla las actualizacions (pedir fecha para actualizar los previos)
         // TODO: los pacientes derivados a consulta primaria son diagnosticados de forma random
         // TODO: los pacientes que han sido diagnosticados son derivados a la unidad que sea o fuera del hospital

@@ -42,6 +42,22 @@ public final class Utiles {
   static final String STR_FORMATO_FECHA = "HH:mm:ss dd-MM-uuuu";
   static final String STR_ZONA = "Europe/Madrid";
 
+  private static ZonedDateTime ahora = ZonedDateTime.now();
+  private static String dia = String.valueOf(ahora.getDayOfMonth());
+  private static String mes =
+      String.valueOf(ahora.getMonthValue()).length() == 1
+          ? ("0" + (ahora.getMonthValue()))
+          : String.valueOf(ahora.getMonthValue());
+  private static String anio = String.valueOf(ahora.getYear());
+
+  /** Fecha y hora base con la se crea la hora del sistema */
+  private static final String FECHA_PRIMERA_CONSULTA = "08:00:00 " + dia + "-" + mes + "-" + anio;
+
+  /** Fecha y hora del sistema. Se parte de las 8am. */
+  private static final ZonedDateTime fechaHoraSistema =
+      LocalDateTime.parse(FECHA_PRIMERA_CONSULTA, DateTimeFormatter.ofPattern(STR_FORMATO_FECHA))
+          .atZone(ZoneId.of(STR_ZONA));
+
   /** Lector de input de usuario. */
   private static Scanner reader;
 
@@ -50,14 +66,59 @@ public final class Utiles {
     // Constructor privado
   }
 
+  /**
+   * Devuelve al fecha y hora del sistema.
+   *
+   * @return ZonedDateTime con la fecha y hora del sistema.
+   */
+  static ZonedDateTime getFechaHoraSistema() {
+    return fechaHoraSistema;
+  }
+
+  /**
+   * Devuelve al fecha y hora del sistema formateada.
+   *
+   * @return String con la fecha y hora del sistema.
+   */
+  static String getFechaHoraSistemaFormateada(){
+    return fechaHoraSistema.format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
+  }
+
+  /**
+   * Avanza la hora del sistema un número determinado de horas.
+   *
+   * @param horas Horas a avanzar.
+   * @return ZonedDateTime con la fecha y hora del sistema.
+   */
+  static ZonedDateTime avanzarHoraSistema(int horas) {
+    return fechaHoraSistema.plusHours(horas);
+  }
+
+  /**
+   * Avanza la fecha del sistema un número determinado de días.
+   *
+   * @param dias Días a avanzar.
+   * @return ZonedDateTime con la fecha y hora del sistema.
+   */
+  static ZonedDateTime avanzarDiaSistema(int dias) {
+    return fechaHoraSistema.plusDays(dias);
+  }
+
+  /** Inicia la instancia de Scanner para admitir las entradas del usuario. */
   static void abrirLectorDeEntradas() {
     reader = new Scanner(System.in);
   }
 
+  /** Cierra la instancia de Scanner. */
   static void cerrarLectorDeEntradas() {
     reader.close();
   }
 
+  /**
+   * Muestra por pantalla los datos de una persona determinada.
+   *
+   * @param persona Persona cuyos datos se quieren mostrar.
+   */
   static void mostrarDatosPersona(Persona persona) {
     PantallasTerminalDatos.separarPantalla();
     System.out.println(persona);
@@ -75,8 +136,8 @@ public final class Utiles {
   }
 
   /**
-   * Método común para leer input de usuario.
-   * El número debe ser un entero positivo.
+   * Método común para leer input de usuario. El número debe ser un entero positivo.
+   *
    * @return Cadena de texto del input de usuario.
    */
   static int leerNumero() {

@@ -341,7 +341,10 @@ public final class Consultas {
             + cita.printHorario()
             + "  "
             + "Ubicación: "
-            + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre()));
+            + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre())
+            + "  "
+            + "Paciente: "
+            + cita.getPaciente().getNIF());
   }
 
   /**

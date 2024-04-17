@@ -3,7 +3,7 @@ package servicio;
 /** Clase encargada de mostrar en pantalla la información ofrecida y solicitada a/por el usuario. */
 public final class PantallasTerminalDatos {
 
-  private static final String SEPARADOR = "--------------------------------------------";
+  private static final String SEPARADOR = "---------------------- SysDate "+Utiles.getFechaHoraSistemaFormateada()+" ----------------------";
 
   /** Constructor de la terminal de datos. */
   PantallasTerminalDatos() {
