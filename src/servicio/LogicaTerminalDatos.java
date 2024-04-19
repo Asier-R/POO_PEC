@@ -34,10 +34,7 @@ public final class LogicaTerminalDatos {
       case "1": // 1. Gerencia y Administración
         pantallaGerencia();
         break;
-      case "2": // 2. Servicios de Mantenimiento
-        // TODO: opcional meter algo
-        break;
-      case "3": // 3. Servicios Médicos
+      case "2": // 2. Servicios Médicos
         pantallaServiciosMedicos();
         break;
       case "X": // X. Volver. En este punto es igual a finalizar.
@@ -91,12 +88,12 @@ public final class LogicaTerminalDatos {
 
     switch (opt) {
       case "1": // 1. Atender nuevos pacientes
-        PantallasTerminalDatos.pantallaAtenderPacientes();
         ServicioMedico.atenderPacientes();
         pantallaServiciosMedicos();
         break;
       case "2": // 2. Actualizar expedientes
-        // TODO: DAR LA OPCION DE AVANZAR LA FECHA Y HORA DEL SISTEMA
+        ServicioMedico.actualizarExpedientes();
+
         // TODO: probablemente automatico y mostrar por pantalla las actualizacions (pedir fecha para actualizar los previos)
         // TODO: los pacientes derivados a consulta primaria son diagnosticados de forma random
         // TODO: los pacientes que han sido diagnosticados son derivados a la unidad que sea o fuera del hospital

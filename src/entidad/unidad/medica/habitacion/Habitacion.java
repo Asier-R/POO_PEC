@@ -8,8 +8,8 @@ import enumerado.CodigoAreaEnum;
 import java.util.List;
 
 /**
- * Subclase abstracta de {@link Medica} que se utiliza para definir las unidades que se ocupan de alojar a los
- * pacientes en el hospital.
+ * Subclase abstracta de {@link Medica} que se utiliza para definir las unidades que se ocupan de
+ * alojar a los pacientes en el hospital.
  */
 public abstract class Habitacion extends Medica {
 
@@ -32,14 +32,20 @@ public abstract class Habitacion extends Medica {
 
   /**
    * Ingresa a un paciente en la habitación.
+   *
    * @param paciente Paciente a ingresar.
    */
-  public void ingresarPaciente(Paciente paciente){
+  public void ingresarPaciente(Paciente paciente) {
     this.pacientes.add(paciente);
   }
 
   @Override
   public CodigoActividadEnum getCodigoActividad() {
     return codigoActividad;
+  }
+
+  @Override
+  public String toString() {
+    return this.getNombre() + "  Ocupación: " + (this.pacientes.size());
   }
 }

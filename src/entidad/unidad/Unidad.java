@@ -61,7 +61,9 @@ public abstract class Unidad implements Comparable<Unidad> {
    *
    * @return cadena de texto.
    */
-  public abstract String toString();
+  public String toString(){
+    return this.getNombre();
+  }
 
   @Override
   public int compareTo(Unidad u) {

@@ -5,7 +5,7 @@ import entidad.registro.Expediente;
 import entidad.unidad.Unidad;
 
 /** Subclase de {@link Persona} que representa a un paciente. */
-public class Paciente extends Persona implements Comparable<Paciente>{
+public class Paciente extends Persona implements Comparable<Paciente> {
 
   /** Sexo del paciente. */
   public enum Sexo {
@@ -91,7 +91,7 @@ public class Paciente extends Persona implements Comparable<Paciente>{
   private Cita cita;
 
   /** Unidad en la que se encuentra el paciente. */
-  private Unidad unidad;
+  private Unidad ubicacion;
 
   /** Edad del paciente. */
   private final int edad;
@@ -171,6 +171,24 @@ public class Paciente extends Persona implements Comparable<Paciente>{
     return sexo;
   }
 
+  /**
+   * Devuelve la ubicación del paciente.
+   *
+   * @return Unidad en la que se encuentra el paciente.
+   */
+  public Unidad getUbicacion() {
+    return ubicacion;
+  }
+
+  /**
+   * Establece la ubicación del paciente.
+   *
+   * @param ubicacion Unidad en la que se encuentra el paciente.
+   */
+  public void setUbicacion(Unidad ubicacion) {
+    this.ubicacion = ubicacion;
+  }
+
   @Override
   public String toString() {
     return "NIF: "
@@ -189,7 +207,9 @@ public class Paciente extends Persona implements Comparable<Paciente>{
         + this.getEdad()
         + "\n"
         + "Sexo: "
-        + this.getSexo();
+        + this.getSexo()
+        + "Ubicación: "
+        + (this.getUbicacion()==null?"sin asignar":this.getUbicacion());
   }
 
   @Override

@@ -22,12 +22,11 @@ public class EnPlanta extends Habitacion {
 
   @Override
   public String toString() {
-    return this.getCodigoUnidad()
-        + "-"
-        + this.getCodigoUnidad()
-        + "-"
-        + this.getCodigoActividad()
-        + "-"
-        + this.getNombre();
+    return this.getNombre()
+        + "  Capacidad: "
+        + CAPACIDAD
+        + "  Ocupación: "
+        + (this.pacientes.size());
   }
+
 }

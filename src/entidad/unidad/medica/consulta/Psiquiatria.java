@@ -14,15 +14,5 @@ public class Psiquiatria extends Consulta{
         super(CodigoActividadEnum.CONSULTA_PSIQUIATRIA, nombre);
     }
 
-    @Override
-    public String toString() {
-        return this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoActividad()
-                + "-"
-                + this.getNombre();
-    }
 }
 

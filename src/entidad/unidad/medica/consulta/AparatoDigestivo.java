@@ -14,14 +14,4 @@ public class AparatoDigestivo extends Consulta{
         super(CodigoActividadEnum.CONSULTA_APARATO_DIGESTIVO, nombre);
     }
 
-    @Override
-    public String toString() {
-        return this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoActividad()
-                + "-"
-                + this.getNombre();
-    }
 }

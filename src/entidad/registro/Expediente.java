@@ -179,4 +179,11 @@ public class Expediente {
   public void setDiagnostico(DiagnosticoTratamiento.DiagnosticosTratamientos diagnostico) {
     this.diagnostico = diagnostico;
   }
+
+  /**
+   * Graba los datos del expediente en el historial.
+   */
+  public void grabarDatos(){
+    this.historial.grabarDatos(this);
+  }
 }

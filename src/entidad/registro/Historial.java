@@ -27,14 +27,15 @@ public class Historial {
   }
 
   /**
-   * Una vez finalizada una cita se graban los datos de esta junto con su diagnóstico.
-   * @param cita Cita.
-   * @param diagnostico Diagnostico.
+   * Graba los datos del expediente en el historial.
+   * @param expediente Expediente del que se obtienen los datos.
    */
-  public void grabarDatos(Cita cita, DiagnosticosTratamientos diagnostico){
+  public void grabarDatos(Expediente expediente){
+    final Cita cita = expediente.getCita();
+    cita.setVencida(); // Solo se guardan citas vencidas.
     this.citas.add(cita);
-    this.diagnosticosTratamientos.add(diagnostico);
-    this.citaDiagnostico.put(cita, diagnostico);
+    this.diagnosticosTratamientos.add(expediente.getDiagnostico());
+    this.citaDiagnostico.put(expediente.getCita(), expediente.getDiagnostico());
     this.citas.sort(Cita::compareTo);
   }
 

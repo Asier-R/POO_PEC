@@ -15,8 +15,7 @@ public final class PantallasTerminalDatos {
     separarPantalla();
     System.out.println(">>> 0. INICIO");
     System.out.println("> 1. Gerencia y Administración");
-    System.out.println("> 2. Servicios de Mantenimiento");
-    System.out.println("> 3. Servicios Médicos");
+    System.out.println("> 2. Servicios Médicos");
     opcionesComunes();
   }
 
@@ -350,6 +349,20 @@ public final class PantallasTerminalDatos {
   /** Pantalla de info cita pacientes nuevos. */
   static void pantallaInfoCitaPacientesNuevos() {
     System.out.println("> INFO: Se ha dado cita a los siguientes pacientes:");
+    System.out.println();
+  }
+
+  /** Pantalla de info actualizar expedientes. */
+  static void pantallaInfoActualizarExpedientes() {
+    System.out.println("> INFO: Actualizar los expedientes requiere avanzar la fecha de sistema.");
+    System.out.println(">       Avanzar la fecha mostrará el trabajo realizado por el servicio médico hasta la nueva fecha de sistema.");
+    System.out.println(">       Introduzca el número de días que desea avanzar...     (cero para permanecer en la fecha actual)");
+    System.out.println();
+  }
+
+  /** Pantalla de info actualizar expedientes avanzar días. */
+  static void pantallaInfoActualizarExpedientesAvanzarDias(Long numDias) {
+    System.out.println("> INFO: ¿Avanzar la fecha de sistema a "+Utiles.getFechaSistemaAvanzadaNDias(numDias)+"?");
     System.out.println();
   }
 

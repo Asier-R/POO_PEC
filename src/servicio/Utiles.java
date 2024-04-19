@@ -67,7 +67,7 @@ public final class Utiles {
   }
 
   /**
-   * Devuelve al fecha y hora del sistema.
+   * Devuelve la fecha y hora del sistema.
    *
    * @return ZonedDateTime con la fecha y hora del sistema.
    */
@@ -76,12 +76,21 @@ public final class Utiles {
   }
 
   /**
-   * Devuelve al fecha y hora del sistema formateada.
+   * Devuelve la fecha y hora del sistema formateada.
    *
    * @return String con la fecha y hora del sistema.
    */
   static String getFechaHoraSistemaFormateada(){
     return fechaHoraSistema.format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
+  }
+
+  /**
+   * Devuelve la fecha y hora del sistema avanzada N días y formateada.
+   *
+   * @return String con la fecha y hora del sistema avanzada N días.
+   */
+  static String getFechaSistemaAvanzadaNDias(Long numDias){
+    return fechaHoraSistema.plusDays(numDias).format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
   }
 
   /**
@@ -330,4 +339,18 @@ public final class Utiles {
       return falta;
     }
   }
+
+  /**
+   * Obtener una unidad a partir de un código de actividad.
+   * @param codigoActividad Código de actividad.
+   * @return Unidad cuyo código de actividad coincide con la entrada.
+   */
+  static Unidad obtenerUnidadPorCodActividad(CodigoActividadEnum codigoActividad){
+    List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
+    for(Unidad unidad : unidades){
+      if(unidad.getCodigoActividad().equals(codigoActividad)) return unidad;
+    }
+    return null;
+  }
+
 }

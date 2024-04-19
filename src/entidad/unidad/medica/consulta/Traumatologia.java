@@ -14,15 +14,5 @@ public class Traumatologia extends Consulta{
         super(CodigoActividadEnum.CONSULTA_TRAUMATOLOGIA, nombre);
     }
 
-    @Override
-    public String toString() {
-        return this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoActividad()
-                + "-"
-                + this.getNombre();
-    }
 }
 

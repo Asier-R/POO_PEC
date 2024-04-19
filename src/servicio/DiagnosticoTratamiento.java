@@ -55,8 +55,9 @@ public final class DiagnosticoTratamiento {
     TRASTORNO_ALIMENTARIO("Trastorno alimentario",        CONSULTA_PSIQUIATRIA, ANALITICA, "Asesoramiento y terapia psicológica",  null,      MEDICO),
     DEPRESION(  "Depresión",  CONSULTA_PSIQUIATRIA,       null, "Prescripción de antidepresivos",                 null,      MEDICO),
     ARTROSIS(   "Artrosis",   CONSULTA_TRAUMATOLOGIA,     RESONANCIA_MAGNETICA, "Fisioterapia",                                    null,      ENFERMERO),
-    Lumbalgia(  "Lumbalgia",  CONSULTA_TRAUMATOLOGIA,     null, "Asesoramiento en medidas no farmacológicas",     null,      ENFERMERO),
-    ESCOLIOSIS( "Escoliosis", CONSULTA_TRAUMATOLOGIA,     RAYOS_X, "Derivación a especialista externo en ortopedia",               null,      MEDICO);
+    LUMBALGIA(  "Lumbalgia",  CONSULTA_TRAUMATOLOGIA,     null, "Asesoramiento en medidas no farmacológicas",     null,      ENFERMERO),
+    ESCOLIOSIS( "Escoliosis", CONSULTA_TRAUMATOLOGIA,     RAYOS_X, "Derivación a especialista externo en ortopedia",               null,      MEDICO),
+    POSTCIRUGIA( "Post-cirugía", QUIROFANO, null, "Ingreso en planta",                                                        EN_PLANTA, ENFERMERO);
 
     /** Descripción del diagnóstico. */
     private String diagnostico;
