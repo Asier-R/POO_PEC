@@ -265,10 +265,6 @@ public final class Consultas {
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
-     MÉTODOS CONSULTA PACIENTES
-  ------------------------------------------------------------------------------------------------------------------ */
-
-  /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
 
@@ -371,5 +367,34 @@ public final class Consultas {
             .orElse(null);
 
     return unidad == null ? null : ((Primaria) unidad);
+  }
+
+  /**
+   * Obtener una unidad a partir de un código de actividad.
+   *
+   * @param codigoActividad Código de actividad.
+   * @return Unidad cuyo código de actividad coincide con la entrada.
+   */
+  static Unidad obtenerUnidadPorCodActividad(CodigoActividadEnum codigoActividad) {
+    List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
+    for (Unidad unidad : unidades) {
+      if (unidad.getCodigoActividad().equals(codigoActividad)) return unidad;
+    }
+    return null;
+  }
+
+  /**
+   * Obtener un médico asignado a una consulta determinada.
+   *
+   * @param codigoConsulta Código de la consulta.
+   * @return Médico de la consulta.
+   */
+  static Medico obtenerMedicoDeConsulta(CodigoActividadEnum codigoConsulta) {
+    final List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+    return (Medico)
+        personal.stream()
+            .filter(p -> (p.getCodigoActividad().equals(codigoConsulta) && p instanceof Medico))
+            .findFirst()
+            .orElse(null);
   }
 }

@@ -4,6 +4,7 @@ package servicio;
 public final class PantallasTerminalDatos {
 
   private static final String SEPARADOR = "---------------------- SysDate "+Utiles.getFechaHoraSistemaFormateada()+" ----------------------";
+  private static final String SEPARADOR_SIMPLE = "............................................";
 
   /** Constructor de la terminal de datos. */
   PantallasTerminalDatos() {
@@ -366,6 +367,11 @@ public final class PantallasTerminalDatos {
     System.out.println();
   }
 
+  /** Pantalla de aviso no se ha podido citar a paciente. */
+  static void pantallaAvisoNoSeHaPodidoCitarPaciente(){
+    System.out.println("> AVISO: Se ha podido citar al paciente: ");
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE CONTABLE
   ------------------------------------------------------------------------------------------------------------------ */
@@ -378,9 +384,14 @@ public final class PantallasTerminalDatos {
      PANTALLAS COMUNES
   ------------------------------------------------------------------------------------------------------------------ */
 
-  /** Introduce salto de línea y elementos repetidos para separar las pantallas. */
+  /** Introduce salto de línea y elementos repetidos para separar las pantallas. Incluye fecha de sistema. */
   static void separarPantalla() {
     System.out.println(SEPARADOR);
+  }
+
+  /** Introduce salto de línea y elementos repetidos (simples) para separar las pantallas. */
+  static void separarPantallaSimple() {
+    System.out.println(SEPARADOR_SIMPLE);
   }
 
   /** Pantalla introducción de datos */

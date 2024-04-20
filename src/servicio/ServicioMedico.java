@@ -33,9 +33,29 @@ public final class ServicioMedico {
     /** Diagnóstico del paciente */
     private static DiagnosticosTratamientos diagnostico;
 
-    public static void generarInforme() {
+    public static void generarInforme(Paciente paciente) {
+      PantallasTerminalDatos.separarPantallaSimple();
+      System.out.println("> INFORME -> Se ha atendido al paciente: ");
+      Consultas.presentar(paciente);
+      System.out.println();
+      System.out.println("> El paciente ha sido diagnosticado "+diagnostico.getDiagnostico());
+      System.out.println("> El paciente procede de "+ubicacionPrev);
 
-      System.out.println("");
+      if(diagnostico.getCodigoPruebaMedica()!=null){
+        System.out.println("> Requiere de una prueba de "+diagnostico.getCodigoPruebaMedica().getDescripcion());
+      }
+
+      if(diagnostico.getTratamiento()!=null){
+        System.out.println("> Se prescribe: "+diagnostico.getTratamiento());
+      }
+
+      if(ubicacionAct != null){
+        System.out.println("> El paciente es enviado a "+ubicacionAct);
+      }
+
+      if(paciente.getCita() != null){
+        System.out.println("> Nueva cita");
+      }
     }
   }
 
@@ -97,7 +117,11 @@ public final class ServicioMedico {
   /** Se trata cada paciente con una cita y actualizan los expedientes, citas, agendas, etc. */
   static void actualizarExpedientes() {
     PantallasTerminalDatos.pantallaInfoActualizarExpedientes();
-    PantallasTerminalDatos.pantallaInfoActualizarExpedientesAvanzarDias((long) Utiles.leerNumero());
+    final Long avance = (long) Utiles.leerNumero();
+    PantallasTerminalDatos.pantallaInfoActualizarExpedientesAvanzarDias(avance);
+    System.out.println(
+        "> Fecha establecida en --> "
+            + Utiles.getFechaHoraFormateada(Utiles.avanzarDiaSistema(avance)));
     // Obtener la fecha para compararla.
     ZonedDateTime fechaActual = Utiles.getFechaHoraSistema();
     // Obtener todos los pacientes.
@@ -134,7 +158,7 @@ public final class ServicioMedico {
     Informe.ubicacionPrev = paciente.getUbicacion();
     Informe.ubicacionAct = paciente.getCita().getUbicacion();
     Informe.ubicacionSig =
-        Utiles.obtenerUnidadPorCodActividad(Informe.diagnostico.getUnidadDestino());
+        Consultas.obtenerUnidadPorCodActividad(Informe.diagnostico.getUnidadDestino());
 
     // El ciclo de tratamientos termina cuando no hay unidad destino.
     if (Informe.ubicacionAct == null) {
@@ -142,15 +166,14 @@ public final class ServicioMedico {
     } else {
       atenderPaciente(paciente);
     }
-
-    // TODO: terminar tratamiento paciente, mostrar informe (desarrollar)
   }
 
   /**
    * Atender a un paciente.
+   *
    * @param paciente Paciente al que se atiende.
    */
-  private static void atenderPaciente(Paciente paciente){
+  private static void atenderPaciente(Paciente paciente) {
     if (Informe.ubicacionAct instanceof Consulta)
       paciente.getExpediente().setEstado(Expediente.Estado.EN_CONSULTA);
 
@@ -160,33 +183,47 @@ public final class ServicioMedico {
     if (Informe.ubicacionAct instanceof Quirofano)
       paciente.getExpediente().setEstado(Expediente.Estado.DERIVADO);
 
-    paciente.setUbicacion(Informe.ubicacionAct);
-
     // Se genera una cita para el siguiente paso en el tratamiento.
-    paciente.setCita(generarCita(paciente));
-
-    //TODO: terminar atencion paciente
+    final Cita cita = generarCita(paciente);
+    if (cita == null) {
+      PantallasTerminalDatos.pantallaAvisoNoSeHaPodidoCitarPaciente();
+      Consultas.presentar(paciente);
+    } else {
+      paciente.setUbicacion(Informe.ubicacionAct);
+      paciente.setCita(cita);
+      Informe.generarInforme(paciente);
+      paciente.getExpediente().grabarDatos();
+    }
   }
 
   /**
    * Genera una cita para un paciente.
+   *
    * @param paciente Paciente para el que se genera la cita.
    */
-  private static Cita generarCita(Paciente paciente){
+  private static Cita generarCita(Paciente paciente) {
     ZonedDateTime fechaCita = Utiles.getFechaHoraSistema().plusDays(1L);
-    final Cita cita = new Cita(fechaCita, paciente, Informe.ubicacionSig);
-    if(Informe.ubicacionSig == null) cita.setVencida();
+    Cita cita = new Cita(fechaCita, paciente, Informe.ubicacionSig);
+    if (Informe.ubicacionSig == null) cita.setVencida();
 
-    // TODO: citar medicos y revisar modificaciones de citas
+    cita.addSanitario(null);
+    Medico medico = Consultas.obtenerMedicoDeConsulta(Informe.ubicacionAct.getCodigoActividad());
+
+    if (medico != null) {
+      cita.addSanitario(medico);
+    } else {
+      cita = null;
+    }
 
     return cita;
   }
 
   /**
-   * Da de alta a un paciente, eliminando
+   * Da de alta a un paciente.
+   *
    * @param paciente Paciente al que se da de alta.
    */
-  private static void darAltaPaciente(Paciente paciente){
+  private static void darAltaPaciente(Paciente paciente) {
     paciente.getExpediente().setEstado(Expediente.Estado.SANO);
     paciente.getExpediente().grabarDatos();
     paciente.setCita(null);

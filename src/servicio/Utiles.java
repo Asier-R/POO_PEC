@@ -16,6 +16,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Clase que contiene funciones útiles para toda la aplicación.
+ */
 public final class Utiles {
 
   static final String STR_NIF = "NIF";
@@ -66,6 +69,20 @@ public final class Utiles {
     // Constructor privado
   }
 
+  /** Inicia la instancia de Scanner para admitir las entradas del usuario. */
+  static void abrirLectorDeEntradas() {
+    reader = new Scanner(System.in);
+  }
+
+  /** Cierra la instancia de Scanner. */
+  static void cerrarLectorDeEntradas() {
+    reader.close();
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS PARA LAS FECHAS
+  ------------------------------------------------------------------------------------------------------------------ */
+
   /**
    * Devuelve la fecha y hora del sistema.
    *
@@ -85,6 +102,15 @@ public final class Utiles {
   }
 
   /**
+   * Devuelve la fecha de entrada formateada.
+   * @param fecha Fecha a formatear.
+   * @return Fecha formateada.
+   */
+  static String getFechaHoraFormateada(ZonedDateTime fecha){
+    return fecha.format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
+  }
+
+  /**
    * Devuelve la fecha y hora del sistema avanzada N días y formateada.
    *
    * @return String con la fecha y hora del sistema avanzada N días.
@@ -99,7 +125,7 @@ public final class Utiles {
    * @param horas Horas a avanzar.
    * @return ZonedDateTime con la fecha y hora del sistema.
    */
-  static ZonedDateTime avanzarHoraSistema(int horas) {
+  static ZonedDateTime avanzarHoraSistema(long horas) {
     return fechaHoraSistema.plusHours(horas);
   }
 
@@ -109,29 +135,13 @@ public final class Utiles {
    * @param dias Días a avanzar.
    * @return ZonedDateTime con la fecha y hora del sistema.
    */
-  static ZonedDateTime avanzarDiaSistema(int dias) {
+  static ZonedDateTime avanzarDiaSistema(long dias) {
     return fechaHoraSistema.plusDays(dias);
   }
 
-  /** Inicia la instancia de Scanner para admitir las entradas del usuario. */
-  static void abrirLectorDeEntradas() {
-    reader = new Scanner(System.in);
-  }
-
-  /** Cierra la instancia de Scanner. */
-  static void cerrarLectorDeEntradas() {
-    reader.close();
-  }
-
-  /**
-   * Muestra por pantalla los datos de una persona determinada.
-   *
-   * @param persona Persona cuyos datos se quieren mostrar.
-   */
-  static void mostrarDatosPersona(Persona persona) {
-    PantallasTerminalDatos.separarPantalla();
-    System.out.println(persona);
-  }
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS DE ENTRADA POR TECLADO
+  ------------------------------------------------------------------------------------------------------------------ */
 
   /**
    * Método común para leer input de usuario.
@@ -268,6 +278,10 @@ public final class Utiles {
     return fecha;
   }
 
+  /* ------------------------------------------------------------------------------------------------------------------
+     VALIDACIONES
+  ------------------------------------------------------------------------------------------------------------------ */
+
   /** Método para validar un campo de texto. */
   static String validarCampo(String dato, String falta, String campo) {
     if (dato == null || dato.isEmpty() || dato.isBlank()) {
@@ -340,17 +354,18 @@ public final class Utiles {
     }
   }
 
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS AUXILIARES
+  ------------------------------------------------------------------------------------------------------------------ */
+
   /**
-   * Obtener una unidad a partir de un código de actividad.
-   * @param codigoActividad Código de actividad.
-   * @return Unidad cuyo código de actividad coincide con la entrada.
+   * Muestra por pantalla los datos de una persona determinada.
+   *
+   * @param persona Persona cuyos datos se quieren mostrar.
    */
-  static Unidad obtenerUnidadPorCodActividad(CodigoActividadEnum codigoActividad){
-    List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
-    for(Unidad unidad : unidades){
-      if(unidad.getCodigoActividad().equals(codigoActividad)) return unidad;
-    }
-    return null;
+  static void mostrarDatosPersona(Persona persona) {
+    PantallasTerminalDatos.separarPantalla();
+    System.out.println(persona);
   }
 
 }
