@@ -25,14 +25,4 @@ public class Urgencias extends Medica {
     return codigoActividad;
   }
 
-  @Override
-  public String toString() {
-    return this.getCodigoUnidad()
-        + "-"
-        + this.getCodigoUnidad()
-        + "-"
-        + this.getCodigoActividad()
-        + "-"
-        + this.getNombre();
-  }
 }

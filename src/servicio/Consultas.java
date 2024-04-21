@@ -344,6 +344,24 @@ public final class Consultas {
   }
 
   /**
+   * Muestra por pantalla una cita de un paciente.
+   *
+   * @param cita Cita a mostrar.
+   */
+  static void printCitaParaPaciente(Cita cita) {
+    System.out.println(
+                      " Cita -> "
+                    + "Fecha Cita: "
+                    + (cita.printFecha(cita.getFechaCita()))
+                    + "  "
+                    + "Horario: "
+                    + cita.printHorario()
+                    + "  "
+                    + "Ubicación: "
+                    + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre()));
+  }
+
+  /**
    * Devuelve todas las personas de un hospital combinando los pacientes con el personal.
    *
    * @return Lista de personas del hospital.

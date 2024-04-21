@@ -32,11 +32,13 @@ public class Historial {
    */
   public void grabarDatos(Expediente expediente){
     final Cita cita = expediente.getCita();
-    cita.setVencida(); // Solo se guardan citas vencidas.
-    this.citas.add(cita);
-    this.diagnosticosTratamientos.add(expediente.getDiagnostico());
-    this.citaDiagnostico.put(expediente.getCita(), expediente.getDiagnostico());
-    this.citas.sort(Cita::compareTo);
+    if (cita != null) {
+      cita.setVencida();
+      this.citas.add(cita);
+      this.diagnosticosTratamientos.add(expediente.getDiagnostico());
+      this.citaDiagnostico.put(expediente.getCita(), expediente.getDiagnostico());
+      this.citas.sort(Cita::compareTo);
+    }
   }
 
   /**

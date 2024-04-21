@@ -36,7 +36,7 @@ public abstract class Habitacion extends Medica {
    * @param paciente Paciente a ingresar.
    */
   public void ingresarPaciente(Paciente paciente) {
-    this.pacientes.add(paciente);
+    if(!this.pacientes.contains(paciente)) this.pacientes.add(paciente);
   }
 
   @Override

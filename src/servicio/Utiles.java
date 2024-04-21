@@ -57,7 +57,7 @@ public final class Utiles {
   private static final String FECHA_PRIMERA_CONSULTA = "08:00:00 " + dia + "-" + mes + "-" + anio;
 
   /** Fecha y hora del sistema. Se parte de las 8am. */
-  private static final ZonedDateTime fechaHoraSistema =
+  private static ZonedDateTime fechaHoraSistema =
       LocalDateTime.parse(FECHA_PRIMERA_CONSULTA, DateTimeFormatter.ofPattern(STR_FORMATO_FECHA))
           .atZone(ZoneId.of(STR_ZONA));
 
@@ -136,7 +136,8 @@ public final class Utiles {
    * @return ZonedDateTime con la fecha y hora del sistema.
    */
   static ZonedDateTime avanzarDiaSistema(long dias) {
-    return fechaHoraSistema.plusDays(dias);
+    fechaHoraSistema = fechaHoraSistema.plusDays(dias);
+    return fechaHoraSistema;
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

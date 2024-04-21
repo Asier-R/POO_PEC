@@ -208,6 +208,7 @@ public class Paciente extends Persona implements Comparable<Paciente> {
         + "\n"
         + "Sexo: "
         + this.getSexo()
+        + "\n"
         + "Ubicación: "
         + (this.getUbicacion()==null?"sin asignar":this.getUbicacion());
   }

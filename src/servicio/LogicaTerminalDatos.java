@@ -93,6 +93,7 @@ public final class LogicaTerminalDatos {
         break;
       case "2": // 2. Actualizar expedientes
         ServicioMedico.actualizarExpedientes();
+        pantallaServiciosMedicos();
         break;
       case "3": // 3. Consultar ocupación
 

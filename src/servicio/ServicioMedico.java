@@ -37,11 +37,18 @@ public final class ServicioMedico {
 
     public static void generarInforme(Paciente paciente) {
       PantallasTerminalDatos.separarPantallaSimple();
-      System.out.println("> INFORME -> Se ha atendido al paciente: ");
+      System.out.println("> INFORME DE PACIENTE <");
       Consultas.presentar(paciente);
       System.out.println();
       System.out.println("> El paciente ha sido diagnosticado " + diagnostico.getDiagnostico());
-      System.out.println("> El paciente procede de " + ubicacionPrev);
+
+      if (ubicacionPrev != null) {
+        System.out.println("> El paciente procede de " + ubicacionPrev);
+      }
+
+      if (ubicacionAct != null) {
+        System.out.println("> El paciente es tratado en " + ubicacionAct);
+      }
 
       if (diagnostico.getCodigoPruebaMedica() != null) {
         System.out.println(
@@ -52,13 +59,21 @@ public final class ServicioMedico {
         System.out.println("> Se prescribe: " + diagnostico.getTratamiento());
       }
 
-      if (ubicacionAct != null) {
-        System.out.println("> El paciente es enviado a " + ubicacionAct);
+      if (ubicacionSig != null) {
+        System.out.println("> El paciente es enviado a " + ubicacionSig);
       }
 
       if (paciente.getCita() != null) {
-        System.out.println("> Nueva cita");
+        Consultas.printCitaParaPaciente(paciente.getCita());
       }
+
+      if (paciente.getExpediente().getEstado().equals(Expediente.Estado.SANO)) {
+        System.out.println("> Se ha tratado al paciente y se le ha dado de alta.");
+      } else if (paciente.getExpediente().getEstado().equals(Expediente.Estado.DERIVADO)) {
+        System.out.println("> Se ha visto al paciente y se ha externalizado su tratamiento.");
+      }
+
+      System.out.println();
     }
   }
 
@@ -120,7 +135,7 @@ public final class ServicioMedico {
   /** Se trata cada paciente con una cita y actualizan los expedientes, citas, agendas, etc. */
   static void actualizarExpedientes() {
     PantallasTerminalDatos.pantallaInfoActualizarExpedientes();
-    final Long avance = (long) Utiles.leerNumero();
+    final long avance = Utiles.leerNumero();
     PantallasTerminalDatos.pantallaInfoActualizarExpedientesAvanzarDias(avance);
     System.out.println(
         "> Fecha establecida en --> "
@@ -128,14 +143,17 @@ public final class ServicioMedico {
     // Obtener la fecha para compararla.
     ZonedDateTime fechaActual = Utiles.getFechaHoraSistema();
     // Obtener todos los pacientes.
+    int contador = 0;
     List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
     for (Paciente p : pacientes) {
       // Solo se tienen en cuenta pacientes con cita vigente y previa a la fecha de sistema.
       if (p.getCita() != null && p.getCita().getFechaCita().isBefore(fechaActual)) {
         establecerDiagnostico(p);
         tratarPaciente(p);
+        contador++;
       }
     }
+    PantallasTerminalDatos.pantallaInfoNumPacientesTratados(contador);
   }
 
   /**
@@ -157,18 +175,53 @@ public final class ServicioMedico {
    */
   private static void tratarPaciente(Paciente paciente) {
     // Preparar informe.
+    actualizarInforme(paciente);
+
+    // Si el paciente está ingresado en la UCI o en planta no se le atiende.
+    // Permanece ingresado indefinidamente.
+    final CodigoActividadEnum ubicacionPaciente = paciente.getUbicacion().getCodigoActividad();
+    if (ubicacionPaciente.equals(CodigoActividadEnum.UCI)
+        || ubicacionPaciente.equals(CodigoActividadEnum.EN_PLANTA)) {
+      Informe.ubicacionAct = paciente.getUbicacion();
+      Informe.generarInforme(paciente);
+      PantallasTerminalDatos.pantallaInfoPacientesPermaneceIngresado(
+          Informe.ubicacionPrev.getCodigoActividad());
+    } else {
+      // Si el paciente ha pasado por quirófano se le cambia el diagnostico a POSTCIRUGIA.
+      if (ubicacionPaciente.equals(CodigoActividadEnum.QUIROFANO))
+        diagnosticarPostCirugia(paciente);
+
+      // El ciclo de tratamientos termina cuando no hay unidad destino.
+      if (Informe.ubicacionSig == null) {
+        darAltaPaciente(paciente);
+      } else {
+        atenderPaciente(paciente);
+      }
+    }
+  }
+
+  /**
+   * Actualiza los campos de la clase interna Informe {@link Informe}
+   *
+   * @param paciente Paciente cuyo informe se actualiza.
+   */
+  private static void actualizarInforme(Paciente paciente) {
     Informe.diagnostico = paciente.getExpediente().getDiagnostico();
     Informe.ubicacionPrev = paciente.getUbicacion();
-    Informe.ubicacionAct = paciente.getCita().getUbicacion();
+    Informe.ubicacionAct =
+        Consultas.obtenerUnidadPorCodActividad(Informe.diagnostico.getUnidadOrigen());
     Informe.ubicacionSig =
         Consultas.obtenerUnidadPorCodActividad(Informe.diagnostico.getUnidadDestino());
+  }
 
-    // El ciclo de tratamientos termina cuando no hay unidad destino.
-    if (Informe.ubicacionAct == null) {
-      darAltaPaciente(paciente);
-    } else {
-      atenderPaciente(paciente);
-    }
+  /**
+   * Modifica el diagnóstico del paciente a post-cirugía.
+   *
+   * @param paciente Paciente cuyo diagnóstico hay que modificar.
+   */
+  private static void diagnosticarPostCirugia(Paciente paciente) {
+    paciente.getExpediente().setDiagnostico(DiagnosticosTratamientos.POSTCIRUGIA);
+    actualizarInforme(paciente);
   }
 
   /**
@@ -183,8 +236,8 @@ public final class ServicioMedico {
       PantallasTerminalDatos.pantallaAvisoNoSeHaPodidoCitarPaciente();
       Consultas.presentar(paciente);
     } else {
-      trasladarPaciente(paciente);
       paciente.setCita(cita);
+      trasladarPaciente(paciente);
       Informe.generarInforme(paciente);
       paciente.getExpediente().grabarDatos();
     }
@@ -192,22 +245,23 @@ public final class ServicioMedico {
 
   /**
    * Modifica la ubicación del paciente, su estado y si es pertinente se le ingresa en habitación.
+   *
    * @param paciente Paciente a trasladar.
    */
-  private static void trasladarPaciente(Paciente paciente){
+  private static void trasladarPaciente(Paciente paciente) {
     // Se traslada al paciente al lugar de la cita vigente.
-    paciente.setUbicacion(Informe.ubicacionAct);
+    paciente.setUbicacion(Informe.ubicacionSig);
 
     // Actualizar estado del paciente
-    if (Informe.ubicacionAct instanceof Consulta)
+    if (Informe.ubicacionSig instanceof Consulta)
       paciente.getExpediente().setEstado(Expediente.Estado.EN_CONSULTA);
 
-    if (Informe.ubicacionAct instanceof Quirofano)
+    if (Informe.ubicacionSig instanceof Quirofano)
       paciente.getExpediente().setEstado(Expediente.Estado.INTERVENIDO);
 
-    if (Informe.ubicacionAct instanceof Habitacion) {
+    if (Informe.ubicacionSig instanceof Habitacion) {
       paciente.getExpediente().setEstado(Expediente.Estado.EN_TRATAMIENTO);
-      ((Habitacion) Informe.ubicacionAct).ingresarPaciente(paciente);
+      ((Habitacion) Informe.ubicacionSig).ingresarPaciente(paciente);
     }
   }
 
@@ -223,30 +277,32 @@ public final class ServicioMedico {
     // Obtener el sanitario que atenderá al paciente.
     Sanitario sanitario;
     if (Informe.diagnostico.getSanitario().equals(Sanitario.TipoSanitario.MEDICO))
-      sanitario = Consultas.obtenerMedicoDeConsulta(Informe.ubicacionAct.getCodigoActividad());
+      sanitario = Consultas.obtenerMedicoDeConsulta(Informe.ubicacionSig.getCodigoActividad());
     else if (Informe.diagnostico.getSanitario().equals(Sanitario.TipoSanitario.ENFERMERO))
-      sanitario = Consultas.obtenerEnfermeroDeConsulta(Informe.ubicacionAct.getCodigoActividad());
+      sanitario = Consultas.obtenerEnfermeroDeConsulta(Informe.ubicacionSig.getCodigoActividad());
     else sanitario = null;
 
     boolean citar = (sanitario != null) && sePuedeIngresar();
 
     if (citar) {
       cita.addSanitario(sanitario);
+      return cita;
     } else {
-      PantallasTerminalDatos.pantallaAvisoSinSanitario(Informe.ubicacionAct.toString());
+      PantallasTerminalDatos.pantallaAvisoSinSanitario(Informe.ubicacionSig.toString());
       return null;
     }
-
-    return cita;
   }
 
   /**
    * Determina si es posible ingresar a un paciente destinado a una habitación en planta.
+   *
    * @return True si puede ser ingresado.
    */
-  private static boolean sePuedeIngresar(){
-    if(Informe.ubicacionAct instanceof EnPlanta){
+  private static boolean sePuedeIngresar() {
+    if (Informe.ubicacionAct instanceof EnPlanta) {
       EnPlanta enPlanta = (EnPlanta) Informe.ubicacionAct;
+      if ((enPlanta.getNumHabitacionesLibres() <= 0))
+        PantallasTerminalDatos.pantallaAvisoSinHabitaciones();
       return (enPlanta.getNumHabitacionesLibres() > 0);
     } else {
       return true;
@@ -266,5 +322,7 @@ public final class ServicioMedico {
     paciente.getExpediente().grabarDatos();
     paciente.setCita(null);
     paciente.getExpediente().setDiagnostico(null);
+    Informe.generarInforme(paciente);
+    trasladarPaciente(paciente);
   }
 }

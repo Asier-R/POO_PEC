@@ -1,9 +1,11 @@
 package servicio;
 
+import enumerado.CodigoActividadEnum;
+
 /** Clase encargada de mostrar en pantalla la información ofrecida y solicitada a/por el usuario. */
 public final class PantallasTerminalDatos {
 
-  private static final String SEPARADOR = "---------------------- SysDate "+Utiles.getFechaHoraSistemaFormateada()+" ----------------------";
+  private static final String SEPARADOR = "----------------------";
   private static final String SEPARADOR_SIMPLE = "............................................";
 
   /** Constructor de la terminal de datos. */
@@ -333,29 +335,46 @@ public final class PantallasTerminalDatos {
     separarPantalla();
     System.out.println(">>> 2.1. ATENDER NUEVOS PACIENTES");
     System.out.println("> INFO: Se va a dar cita a los nuevos pacientes para atención primaria.");
+    System.out.println();
   }
 
   /** Pantalla de aviso no se puede atender de pacientes. */
   static void pantallaAvisoSinMedicoPrimaria() {
     separarPantalla();
     System.out.println("> AVISO: No se puede atender a los nuevos pacientes sin un médico presente en consulta primaria...");
+    System.out.println();
   }
 
   /** Pantalla de aviso no se puede atender de pacientes. */
   static void pantallaAvisoSinSanitario(String descUnidad) {
     separarPantalla();
     System.out.println("> AVISO: No se puede atender al paciente sin un sanitario asignado a la unidad "+descUnidad+"...");
+    System.out.println();
+  }
+
+  /** Pantalla de aviso no hay camas libres en planta. */
+  static void pantallaAvisoSinHabitaciones() {
+    separarPantalla();
+    System.out.println("> AVISO: No se puede ingresar al paciente, no hay camas libres...");
+    System.out.println();
   }
 
   /** Pantalla de aviso no se puede atender de pacientes. */
   static void pantallaAvisoSinPacientesNuevos() {
     separarPantalla();
     System.out.println("> AVISO: No hay nuevos pacientes que atender...");
+    System.out.println();
   }
 
   /** Pantalla de info cita pacientes nuevos. */
   static void pantallaInfoCitaPacientesNuevos() {
     System.out.println("> INFO: Se ha dado cita a los siguientes pacientes:");
+    System.out.println();
+  }
+
+  /** Pantalla de info cita pacientes nuevos. */
+  static void pantallaInfoPacientesPermaneceIngresado(CodigoActividadEnum cod) {
+    System.out.println("> INFO: El paciente se encuentra ingresado en "+cod+", donde permanecerá hasta nuevo aviso.");
     System.out.println();
   }
 
@@ -375,7 +394,15 @@ public final class PantallasTerminalDatos {
 
   /** Pantalla de aviso no se ha podido citar a paciente. */
   static void pantallaAvisoNoSeHaPodidoCitarPaciente(){
-    System.out.println("> AVISO: Se ha podido citar al paciente: ");
+    System.out.println("> AVISO: No se ha podido citar al paciente...");
+    System.out.println();
+  }
+
+  /** Pantalla de info número de pacientes tratados. */
+  static void pantallaInfoNumPacientesTratados(int num) {
+    separarPantallaSimple();
+    System.out.println("> INFO: Se han tratado "+num+" pacientes.");
+    System.out.println();
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
@@ -392,7 +419,7 @@ public final class PantallasTerminalDatos {
 
   /** Introduce salto de línea y elementos repetidos para separar las pantallas. Incluye fecha de sistema. */
   static void separarPantalla() {
-    System.out.println(SEPARADOR);
+    System.out.println(SEPARADOR + "SysDate "+Utiles.getFechaHoraSistemaFormateada() + SEPARADOR);
   }
 
   /** Introduce salto de línea y elementos repetidos (simples) para separar las pantallas. */

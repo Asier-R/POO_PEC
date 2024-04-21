@@ -18,15 +18,4 @@ public class UCI extends Habitacion{
         super(CodigoActividadEnum.UCI, nombre);
         this.pacientes = new ArrayList<>();
     }
-
-    @Override
-    public String toString() {
-        return this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoUnidad()
-                + "-"
-                + this.getCodigoActividad()
-                + "-"
-                + this.getNombre();
-    }
 }
