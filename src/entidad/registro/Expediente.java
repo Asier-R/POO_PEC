@@ -14,6 +14,7 @@ public class Expediente {
     CITADO("Citado"),
     EN_CONSULTA("En consulta"),
     EN_TRATAMIENTO("En tratamiento"),
+    INTERVENIDO("Intervenido"),
     DERIVADO("Derivado"),
     SANO("Sano");
 

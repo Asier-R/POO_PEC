@@ -397,4 +397,19 @@ public final class Consultas {
             .findFirst()
             .orElse(null);
   }
+
+  /**
+   * Obtener un enfermero asignado a una consulta determinada.
+   *
+   * @param codigoConsulta Código de la consulta.
+   * @return Enfermero de la consulta.
+   */
+  static Enfermero obtenerEnfermeroDeConsulta(CodigoActividadEnum codigoConsulta) {
+    final List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+    return (Enfermero)
+            personal.stream()
+                    .filter(p -> (p.getCodigoActividad().equals(codigoConsulta) && p instanceof Enfermero))
+                    .findFirst()
+                    .orElse(null);
+  }
 }

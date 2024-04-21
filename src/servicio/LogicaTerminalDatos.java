@@ -93,11 +93,6 @@ public final class LogicaTerminalDatos {
         break;
       case "2": // 2. Actualizar expedientes
         ServicioMedico.actualizarExpedientes();
-
-        // TODO: probablemente automatico y mostrar por pantalla las actualizacions (pedir fecha para actualizar los previos)
-        // TODO: los pacientes derivados a consulta primaria son diagnosticados de forma random
-        // TODO: los pacientes que han sido diagnosticados son derivados a la unidad que sea o fuera del hospital
-        // TODO: ¿meter alta sanitaria del paciente? Si, hay campo estado en el expediente
         break;
       case "3": // 3. Consultar ocupación
 

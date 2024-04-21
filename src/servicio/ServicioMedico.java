@@ -2,11 +2,13 @@ package servicio;
 
 import entidad.persona.Medico;
 import entidad.persona.Paciente;
+import entidad.persona.Sanitario;
 import entidad.registro.Cita;
 import entidad.registro.Expediente;
 import entidad.unidad.Unidad;
 import entidad.unidad.medica.consulta.Consulta;
 import entidad.unidad.medica.consulta.Primaria;
+import entidad.unidad.medica.habitacion.EnPlanta;
 import entidad.unidad.medica.habitacion.Habitacion;
 import entidad.unidad.medica.quirofano.Quirofano;
 import enumerado.CodigoActividadEnum;
@@ -38,22 +40,23 @@ public final class ServicioMedico {
       System.out.println("> INFORME -> Se ha atendido al paciente: ");
       Consultas.presentar(paciente);
       System.out.println();
-      System.out.println("> El paciente ha sido diagnosticado "+diagnostico.getDiagnostico());
-      System.out.println("> El paciente procede de "+ubicacionPrev);
+      System.out.println("> El paciente ha sido diagnosticado " + diagnostico.getDiagnostico());
+      System.out.println("> El paciente procede de " + ubicacionPrev);
 
-      if(diagnostico.getCodigoPruebaMedica()!=null){
-        System.out.println("> Requiere de una prueba de "+diagnostico.getCodigoPruebaMedica().getDescripcion());
+      if (diagnostico.getCodigoPruebaMedica() != null) {
+        System.out.println(
+            "> Requiere de una prueba de " + diagnostico.getCodigoPruebaMedica().getDescripcion());
       }
 
-      if(diagnostico.getTratamiento()!=null){
-        System.out.println("> Se prescribe: "+diagnostico.getTratamiento());
+      if (diagnostico.getTratamiento() != null) {
+        System.out.println("> Se prescribe: " + diagnostico.getTratamiento());
       }
 
-      if(ubicacionAct != null){
-        System.out.println("> El paciente es enviado a "+ubicacionAct);
+      if (ubicacionAct != null) {
+        System.out.println("> El paciente es enviado a " + ubicacionAct);
       }
 
-      if(paciente.getCita() != null){
+      if (paciente.getCita() != null) {
         System.out.println("> Nueva cita");
       }
     }
@@ -174,25 +177,37 @@ public final class ServicioMedico {
    * @param paciente Paciente al que se atiende.
    */
   private static void atenderPaciente(Paciente paciente) {
-    if (Informe.ubicacionAct instanceof Consulta)
-      paciente.getExpediente().setEstado(Expediente.Estado.EN_CONSULTA);
-
-    if (Informe.ubicacionAct instanceof Habitacion)
-      paciente.getExpediente().setEstado(Expediente.Estado.EN_TRATAMIENTO);
-
-    if (Informe.ubicacionAct instanceof Quirofano)
-      paciente.getExpediente().setEstado(Expediente.Estado.DERIVADO);
-
     // Se genera una cita para el siguiente paso en el tratamiento.
     final Cita cita = generarCita(paciente);
     if (cita == null) {
       PantallasTerminalDatos.pantallaAvisoNoSeHaPodidoCitarPaciente();
       Consultas.presentar(paciente);
     } else {
-      paciente.setUbicacion(Informe.ubicacionAct);
+      trasladarPaciente(paciente);
       paciente.setCita(cita);
       Informe.generarInforme(paciente);
       paciente.getExpediente().grabarDatos();
+    }
+  }
+
+  /**
+   * Modifica la ubicación del paciente, su estado y si es pertinente se le ingresa en habitación.
+   * @param paciente Paciente a trasladar.
+   */
+  private static void trasladarPaciente(Paciente paciente){
+    // Se traslada al paciente al lugar de la cita vigente.
+    paciente.setUbicacion(Informe.ubicacionAct);
+
+    // Actualizar estado del paciente
+    if (Informe.ubicacionAct instanceof Consulta)
+      paciente.getExpediente().setEstado(Expediente.Estado.EN_CONSULTA);
+
+    if (Informe.ubicacionAct instanceof Quirofano)
+      paciente.getExpediente().setEstado(Expediente.Estado.INTERVENIDO);
+
+    if (Informe.ubicacionAct instanceof Habitacion) {
+      paciente.getExpediente().setEstado(Expediente.Estado.EN_TRATAMIENTO);
+      ((Habitacion) Informe.ubicacionAct).ingresarPaciente(paciente);
     }
   }
 
@@ -204,18 +219,38 @@ public final class ServicioMedico {
   private static Cita generarCita(Paciente paciente) {
     ZonedDateTime fechaCita = Utiles.getFechaHoraSistema().plusDays(1L);
     Cita cita = new Cita(fechaCita, paciente, Informe.ubicacionSig);
-    if (Informe.ubicacionSig == null) cita.setVencida();
 
-    cita.addSanitario(null);
-    Medico medico = Consultas.obtenerMedicoDeConsulta(Informe.ubicacionAct.getCodigoActividad());
+    // Obtener el sanitario que atenderá al paciente.
+    Sanitario sanitario;
+    if (Informe.diagnostico.getSanitario().equals(Sanitario.TipoSanitario.MEDICO))
+      sanitario = Consultas.obtenerMedicoDeConsulta(Informe.ubicacionAct.getCodigoActividad());
+    else if (Informe.diagnostico.getSanitario().equals(Sanitario.TipoSanitario.ENFERMERO))
+      sanitario = Consultas.obtenerEnfermeroDeConsulta(Informe.ubicacionAct.getCodigoActividad());
+    else sanitario = null;
 
-    if (medico != null) {
-      cita.addSanitario(medico);
+    boolean citar = (sanitario != null) && sePuedeIngresar();
+
+    if (citar) {
+      cita.addSanitario(sanitario);
     } else {
-      cita = null;
+      PantallasTerminalDatos.pantallaAvisoSinSanitario(Informe.ubicacionAct.toString());
+      return null;
     }
 
     return cita;
+  }
+
+  /**
+   * Determina si es posible ingresar a un paciente destinado a una habitación en planta.
+   * @return True si puede ser ingresado.
+   */
+  private static boolean sePuedeIngresar(){
+    if(Informe.ubicacionAct instanceof EnPlanta){
+      EnPlanta enPlanta = (EnPlanta) Informe.ubicacionAct;
+      return (enPlanta.getNumHabitacionesLibres() > 0);
+    } else {
+      return true;
+    }
   }
 
   /**
@@ -224,7 +259,10 @@ public final class ServicioMedico {
    * @param paciente Paciente al que se da de alta.
    */
   private static void darAltaPaciente(Paciente paciente) {
-    paciente.getExpediente().setEstado(Expediente.Estado.SANO);
+    boolean externalizado =
+        paciente.getExpediente().getDiagnostico().getDiagnostico().contains("Derivación");
+    if (externalizado) paciente.getExpediente().setEstado(Expediente.Estado.DERIVADO);
+    else paciente.getExpediente().setEstado(Expediente.Estado.SANO);
     paciente.getExpediente().grabarDatos();
     paciente.setCita(null);
     paciente.getExpediente().setDiagnostico(null);

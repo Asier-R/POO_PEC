@@ -20,6 +20,14 @@ public class EnPlanta extends Habitacion {
     this.pacientes = new ArrayList<>(CAPACIDAD);
   }
 
+  /**
+   * Ingresa a un paciente en la habitación.
+   * @return Número de habitaciones libres.
+   */
+  public int getNumHabitacionesLibres() {
+    return (this.CAPACIDAD - this.pacientes.size());
+  }
+
   @Override
   public String toString() {
     return this.getNombre()
@@ -28,5 +36,4 @@ public class EnPlanta extends Habitacion {
         + "  Ocupación: "
         + (this.pacientes.size());
   }
-
 }

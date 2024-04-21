@@ -342,6 +342,12 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de aviso no se puede atender de pacientes. */
+  static void pantallaAvisoSinSanitario(String descUnidad) {
+    separarPantalla();
+    System.out.println("> AVISO: No se puede atender al paciente sin un sanitario asignado a la unidad "+descUnidad+"...");
+  }
+
+  /** Pantalla de aviso no se puede atender de pacientes. */
   static void pantallaAvisoSinPacientesNuevos() {
     separarPantalla();
     System.out.println("> AVISO: No hay nuevos pacientes que atender...");
