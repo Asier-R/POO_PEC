@@ -380,6 +380,8 @@ public final class PantallasTerminalDatos {
 
   /** Pantalla de info actualizar expedientes. */
   static void pantallaInfoActualizarExpedientes() {
+    separarPantalla();
+    System.out.println(">>> 2.2. ACTUALIZAR EXPEDIENTES");
     System.out.println("> INFO: Actualizar los expedientes requiere avanzar la fecha de sistema.");
     System.out.println(">       Avanzar la fecha mostrará el trabajo realizado por el servicio médico hasta la nueva fecha de sistema.");
     System.out.println(">       Introduzca el número de días que desea avanzar...     (cero para permanecer en la fecha actual)");
@@ -402,6 +404,55 @@ public final class PantallasTerminalDatos {
   static void pantallaInfoNumPacientesTratados(int num) {
     separarPantallaSimple();
     System.out.println("> INFO: Se han tratado "+num+" pacientes.");
+    System.out.println();
+  }
+
+  /** Pantalla de consulta de ocupación. */
+  static void pantallaConsultarOcupacion(){
+    separarPantalla();
+    System.out.println(">>> 2.3. CONSULTAR OCUPACIÓN");
+    System.out.println();
+  }
+
+  /** Pantalla de consulta de pacientes ingresados. */
+  static void pantallaConsultarIngresados(){
+    separarPantalla();
+    System.out.println(">>> 2.4. CONSULTAR INGRESADOS");
+    System.out.println();
+  }
+
+  /** Pantalla de consulta de pacientes ingresados. */
+  static void pantallaConsultarPacientesCitaConsultaExterna(){
+    separarPantalla();
+    System.out.println(">>> 2.5. CONSULTAR PACIENTES CON CITA PARA CONSULTA EXTERNA");
+    System.out.println();
+  }
+
+  /** Pantalla de consulta de pacientes ingresados. */
+  static void pantallaConsultarPeriodo(){
+    System.out.println("> Seleccione rango de consulta: ");
+    System.out.println("> 1. Día específico.");
+    System.out.println("> 2. Semana (un día específico y los siguientes seís).");
+    System.out.println("> 3. Entre fechas.");
+    System.out.println();
+  }
+
+  static void pantallaConsultarPacientesCitaConEspecialista(){
+    separarPantalla();
+    System.out.println(">>> 2.6. CONSULTAR PACIENTE CON CITA CON ESPECIALISTA");
+    System.out.println("> Seleccione un paciente mediante las pantallas de búsqueda de personas...");
+    System.out.println();
+  }
+
+  /** Pantalla de info no hay pacientes ingresados. */
+  static void pantallaNoHayIngresados(){
+    System.out.println("> No hay ningún paciente ingresado en el hospital.");
+    System.out.println();
+  }
+
+  /** Pantalla de info no hay pacientes con consulta externa. */
+  static void pantallaNoHayPacientesConCitaConsultaExterna(){
+    System.out.println("> No hay ningún paciente con cita para consulta externa.");
     System.out.println();
   }
 

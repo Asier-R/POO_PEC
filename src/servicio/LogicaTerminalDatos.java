@@ -96,16 +96,20 @@ public final class LogicaTerminalDatos {
         pantallaServiciosMedicos();
         break;
       case "3": // 3. Consultar ocupación
-
+        Consultas.consultarOcupacion();
+        pantallaServiciosMedicos();
         break;
       case "4": // 4. Consultar pacientes ingresados
-
+        Consultas.consultarPacientesIngresados();
+        pantallaServiciosMedicos();
         break;
       case "5": // 5. Consultar pacientes con cita en consulta externa
-
+        Consultas.consultarPacientesCitaConsultaExterna();
+        pantallaServiciosMedicos();
         break;
       case "6": // 6. Consultar pacientes con cita con un especialista
-
+        Consultas.consultarPacientesCitaConEspecialista();
+        pantallaServiciosMedicos();
         break;
       case "X": // X. Volver a 0. INICIO
         pantallaInicio();

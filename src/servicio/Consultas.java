@@ -4,12 +4,18 @@ import entidad.persona.*;
 import entidad.registro.Cita;
 import entidad.unidad.Unidad;
 import entidad.unidad.formacion.Formacion;
+import entidad.unidad.medica.consulta.Consulta;
 import entidad.unidad.medica.consulta.Primaria;
+import entidad.unidad.medica.habitacion.EnPlanta;
+import entidad.unidad.medica.habitacion.Habitacion;
+import entidad.unidad.medica.habitacion.UCI;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -264,9 +270,35 @@ public final class Consultas {
     else formacion.forEach(f -> presentarFormacion((Formacion) f));
   }
 
-  /* ------------------------------------------------------------------------------------------------------------------
-     MÉTODOS AUXILIARES
-  ------------------------------------------------------------------------------------------------------------------ */
+  /**
+   * Obtener un médico asignado a una consulta determinada.
+   *
+   * @param codigoConsulta Código de la consulta.
+   * @return Médico de la consulta.
+   */
+  static Medico obtenerMedicoDeConsulta(CodigoActividadEnum codigoConsulta) {
+    final List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+    return (Medico)
+        personal.stream()
+            .filter(p -> (p.getCodigoActividad().equals(codigoConsulta) && p instanceof Medico))
+            .findFirst()
+            .orElse(null);
+  }
+
+  /**
+   * Obtener un enfermero asignado a una consulta determinada.
+   *
+   * @param codigoConsulta Código de la consulta.
+   * @return Enfermero de la consulta.
+   */
+  static Enfermero obtenerEnfermeroDeConsulta(CodigoActividadEnum codigoConsulta) {
+    final List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+    return (Enfermero)
+        personal.stream()
+            .filter(p -> (p.getCodigoActividad().equals(codigoConsulta) && p instanceof Enfermero))
+            .findFirst()
+            .orElse(null);
+  }
 
   /**
    * Muestra por pantalla y en solo una línea los datos de una persona.
@@ -275,6 +307,175 @@ public final class Consultas {
    */
   static void presentar(Persona persona) {
     System.out.println(persona.toString().replace("\n", "  "));
+  }
+
+  /** Consulta los pacientes ingresados en habitaciones de UCI o en planta. */
+  static void consultarPacientesIngresados() {
+    PantallasTerminalDatos.pantallaConsultarIngresados();
+    final List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
+    int contador = 0;
+    Habitacion habitacion;
+    for (Unidad unidad : unidades) {
+      if (unidad instanceof Habitacion) {
+        habitacion = (Habitacion) unidad;
+        habitacion.getPacientes().forEach(Consultas::presentar);
+        contador = +habitacion.getPacientes().size();
+      }
+    }
+    if (contador == 0) PantallasTerminalDatos.pantallaNoHayIngresados();
+  }
+
+  /** Consulta los pacientes con cita en consulta externa. */
+  static void consultarPacientesCitaConsultaExterna() {
+    PantallasTerminalDatos.pantallaConsultarPacientesCitaConsultaExterna();
+    PantallasTerminalDatos.pantallaConsultarPeriodo();
+
+    ZonedDateTime fechaDesde;
+    ZonedDateTime fechaHasta;
+
+    String opt = Utiles.leerLinea();
+    switch (opt) {
+      case "1": // 1. Día específico.
+        fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
+        fechaHasta = fechaDesde.plusDays(1L);
+        mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
+        break;
+      case "2": // 2. Semana (un día específico y los siguientes seís).
+        fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
+        fechaHasta = fechaDesde.plusWeeks(1L);
+        mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
+        break;
+      case "3": //  3. Entre fechas.
+        System.out.println(">> FECHA DESDE");
+        fechaDesde = Utiles.inputFecha();
+        System.out.println(">> FECHA HASTA");
+        fechaHasta = Utiles.inputFecha();
+        mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
+        break;
+      default:
+        System.out.println("> INFO: Opción '" + opt + "' no válida...");
+        break;
+    }
+  }
+
+  /** Consulta los pacientes que tienen cita con un especialista. */
+  static void consultarPacientesCitaConEspecialista() {
+    PantallasTerminalDatos.pantallaConsultarPacientesCitaConEspecialista();
+    LTDConsulta.pantallaConsultaPersonas();
+
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS CONSULTA CITAS
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /**
+   * Muestra por pantalla, de forma simplificada, una cita numerada.
+   *
+   * @param contador Número de la cita.
+   * @param cita Cita a mostrar.
+   */
+  static void printAgenda(String contador, Cita cita) {
+    System.out.println(
+        contador
+            + ". Cita -> "
+            + "Fecha Cita: "
+            + (cita.printFecha(cita.getFechaCita()))
+            + "  "
+            + "Horario: "
+            + cita.printHorario()
+            + "  "
+            + "Ubicación: "
+            + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre())
+            + "  "
+            + "Paciente: "
+            + cita.getPaciente().getNIF());
+  }
+
+  /**
+   * Muestra por pantalla una cita de un paciente.
+   *
+   * @param cita Cita a mostrar.
+   */
+  static void printCitaParaPaciente(Cita cita) {
+    System.out.println(
+        " Cita -> "
+            + "Fecha Cita: "
+            + (cita.printFecha(cita.getFechaCita()))
+            + "  "
+            + "Horario: "
+            + cita.printHorario()
+            + "  "
+            + "Ubicación: "
+            + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre()));
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS CONSULTA UNIDADES
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /**
+   * Devuelve la unidad de consulta primaria.
+   *
+   * @return Unidad consulta primaria.
+   */
+  static Primaria obtenerUnidadConsultaPrimaria() {
+    final Unidad unidad =
+        LogicaTerminalDatos.getHospital().getUnidades().stream()
+            .filter(u -> u.getCodigoActividad().equals(CodigoActividadEnum.CONSULTA_PRIMARIA))
+            .findFirst()
+            .orElse(null);
+
+    return unidad == null ? null : ((Primaria) unidad);
+  }
+
+  /**
+   * Obtener una unidad a partir de un código de actividad.
+   *
+   * @param codigoActividad Código de actividad.
+   * @return Unidad cuyo código de actividad coincide con la entrada.
+   */
+  static Unidad obtenerUnidadPorCodActividad(CodigoActividadEnum codigoActividad) {
+    final List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
+    for (Unidad unidad : unidades) {
+      if (unidad.getCodigoActividad().equals(codigoActividad)) return unidad;
+    }
+    return null;
+  }
+
+  /**
+   * Muestra por pantalla el número de ingresados y la ocupación de las habitaciones del hospital.
+   */
+  static void consultarOcupacion() {
+    PantallasTerminalDatos.pantallaConsultarOcupacion();
+    final List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
+    for (Unidad unidad : unidades) {
+      if (unidad instanceof Habitacion) System.out.println("> " + unidad);
+    }
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS AUXILIARES
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /** Realiza la consulta y muestra los datos de los pacientes con el criterio seleccionado. */
+  private static void mostrarPacientesCitaConsultaExterna(
+      final ZonedDateTime fechaDesde, final ZonedDateTime fechaHasta) {
+    final List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
+    int contador = 0;
+    Unidad ubicacion;
+    ZonedDateTime fechaCita;
+    for (Paciente paciente : pacientes) {
+      fechaCita = paciente.getCita().getFechaCita();
+      ubicacion = paciente.getCita().getUbicacion();
+      if (ubicacion instanceof Consulta) {
+        if (fechaCita.isAfter(fechaDesde) && fechaCita.isBefore(fechaHasta)) {
+          presentar(paciente);
+          contador++;
+        }
+      }
+    }
+    if (contador == 0) PantallasTerminalDatos.pantallaNoHayPacientesConCitaConsultaExterna();
   }
 
   /**
@@ -321,47 +522,6 @@ public final class Consultas {
   }
 
   /**
-   * Muestra por pantalla, de forma simplificada, una cita numerada.
-   *
-   * @param contador Número de la cita.
-   * @param cita Cita a mostrar.
-   */
-  static void printAgenda(String contador, Cita cita) {
-    System.out.println(
-        contador
-            + ". Cita -> "
-            + "Fecha Cita: "
-            + (cita.printFecha(cita.getFechaCita()))
-            + "  "
-            + "Horario: "
-            + cita.printHorario()
-            + "  "
-            + "Ubicación: "
-            + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre())
-            + "  "
-            + "Paciente: "
-            + cita.getPaciente().getNIF());
-  }
-
-  /**
-   * Muestra por pantalla una cita de un paciente.
-   *
-   * @param cita Cita a mostrar.
-   */
-  static void printCitaParaPaciente(Cita cita) {
-    System.out.println(
-                      " Cita -> "
-                    + "Fecha Cita: "
-                    + (cita.printFecha(cita.getFechaCita()))
-                    + "  "
-                    + "Horario: "
-                    + cita.printHorario()
-                    + "  "
-                    + "Ubicación: "
-                    + (cita.getUbicacion() == null ? "" : cita.getUbicacion().getNombre()));
-  }
-
-  /**
    * Devuelve todas las personas de un hospital combinando los pacientes con el personal.
    *
    * @return Lista de personas del hospital.
@@ -370,64 +530,5 @@ public final class Consultas {
     List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
     List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
     return Stream.concat(personal.stream(), pacientes.stream()).collect(Collectors.toList());
-  }
-
-  /**
-   * Devuelve la unidad de consulta primaria.
-   *
-   * @return Unidad consulta primaria.
-   */
-  static Primaria obtenerUnidadConsultaPrimaria() {
-    Unidad unidad =
-        LogicaTerminalDatos.getHospital().getUnidades().stream()
-            .filter(u -> u.getCodigoActividad().equals(CodigoActividadEnum.CONSULTA_PRIMARIA))
-            .findFirst()
-            .orElse(null);
-
-    return unidad == null ? null : ((Primaria) unidad);
-  }
-
-  /**
-   * Obtener una unidad a partir de un código de actividad.
-   *
-   * @param codigoActividad Código de actividad.
-   * @return Unidad cuyo código de actividad coincide con la entrada.
-   */
-  static Unidad obtenerUnidadPorCodActividad(CodigoActividadEnum codigoActividad) {
-    List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
-    for (Unidad unidad : unidades) {
-      if (unidad.getCodigoActividad().equals(codigoActividad)) return unidad;
-    }
-    return null;
-  }
-
-  /**
-   * Obtener un médico asignado a una consulta determinada.
-   *
-   * @param codigoConsulta Código de la consulta.
-   * @return Médico de la consulta.
-   */
-  static Medico obtenerMedicoDeConsulta(CodigoActividadEnum codigoConsulta) {
-    final List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
-    return (Medico)
-        personal.stream()
-            .filter(p -> (p.getCodigoActividad().equals(codigoConsulta) && p instanceof Medico))
-            .findFirst()
-            .orElse(null);
-  }
-
-  /**
-   * Obtener un enfermero asignado a una consulta determinada.
-   *
-   * @param codigoConsulta Código de la consulta.
-   * @return Enfermero de la consulta.
-   */
-  static Enfermero obtenerEnfermeroDeConsulta(CodigoActividadEnum codigoConsulta) {
-    final List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
-    return (Enfermero)
-            personal.stream()
-                    .filter(p -> (p.getCodigoActividad().equals(codigoConsulta) && p instanceof Enfermero))
-                    .findFirst()
-                    .orElse(null);
   }
 }

@@ -39,6 +39,14 @@ public abstract class Habitacion extends Medica {
     if(!this.pacientes.contains(paciente)) this.pacientes.add(paciente);
   }
 
+  /**
+   * Devuelve la lista de pacientes ingresados en la habitación.
+   * @return Lista de pacientes.
+   */
+  public List<Paciente> getPacientes() {
+    return pacientes;
+  }
+
   @Override
   public CodigoActividadEnum getCodigoActividad() {
     return codigoActividad;
