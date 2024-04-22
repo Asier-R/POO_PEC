@@ -4,6 +4,8 @@ import entidad.Hospital;
 import entidad.persona.Paciente;
 import entidad.persona.Personal;
 
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -104,7 +106,7 @@ public final class LogicaTerminalDatos {
         pantallaServiciosMedicos();
         break;
       case "5": // 5. Consultar pacientes con cita en consulta externa
-        Consultas.consultarPacientesCitaConsultaExterna();
+        pantallaConsultarPacientesCitaConsultaExterna();
         pantallaServiciosMedicos();
         break;
       case "6": // 6. Consultar pacientes con cita con un especialista
@@ -120,6 +122,39 @@ public final class LogicaTerminalDatos {
         break;
       default: // Permanecer en la pantalla
         pantallaGerencia();
+        break;
+    }
+  }
+
+  /** Lógica de pantalla 2.5. CONSULTAR PACIENTES CON CITA PARA CONSULTA EXTERNA */
+  static void pantallaConsultarPacientesCitaConsultaExterna() {
+    PantallasTerminalDatos.pantallaConsultarPacientesCitaConsultaExterna();
+    PantallasTerminalDatos.pantallaConsultarPeriodo();
+
+    ZonedDateTime fechaDesde;
+    ZonedDateTime fechaHasta;
+
+    String opt = Utiles.leerLinea();
+    switch (opt) {
+      case "1": // 1. Día específico.
+        fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
+        fechaHasta = fechaDesde.plusDays(1L);
+        Consultas.mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
+        break;
+      case "2": // 2. Semana (un día específico y los siguientes seís).
+        fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
+        fechaHasta = fechaDesde.plusWeeks(1L);
+        Consultas.mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
+        break;
+      case "3": //  3. Entre fechas.
+        System.out.println(">> FECHA DESDE");
+        fechaDesde = Utiles.inputFecha();
+        System.out.println(">> FECHA HASTA");
+        fechaHasta = Utiles.inputFecha();
+        Consultas.mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
+        break;
+      default:
+        System.out.println("> INFO: Opción '" + opt + "' no válida...");
         break;
     }
   }

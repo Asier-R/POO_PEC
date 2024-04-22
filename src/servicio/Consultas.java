@@ -325,44 +325,32 @@ public final class Consultas {
     if (contador == 0) PantallasTerminalDatos.pantallaNoHayIngresados();
   }
 
-  /** Consulta los pacientes con cita en consulta externa. */
-  static void consultarPacientesCitaConsultaExterna() {
-    PantallasTerminalDatos.pantallaConsultarPacientesCitaConsultaExterna();
-    PantallasTerminalDatos.pantallaConsultarPeriodo();
-
-    ZonedDateTime fechaDesde;
-    ZonedDateTime fechaHasta;
-
-    String opt = Utiles.leerLinea();
-    switch (opt) {
-      case "1": // 1. Día específico.
-        fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
-        fechaHasta = fechaDesde.plusDays(1L);
-        mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
-        break;
-      case "2": // 2. Semana (un día específico y los siguientes seís).
-        fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
-        fechaHasta = fechaDesde.plusWeeks(1L);
-        mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
-        break;
-      case "3": //  3. Entre fechas.
-        System.out.println(">> FECHA DESDE");
-        fechaDesde = Utiles.inputFecha();
-        System.out.println(">> FECHA HASTA");
-        fechaHasta = Utiles.inputFecha();
-        mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
-        break;
-      default:
-        System.out.println("> INFO: Opción '" + opt + "' no válida...");
-        break;
+  /** Realiza la consulta y muestra los datos de los pacientes con el criterio seleccionado. */
+  static void mostrarPacientesCitaConsultaExterna(
+      final ZonedDateTime fechaDesde, final ZonedDateTime fechaHasta) {
+    final List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
+    int contador = 0;
+    Unidad ubicacion;
+    ZonedDateTime fechaCita;
+    for (Paciente paciente : pacientes) {
+      if (paciente.getCita() != null) {
+        fechaCita = paciente.getCita().getFechaCita();
+        ubicacion = paciente.getCita().getUbicacion();
+        if (ubicacion instanceof Consulta) {
+          if (fechaCita.isAfter(fechaDesde) && fechaCita.isBefore(fechaHasta)) {
+            presentar(paciente);
+            contador++;
+          }
+        }
+      }
     }
+    if (contador == 0) PantallasTerminalDatos.pantallaNoHayPacientesConCitaConsultaExterna();
   }
 
   /** Consulta los pacientes que tienen cita con un especialista. */
   static void consultarPacientesCitaConEspecialista() {
     PantallasTerminalDatos.pantallaConsultarPacientesCitaConEspecialista();
     LTDConsulta.pantallaConsultaPersonas();
-
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
@@ -457,26 +445,6 @@ public final class Consultas {
   /* ------------------------------------------------------------------------------------------------------------------
      MÉTODOS AUXILIARES
   ------------------------------------------------------------------------------------------------------------------ */
-
-  /** Realiza la consulta y muestra los datos de los pacientes con el criterio seleccionado. */
-  private static void mostrarPacientesCitaConsultaExterna(
-      final ZonedDateTime fechaDesde, final ZonedDateTime fechaHasta) {
-    final List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
-    int contador = 0;
-    Unidad ubicacion;
-    ZonedDateTime fechaCita;
-    for (Paciente paciente : pacientes) {
-      fechaCita = paciente.getCita().getFechaCita();
-      ubicacion = paciente.getCita().getUbicacion();
-      if (ubicacion instanceof Consulta) {
-        if (fechaCita.isAfter(fechaDesde) && fechaCita.isBefore(fechaHasta)) {
-          presentar(paciente);
-          contador++;
-        }
-      }
-    }
-    if (contador == 0) PantallasTerminalDatos.pantallaNoHayPacientesConCitaConsultaExterna();
-  }
 
   /**
    * Muestra por pantalla y en solo una línea los datos de una unidad de formación.
