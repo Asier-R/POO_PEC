@@ -428,19 +428,26 @@ public final class PantallasTerminalDatos {
     System.out.println();
   }
 
-  /** Pantalla de consulta de pacientes ingresados. */
+  /** Pantalla de selección de rango de consulta. */
   static void pantallaConsultarPeriodo(){
     System.out.println("> Seleccione rango de consulta: ");
-    System.out.println("> 1. Día específico.");
-    System.out.println("> 2. Semana (un día específico y los siguientes seís).");
-    System.out.println("> 3. Entre fechas.");
+    System.out.println("> 1. Día específico");
+    System.out.println("> 2. Semana (un día específico y los siguientes seís)");
+    System.out.println("> 3. Entre fechas");
+    opcionesComunes();
     System.out.println();
   }
 
+  /** Pantalla de consulta de pacientes con cita con un especialista. */
   static void pantallaConsultarPacientesCitaConEspecialista(){
     separarPantalla();
     System.out.println(">>> 2.6. CONSULTAR PACIENTE CON CITA CON ESPECIALISTA");
-    System.out.println("> Seleccione un paciente mediante las pantallas de búsqueda de personas...");
+    System.out.println("> 1. Seleccionar especialista por NIF");
+    System.out.println("> 2. Seleccionar rango de consulta");
+    System.out.println("> 3. Ejecutar consulta");
+    System.out.println();
+    System.out.println("> 4. Consultar personas");
+    opcionesComunes();
     System.out.println();
   }
 

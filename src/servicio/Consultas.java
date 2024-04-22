@@ -43,6 +43,18 @@ public final class Consultas {
     else personas.forEach(Consultas::presentar);
   }
 
+  /** Consulta especialista por NIF. */
+  static Sanitario consultarEspecialistaPorNIF(String NIF) {
+    return (Sanitario)
+        LogicaTerminalDatos.getHospital().getPersonal().stream()
+            .filter(
+                p ->
+                    (p.getNIF().toUpperCase().contains(NIF.toUpperCase())
+                        && ((p instanceof Medico) || (p instanceof Enfermero))))
+            .findFirst()
+            .orElse(null);
+  }
+
   /** Consulta por nombre. */
   static void consultarPorNombre(String nombre) {
     List<Persona> personas = obtenerTodasLasPersonas();
@@ -326,7 +338,7 @@ public final class Consultas {
   }
 
   /** Realiza la consulta y muestra los datos de los pacientes con el criterio seleccionado. */
-  static void mostrarPacientesCitaConsultaExterna(
+  static void consultarPacientesCitaConsultaExterna(
       final ZonedDateTime fechaDesde, final ZonedDateTime fechaHasta) {
     final List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
     int contador = 0;
@@ -348,9 +360,8 @@ public final class Consultas {
   }
 
   /** Consulta los pacientes que tienen cita con un especialista. */
-  static void consultarPacientesCitaConEspecialista() {
-    PantallasTerminalDatos.pantallaConsultarPacientesCitaConEspecialista();
-    LTDConsulta.pantallaConsultaPersonas();
+  static void consultarPacientesCitaConEspecialista(Sanitario sanitario, ZonedDateTime fechaDesde, ZonedDateTime fechaHasta) {
+      //TODO: terminar consulta
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

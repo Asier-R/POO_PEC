@@ -3,6 +3,7 @@ package servicio;
 import entidad.Hospital;
 import entidad.persona.Paciente;
 import entidad.persona.Personal;
+import entidad.persona.Sanitario;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
@@ -13,6 +14,10 @@ import java.util.stream.Stream;
 public final class LogicaTerminalDatos {
 
   private static Hospital hospital;
+
+  private static Sanitario sanitario;
+  private static ZonedDateTime fechaDesde;
+  private static ZonedDateTime fechaHasta;
 
   /** Constructor de LogicaTerminalDatos. */
   private LogicaTerminalDatos() {
@@ -110,7 +115,7 @@ public final class LogicaTerminalDatos {
         pantallaServiciosMedicos();
         break;
       case "6": // 6. Consultar pacientes con cita con un especialista
-        Consultas.consultarPacientesCitaConEspecialista();
+        pantallaConsultarPacientesCitaConEspecialista();
         pantallaServiciosMedicos();
         break;
       case "X": // X. Volver a 0. INICIO
@@ -131,37 +136,94 @@ public final class LogicaTerminalDatos {
     PantallasTerminalDatos.pantallaConsultarPacientesCitaConsultaExterna();
     PantallasTerminalDatos.pantallaConsultarPeriodo();
 
-    ZonedDateTime fechaDesde;
-    ZonedDateTime fechaHasta;
+    String opt = Utiles.leerLinea().toUpperCase();
+    switch (opt) {
+      case "X": // X. Volver a 2. SERVICIOS MÉDICOS
+        pantallaServiciosMedicos();
+        break;
+      case "Z": // Z. Finalizar
+        if (!finPrograma()) pantallaServiciosMedicos();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // 1. Día específico.  2. Semana (un día específico y los siguientes seís). 3. Entre fechas.
+        seleccionarRango(opt);
+        Consultas.consultarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
+        pantallaConsultarPacientesCitaConsultaExterna();
+        break;
+    }
+  }
 
-    String opt = Utiles.leerLinea();
+  /** Lógica de pantalla 2.6. CONSULTAR PACIENTE CON CITA CON ESPECIALISTA */
+  static void pantallaConsultarPacientesCitaConEspecialista(){
+    PantallasTerminalDatos.pantallaConsultarPacientesCitaConEspecialista();
+
+    String opt = Utiles.leerLinea().toUpperCase();
+    switch (opt) {
+      case "1": // 1. Seleccionar especialista por NIF.
+        sanitario = Consultas.consultarEspecialistaPorNIF(Utiles.inputNIF());
+        pantallaConsultarPacientesCitaConEspecialista();
+        break;
+      case "2": // 2. Seleccionar rango de consulta.
+        PantallasTerminalDatos.pantallaConsultarPeriodo();
+        seleccionarRango(opt);
+        pantallaConsultarPacientesCitaConEspecialista();
+        break;
+      case "3": // 3. Ejecutar consulta
+        // TODO: llamar a consulta
+        pantallaConsultarPacientesCitaConEspecialista();
+        break;
+      case "4": // 4. Consultar personas
+        LTDConsulta.pantallaConsultaCualquierPersona();
+        pantallaConsultarPacientesCitaConEspecialista();
+        break;
+      case "X": // X. Volver a 2. SERVICIOS MÉDICOS
+        pantallaServiciosMedicos();
+        break;
+      case "Z": // Z. Finalizar
+        if (!finPrograma()) pantallaServiciosMedicos();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        System.out.println("> INFO: Opción '" + opt + "' no válida...");
+        pantallaConsultarPacientesCitaConEspecialista();
+        break;
+    }
+
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS AUXILIARES
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /**
+   * Permite seleccionar una opción de rango para fechas.
+   *  Opciones:
+   *  1. Día específico.
+   *  2. Semana (un día específico y los siguientes seís).
+   *  3. Entre fechas.
+   * @param opt Opción a seleccionar.
+   */
+  private static void seleccionarRango(String opt){
     switch (opt) {
       case "1": // 1. Día específico.
         fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
         fechaHasta = fechaDesde.plusDays(1L);
-        Consultas.mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
         break;
       case "2": // 2. Semana (un día específico y los siguientes seís).
         fechaDesde = Utiles.inputFecha().truncatedTo(ChronoUnit.DAYS);
         fechaHasta = fechaDesde.plusWeeks(1L);
-        Consultas.mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
         break;
       case "3": //  3. Entre fechas.
         System.out.println(">> FECHA DESDE");
         fechaDesde = Utiles.inputFecha();
         System.out.println(">> FECHA HASTA");
         fechaHasta = Utiles.inputFecha();
-        Consultas.mostrarPacientesCitaConsultaExterna(fechaDesde, fechaHasta);
         break;
-      default:
+      default: // Permanecer en la pantalla
         System.out.println("> INFO: Opción '" + opt + "' no válida...");
         break;
     }
   }
-
-  /* ------------------------------------------------------------------------------------------------------------------
-     MÉTODOS AUXILIARES
-  ------------------------------------------------------------------------------------------------------------------ */
 
   /**
    * Finaliza el programa.
