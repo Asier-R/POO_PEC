@@ -169,7 +169,7 @@ public final class LogicaTerminalDatos {
         pantallaConsultarPacientesCitaConEspecialista();
         break;
       case "3": // 3. Ejecutar consulta
-        // TODO: llamar a consulta
+        Consultas.consultarPacientesCitaConEspecialista(sanitario, fechaDesde, fechaHasta);
         pantallaConsultarPacientesCitaConEspecialista();
         break;
       case "4": // 4. Consultar personas
@@ -188,7 +188,6 @@ public final class LogicaTerminalDatos {
         pantallaConsultarPacientesCitaConEspecialista();
         break;
     }
-
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

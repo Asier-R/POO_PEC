@@ -6,16 +6,13 @@ import entidad.unidad.Unidad;
 import entidad.unidad.formacion.Formacion;
 import entidad.unidad.medica.consulta.Consulta;
 import entidad.unidad.medica.consulta.Primaria;
-import entidad.unidad.medica.habitacion.EnPlanta;
 import entidad.unidad.medica.habitacion.Habitacion;
-import entidad.unidad.medica.habitacion.UCI;
 import enumerado.CodigoActividadEnum;
 import enumerado.CodigoAreaEnum;
 import enumerado.CodigoEspecialidadEnum;
 import enumerado.CodigoUnidadEnum;
 
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -360,8 +357,40 @@ public final class Consultas {
   }
 
   /** Consulta los pacientes que tienen cita con un especialista. */
-  static void consultarPacientesCitaConEspecialista(Sanitario sanitario, ZonedDateTime fechaDesde, ZonedDateTime fechaHasta) {
-      //TODO: terminar consulta
+  static void consultarPacientesCitaConEspecialista(
+      Sanitario sanitario, ZonedDateTime fechaDesde, ZonedDateTime fechaHasta) {
+    String falta = "";
+    falta = Utiles.validarCampoPersona(sanitario, falta, Utiles.STR_SANITARIO);
+    falta = Utiles.validarCampoFecha(fechaDesde, falta, Utiles.STR_FECHA_DESDE);
+    falta = Utiles.validarCampoFecha(fechaDesde, falta, Utiles.STR_FECHA_HASTA);
+
+    if (sanitario != null && fechaDesde != null && fechaHasta != null) {
+      System.out.println(
+          "> Especialista: "
+              + sanitario.getNIF()
+              + " "
+              + sanitario.getNombre()
+              + " "
+              + sanitario.getApellido1());
+      System.out.println(
+          "> Periodo de "
+              + Utiles.getFechaFormateada(fechaDesde)
+              + " hasta "
+              + Utiles.getFechaFormateada(fechaHasta));
+      System.out.println("> Pacientes:");
+      int contador = 0;
+      ZonedDateTime fechaCita;
+      for (Cita cita : sanitario.getCitas()) {
+        fechaCita = cita.getFechaCita();
+        if (fechaCita.isAfter(fechaDesde) && fechaCita.isBefore(fechaHasta)) {
+          presentar(cita.getPaciente());
+          contador++;
+        }
+      }
+      if (contador == 0) PantallasTerminalDatos.pantallaEspecialistaSinPacientesEnRangoFechas();
+    } else {
+      System.out.println("Faltan los siguientes campos: " + falta);
+    }
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

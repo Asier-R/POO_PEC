@@ -453,13 +453,19 @@ public final class PantallasTerminalDatos {
 
   /** Pantalla de info no hay pacientes ingresados. */
   static void pantallaNoHayIngresados(){
-    System.out.println("> No hay ningún paciente ingresado en el hospital.");
+    System.out.println("> INFO: No hay ningún paciente ingresado en el hospital.");
     System.out.println();
   }
 
   /** Pantalla de info no hay pacientes con consulta externa. */
   static void pantallaNoHayPacientesConCitaConsultaExterna(){
-    System.out.println("> No hay ningún paciente con cita para consulta externa.");
+    System.out.println("> INFO: No hay ningún paciente con cita para consulta externa.");
+    System.out.println();
+  }
+
+  /** Pantalla de info el especialista no tiene pacientes para las fechas seleccionadas. */
+  static void pantallaEspecialistaSinPacientesEnRangoFechas(){
+    System.out.println("> INFO: El especialista no tiene citas con pacientes en el periodo indicado.");
     System.out.println();
   }
 

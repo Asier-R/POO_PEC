@@ -16,9 +16,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Clase que contiene funciones útiles para toda la aplicación.
- */
+/** Clase que contiene funciones útiles para toda la aplicación. */
 public final class Utiles {
 
   static final String STR_NIF = "NIF";
@@ -41,6 +39,8 @@ public final class Utiles {
   static final String STR_SANITARIO = "Sanitario";
   static final String STR_ESTUDIANTE = "Estudiante";
   static final String STR_FECHA = "Fecha";
+  static final String STR_FECHA_DESDE = "Fecha Desde";
+  static final String STR_FECHA_HASTA = "Fecha Hasta";
   static final String STR_FECHA_CITA = "Fecha Cita";
   static final String STR_FORMATO_FECHA = "HH:mm:ss dd-MM-uuuu";
   static final String STR_ZONA = "Europe/Madrid";
@@ -97,16 +97,17 @@ public final class Utiles {
    *
    * @return String con la fecha y hora del sistema.
    */
-  static String getFechaHoraSistemaFormateada(){
+  static String getFechaHoraSistemaFormateada() {
     return fechaHoraSistema.format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
   }
 
   /**
    * Devuelve la fecha de entrada formateada.
+   *
    * @param fecha Fecha a formatear.
    * @return Fecha formateada.
    */
-  static String getFechaHoraFormateada(ZonedDateTime fecha){
+  static String getFechaHoraFormateada(ZonedDateTime fecha) {
     return fecha.format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
   }
 
@@ -115,8 +116,10 @@ public final class Utiles {
    *
    * @return String con la fecha y hora del sistema avanzada N días.
    */
-  static String getFechaSistemaAvanzadaNDias(Long numDias){
-    return fechaHoraSistema.plusDays(numDias).format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
+  static String getFechaSistemaAvanzadaNDias(Long numDias) {
+    return fechaHoraSistema
+        .plusDays(numDias)
+        .format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
   }
 
   /**
@@ -138,6 +141,16 @@ public final class Utiles {
   static ZonedDateTime avanzarDiaSistema(long dias) {
     fechaHoraSistema = fechaHoraSistema.plusDays(dias);
     return fechaHoraSistema;
+  }
+
+  /**
+   * Devuelve el string de una fecha formateada a partir de su entrada.
+   *
+   * @param fecha Fecha a formatear.
+   * @return String de la fecha formateada.
+   */
+  static String getFechaFormateada(ZonedDateTime fecha) {
+    return fecha.format(DateTimeFormatter.ofPattern(STR_FORMATO_FECHA));
   }
 
   /* ------------------------------------------------------------------------------------------------------------------
@@ -368,5 +381,4 @@ public final class Utiles {
     PantallasTerminalDatos.separarPantalla();
     System.out.println(persona);
   }
-
 }
