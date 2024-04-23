@@ -20,8 +20,8 @@ public class Paciente extends Persona implements Comparable<Paciente> {
 
     /**
      * Constructor de Sexo.
-     *
-     * @param codigo código.
+     * @param id Id del sexo.
+     * @param codigo Código del sexo.
      */
     private Sexo(int id, String codigo) {
       this.id = id;

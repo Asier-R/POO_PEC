@@ -33,6 +33,7 @@ public class Cita implements Comparable<Cita> {
      * Constructor de Horario.
      *
      * @param inicio Hora inicial.
+     * @param descripcion Descripción.
      */
     private Horario(int inicio, String descripcion) {
       this.inicio = inicio;
@@ -67,6 +68,7 @@ public class Cita implements Comparable<Cita> {
    *
    * @param fechaCita Fecha de la cita.
    * @param paciente Paciente.
+   * @param ubicacion Ubicación.
    */
   public Cita(ZonedDateTime fechaCita, Paciente paciente, Unidad ubicacion) {
     this.fechaCreacion = ZonedDateTime.now();

@@ -129,7 +129,10 @@ public abstract class Sanitario extends Personal {
     return citas;
   }
 
-  /** Anota una nueva cita en la agenda del sanitario. */
+  /**
+   * Anota una nueva cita en la agenda del sanitario.
+   * @param cita Cita a anotar.
+   */
   public void anotarCita(Cita cita) {
     citas.add(cita);
   }

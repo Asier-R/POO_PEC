@@ -28,7 +28,11 @@ public final class Consultas {
      MÉTODOS CONSULTA PERSONA
   ------------------------------------------------------------------------------------------------------------------ */
 
-  /** Consulta por NIF. */
+  /**
+   * Consulta por NIF.
+   *
+   * @param NIF NIF de la persona a consultar.
+   */
   static void consultarPorNIF(String NIF) {
     List<Persona> personas = obtenerTodasLasPersonas();
     personas =
@@ -40,7 +44,12 @@ public final class Consultas {
     else personas.forEach(Consultas::presentar);
   }
 
-  /** Consulta especialista por NIF. */
+  /**
+   * Consulta especialista por NIF.
+   *
+   * @param NIF NIF del especialista.
+   * @return Especialista coincidente con el NIF.
+   */
   static Sanitario consultarEspecialistaPorNIF(String NIF) {
     return (Sanitario)
         LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -52,7 +61,11 @@ public final class Consultas {
             .orElse(null);
   }
 
-  /** Consulta por nombre. */
+  /**
+   * Consulta por nombre.
+   *
+   * @param nombre Nombre.
+   */
   static void consultarPorNombre(String nombre) {
     List<Persona> personas = obtenerTodasLasPersonas();
     personas =
@@ -64,7 +77,11 @@ public final class Consultas {
     else personas.forEach(Consultas::presentar);
   }
 
-  /** Consulta por primer apellido. */
+  /**
+   * Consulta por primer apellido.
+   *
+   * @param apellido Primer Apellido.
+   */
   static void consultarPorPrimerApellido(String apellido) {
     List<Persona> personas = obtenerTodasLasPersonas();
     personas =
@@ -76,7 +93,11 @@ public final class Consultas {
     else personas.forEach(Consultas::presentar);
   }
 
-  /** Consulta por segundo apellido. */
+  /**
+   * Consulta por segundo apellido.
+   *
+   * @param apellido Segundo Apellido.
+   */
   static void consultarPorSegundoApellido(String apellido) {
     List<Persona> personas = obtenerTodasLasPersonas();
     personas =
@@ -88,7 +109,11 @@ public final class Consultas {
     else personas.forEach(Consultas::presentar);
   }
 
-  /** Consulta por código unidad. */
+  /**
+   * Consulta por código unidad.
+   *
+   * @param codigo Código de la unidad.
+   */
   static void consultarPorCodigoUnidad(CodigoUnidadEnum codigo) {
     List<Personal> personal =
         LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -99,7 +124,11 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
-  /** Consulta por código área. */
+  /**
+   * Consulta por código área.
+   *
+   * @param codigo Código de área.
+   */
   static void consultarPorCodigoArea(CodigoAreaEnum codigo) {
     List<Personal> personal =
         LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -110,7 +139,11 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
-  /** Consulta por código actividad. */
+  /**
+   * Consulta por código actividad.
+   *
+   * @param codigo Código de actividad.
+   */
   static void consultarPorCodigoActividad(CodigoActividadEnum codigo) {
     List<Personal> personal =
         LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -121,7 +154,11 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
-  /** Consulta por experiencia. */
+  /**
+   * Consulta por experiencia.
+   *
+   * @param experiencia Experiencia.
+   */
   static void consultarPorExperiencia(int experiencia) {
     List<Personal> personal =
         LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -136,7 +173,11 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
-  /** Consulta por código especialidad. */
+  /**
+   * Consulta por código especialidad.
+   *
+   * @param codigo Código de la especialidad.
+   */
   static void consultarPorCodigoEspecialidad(CodigoEspecialidadEnum codigo) {
     List<Personal> personal =
         LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -151,7 +192,11 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
-  /** Consulta por código segunda especialidad. */
+  /**
+   * Consulta por código segunda especialidad.
+   *
+   * @param codigo Código de la especialidad.
+   */
   static void consultarPorCodigoSegundaEspecialidad(CodigoEspecialidadEnum codigo) {
     List<Personal> personal =
         LogicaTerminalDatos.getHospital().getPersonal().stream()
@@ -166,7 +211,7 @@ public final class Consultas {
     else personal.forEach(Consultas::presentar);
   }
 
-  /** Consultar todos los pacientes */
+  /** Consultar todos los pacientes. */
   static void consultarPacientes() {
     List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
     if (pacientes.isEmpty()) PantallasTerminalDatos.pantallaConsultaSinResultados();
@@ -238,7 +283,10 @@ public final class Consultas {
             .orElse(null);
   }
 
-  /** Obtener todos los médicos */
+  /**
+   * Obtener todos los médicos.
+   * @return Lista de médicos.
+   */
   static List<Medico> obtenerMedicos() {
     List<Medico> medicos = new ArrayList<>();
     LogicaTerminalDatos.getHospital()
@@ -334,7 +382,11 @@ public final class Consultas {
     if (contador == 0) PantallasTerminalDatos.pantallaNoHayIngresados();
   }
 
-  /** Realiza la consulta y muestra los datos de los pacientes con el criterio seleccionado. */
+  /**
+   * Realiza la consulta y muestra los datos de los pacientes con el criterio seleccionado.
+   * @param fechaDesde Fecha desde.
+   * @param fechaHasta Fecha hasta.
+   */
   static void consultarPacientesCitaConsultaExterna(
       final ZonedDateTime fechaDesde, final ZonedDateTime fechaHasta) {
     final List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
@@ -356,7 +408,12 @@ public final class Consultas {
     if (contador == 0) PantallasTerminalDatos.pantallaNoHayPacientesConCitaConsultaExterna();
   }
 
-  /** Consulta los pacientes que tienen cita con un especialista. */
+  /**
+   * Consulta los pacientes que tienen cita con un especialista.
+   * @param sanitario Sanitario.
+   * @param fechaDesde Fecha desde.
+   * @param fechaHasta Fecha hasta.
+   */
   static void consultarPacientesCitaConEspecialista(
       Sanitario sanitario, ZonedDateTime fechaDesde, ZonedDateTime fechaHasta) {
     String falta = "";

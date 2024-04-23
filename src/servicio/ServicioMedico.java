@@ -269,6 +269,7 @@ public final class ServicioMedico {
    * Genera una cita para un paciente.
    *
    * @param paciente Paciente para el que se genera la cita.
+   * @return Cita.
    */
   private static Cita generarCita(Paciente paciente) {
     ZonedDateTime fechaCita = Utiles.getFechaHoraSistema().plusDays(1L);

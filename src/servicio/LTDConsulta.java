@@ -59,7 +59,10 @@ public final class LTDConsulta {
     }
   }
 
-  /** Pantalla de consulta de personal. */
+  /**
+   * Pantalla de consulta de personal.
+   * @param persona Persona seleccionada.
+   */
   static void pantallaConsultaPersonal(Class<? extends Persona> persona) {
     if (persona.equals(Paciente.class)) {
       Consultas.consultarPacientes();

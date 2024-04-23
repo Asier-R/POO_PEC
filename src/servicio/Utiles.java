@@ -114,6 +114,7 @@ public final class Utiles {
   /**
    * Devuelve la fecha y hora del sistema avanzada N días y formateada.
    *
+   * @param numDias Número de días.
    * @return String con la fecha y hora del sistema avanzada N días.
    */
   static String getFechaSistemaAvanzadaNDias(Long numDias) {
@@ -184,49 +185,81 @@ public final class Utiles {
     return num;
   }
 
-  /** Método para obtener el NIF de la persona. */
+  /**
+   * Método para obtener el NIF de la persona.
+   *
+   * @return Dato de entrada.
+   */
   static String inputNIF() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_NIF);
     return leerLinea().toUpperCase();
   }
 
-  /** Método para obtener el nombre de la persona. */
+  /**
+   * Método para obtener el nombre de la persona.
+   *
+   * @return Dato de entrada.
+   */
   static String inputNombre() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_NOMBRE);
     return leerLinea();
   }
 
-  /** Método para obtener el primer apellido de la persona. */
+  /**
+   * Método para obtener el primer apellido de la persona.
+   *
+   * @return Dato de entrada.
+   */
   static String inputApellido1() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_APELLIDO1);
     return leerLinea();
   }
 
-  /** Método para obtener el segundo apellido de la persona. */
+  /**
+   * Método para obtener el segundo apellido de la persona.
+   *
+   * @return Dato de entrada.
+   */
   static String inputApellido2() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_APELLIDO2);
     return leerLinea();
   }
 
-  /** Método para obtener el nombre del centro. */
+  /**
+   * Método para obtener el nombre del centro.
+   *
+   * @return Dato de entrada.
+   */
   static String inputNombreCentro() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_CENTRO);
     return leerLinea();
   }
 
-  /** Método para obtener la experiencia del sanitario. */
+  /**
+   * Método para obtener la experiencia del sanitario.
+   *
+   * @return Dato de entrada.
+   */
   static int inputExperiencia() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_EXPERIENCIA);
     return leerNumero();
   }
 
-  /** Método para obtener la edad del paciente. */
+  /**
+   * Método para obtener la edad del paciente.
+   *
+   * @return Dato de entrada.
+   */
   static int inputEdad() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_EDAD);
     return leerNumero();
   }
 
-  /** Método para obtener el código de unidad. */
+  /**
+   * Método para obtener el código de unidad.
+   *
+   * @return Código de unidad seleccionado.
+   */
   static CodigoUnidadEnum inputCodUnidad() {
     PantallasTerminalDatos.pantallaSeleccionarCodigo(STR_COD_UNIDAD);
     CodigoUnidadEnum.mostrarPorPantalla();
@@ -234,7 +267,11 @@ public final class Utiles {
     return CodigoUnidadEnum.getFromId(opt);
   }
 
-  /** Método para obtener el código de área. */
+  /**
+   * Método para obtener el código de área.
+   *
+   * @return Código de área seleccionado.
+   */
   static CodigoAreaEnum inputCodArea() {
     PantallasTerminalDatos.pantallaSeleccionarCodigo(STR_COD_AREA);
     CodigoAreaEnum.mostrarPorPantalla();
@@ -242,7 +279,11 @@ public final class Utiles {
     return CodigoAreaEnum.getFromId(opt);
   }
 
-  /** Método para obtener el código de área. */
+  /**
+   * Método para obtener el código de área.
+   *
+   * @return Código de actividad seleccionado.
+   */
   static CodigoActividadEnum inputCodActividad() {
     PantallasTerminalDatos.pantallaSeleccionarCodigo(
         STR_COD_ACTIVIDAD + " (lugar donde se realiza la actividad)");
@@ -251,7 +292,11 @@ public final class Utiles {
     return CodigoActividadEnum.getFromId(opt);
   }
 
-  /** Método para obtener el código de especialidad. */
+  /**
+   * Método para obtener el código de especialidad.
+   *
+   * @return Código de especialidad seleccionado.
+   */
   static CodigoEspecialidadEnum inputCodEspecialidad() {
     PantallasTerminalDatos.pantallaSeleccionarCodigo(STR_COD_ESPECIALIDAD);
     CodigoEspecialidadEnum.mostrarPorPantalla();
@@ -259,7 +304,11 @@ public final class Utiles {
     return CodigoEspecialidadEnum.getFromId(opt);
   }
 
-  /** Método para obtener el grupo administrativo. */
+  /**
+   * Método para obtener el grupo administrativo.
+   *
+   * @return Grupo administrativo seleccionado.
+   */
   static Administrativo.Grupo inputGrupoAdmin() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_COD_GRUPO);
     Administrativo.Grupo.mostrarPorPantalla();
@@ -267,7 +316,11 @@ public final class Utiles {
     return Administrativo.Grupo.getFromId(opt);
   }
 
-  /** Método para obtener el sexo del paciente. */
+  /**
+   * Método para obtener el sexo del paciente.
+   *
+   * @return Sexo seleccionado.
+   */
   static Paciente.Sexo inputSexoPaciente() {
     PantallasTerminalDatos.pantallaIntroducirDato(STR_SEXO);
     Paciente.Sexo.mostrarPorPantalla();
@@ -275,7 +328,11 @@ public final class Utiles {
     return Paciente.Sexo.getFromId(opt);
   }
 
-  /** Método recursivo para obtener una fecha. */
+  /**
+   * Método recursivo para obtener una fecha.
+   *
+   * @return Fecha introducida.
+   */
   static ZonedDateTime inputFecha() {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern(STR_FORMATO_FECHA);
     PantallasTerminalDatos.pantallaIntroducirDato(
@@ -296,7 +353,14 @@ public final class Utiles {
      VALIDACIONES
   ------------------------------------------------------------------------------------------------------------------ */
 
-  /** Método para validar un campo de texto. */
+  /**
+   * Método para validar un campo de texto.
+   *
+   * @param dato Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampo(String dato, String falta, String campo) {
     if (dato == null || dato.isEmpty() || dato.isBlank()) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
@@ -305,7 +369,14 @@ public final class Utiles {
     }
   }
 
-  /** Método para validar un campo numérico. */
+  /**
+   * Método para validar un campo numérico.
+   *
+   * @param dato Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampoNumero(int dato, String falta, String campo) {
     if (dato < 0) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
@@ -314,7 +385,14 @@ public final class Utiles {
     }
   }
 
-  /** Método para validar campo sexo. */
+  /**
+   * Método para validar campo sexo.
+   *
+   * @param sexo Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampoSexo(Paciente.Sexo sexo, String falta, String campo) {
     if (sexo == null) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
@@ -323,7 +401,14 @@ public final class Utiles {
     }
   }
 
-  /** Método para validar un campo enumerable. */
+  /**
+   * Método para validar un campo enumerable.
+   *
+   * @param dato Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampoEnum(Enum dato, String falta, String campo) {
     if (dato == null) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
@@ -332,7 +417,14 @@ public final class Utiles {
     }
   }
 
-  /** Método para validar un campo fecha. */
+  /**
+   * Método para validar un campo fecha.
+   *
+   * @param dato Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampoFecha(ZonedDateTime dato, String falta, String campo) {
     if (dato == null) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
@@ -341,7 +433,14 @@ public final class Utiles {
     }
   }
 
-  /** Método para validar un campo persona. */
+  /**
+   * Método para validar un campo persona.
+   *
+   * @param dato Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampoPersona(Persona dato, String falta, String campo) {
     if (dato == null) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
@@ -350,7 +449,14 @@ public final class Utiles {
     }
   }
 
-  /** Método para validar un campo persona. */
+  /**
+   * Método para validar una lista de personas.
+   *
+   * @param dato Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampoPersona(List<? extends Persona> dato, String falta, String campo) {
     if (dato == null || dato.isEmpty()) {
       return falta.isEmpty() ? campo : falta + ", " + campo;
@@ -359,7 +465,14 @@ public final class Utiles {
     }
   }
 
-  /** Método para validar un campo unidad. */
+  /**
+   * Método para validar un campo unidad.
+   *
+   * @param dato Dato a validar.
+   * @param falta Texto informativo.
+   * @param campo Nombre del campo a validar.
+   * @return Texto informativo.
+   */
   static String validarCampoUnidad(Unidad dato, String falta, String campo) {
     if (dato == null) {
       return falta.isEmpty() ? campo : falta + ", " + campo;

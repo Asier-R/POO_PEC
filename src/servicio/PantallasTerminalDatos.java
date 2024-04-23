@@ -334,7 +334,6 @@ public final class PantallasTerminalDatos {
     System.out.println();
   }
 
-
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE SERVICIOS MÉDICOS
   ------------------------------------------------------------------------------------------------------------------ */
@@ -350,14 +349,22 @@ public final class PantallasTerminalDatos {
   /** Pantalla de aviso no se puede atender de pacientes. */
   static void pantallaAvisoSinMedicoPrimaria() {
     separarPantalla();
-    System.out.println("> AVISO: No se puede atender a los nuevos pacientes sin un médico presente en consulta primaria...");
+    System.out.println(
+        "> AVISO: No se puede atender a los nuevos pacientes sin un médico presente en consulta primaria...");
     System.out.println();
   }
 
-  /** Pantalla de aviso no se puede atender de pacientes. */
+  /**
+   * Pantalla de aviso no se puede atender de pacientes.
+   *
+   * @param descUnidad Descripción de la unidad.
+   */
   static void pantallaAvisoSinSanitario(String descUnidad) {
     separarPantalla();
-    System.out.println("> AVISO: No se puede atender al paciente sin un sanitario asignado a la unidad "+descUnidad+"...");
+    System.out.println(
+        "> AVISO: No se puede atender al paciente sin un sanitario asignado a la unidad "
+            + descUnidad
+            + "...");
     System.out.println();
   }
 
@@ -381,9 +388,16 @@ public final class PantallasTerminalDatos {
     System.out.println();
   }
 
-  /** Pantalla de info cita pacientes nuevos. */
+  /**
+   * Pantalla de info cita pacientes nuevos.
+   *
+   * @param cod Código de actividad.
+   */
   static void pantallaInfoPacientesPermaneceIngresado(CodigoActividadEnum cod) {
-    System.out.println("> INFO: El paciente se encuentra ingresado en "+cod+", donde permanecerá hasta nuevo aviso.");
+    System.out.println(
+        "> INFO: El paciente se encuentra ingresado en "
+            + cod
+            + ", donde permanecerá hasta nuevo aviso.");
     System.out.println();
   }
 
@@ -392,53 +406,66 @@ public final class PantallasTerminalDatos {
     separarPantalla();
     System.out.println(">>> 2.2. ACTUALIZAR EXPEDIENTES");
     System.out.println("> INFO: Actualizar los expedientes requiere avanzar la fecha de sistema.");
-    System.out.println(">       Avanzar la fecha mostrará el trabajo realizado por el servicio médico hasta la nueva fecha de sistema.");
-    System.out.println(">       Introduzca el número de días que desea avanzar...     (cero para permanecer en la fecha actual)");
+    System.out.println(
+        ">       Avanzar la fecha mostrará el trabajo realizado por el servicio médico hasta la nueva fecha de sistema.");
+    System.out.println(
+        ">       Introduzca el número de días que desea avanzar...     (cero para permanecer en la fecha actual)");
     System.out.println();
   }
 
-  /** Pantalla de info actualizar expedientes avanzar días. */
+  /**
+   * Pantalla de info actualizar expedientes avanzar días.
+   *
+   * @param numDias Número de días.
+   */
   static void pantallaInfoActualizarExpedientesAvanzarDias(Long numDias) {
-    System.out.println("> INFO: ¿Avanzar la fecha de sistema a "+Utiles.getFechaSistemaAvanzadaNDias(numDias)+"?");
+    System.out.println(
+        "> INFO: ¿Avanzar la fecha de sistema a "
+            + Utiles.getFechaSistemaAvanzadaNDias(numDias)
+            + "?");
     System.out.println();
   }
 
   /** Pantalla de aviso no se ha podido citar a paciente. */
-  static void pantallaAvisoNoSeHaPodidoCitarPaciente(){
+  static void pantallaAvisoNoSeHaPodidoCitarPaciente() {
     System.out.println("> AVISO: No se ha podido citar al paciente...");
     System.out.println();
   }
 
-  /** Pantalla de info número de pacientes tratados. */
+  /**
+   * Pantalla de info número de pacientes tratados.
+   *
+   * @param num Número de pacientes.
+   */
   static void pantallaInfoNumPacientesTratados(int num) {
     separarPantallaSimple();
-    System.out.println("> INFO: Se han tratado "+num+" pacientes.");
+    System.out.println("> INFO: Se han tratado " + num + " pacientes.");
     System.out.println();
   }
 
   /** Pantalla de consulta de ocupación. */
-  static void pantallaConsultarOcupacion(){
+  static void pantallaConsultarOcupacion() {
     separarPantalla();
     System.out.println(">>> 2.3. CONSULTAR OCUPACIÓN");
     System.out.println();
   }
 
   /** Pantalla de consulta de pacientes ingresados. */
-  static void pantallaConsultarIngresados(){
+  static void pantallaConsultarIngresados() {
     separarPantalla();
     System.out.println(">>> 2.4. CONSULTAR INGRESADOS");
     System.out.println();
   }
 
   /** Pantalla de consulta de pacientes ingresados. */
-  static void pantallaConsultarPacientesCitaConsultaExterna(){
+  static void pantallaConsultarPacientesCitaConsultaExterna() {
     separarPantalla();
     System.out.println(">>> 2.5. CONSULTAR PACIENTES CON CITA PARA CONSULTA EXTERNA");
     System.out.println();
   }
 
   /** Pantalla de selección de rango de consulta. */
-  static void pantallaConsultarPeriodo(){
+  static void pantallaConsultarPeriodo() {
     System.out.println("> Seleccione rango de consulta: ");
     System.out.println("> 1. Día específico");
     System.out.println("> 2. Semana (un día específico y los siguientes seís)");
@@ -448,7 +475,7 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de consulta de pacientes con cita con un especialista. */
-  static void pantallaConsultarPacientesCitaConEspecialista(){
+  static void pantallaConsultarPacientesCitaConEspecialista() {
     separarPantalla();
     System.out.println(">>> 2.6. CONSULTAR PACIENTE CON CITA CON ESPECIALISTA");
     System.out.println("> 1. Seleccionar especialista por NIF");
@@ -461,20 +488,21 @@ public final class PantallasTerminalDatos {
   }
 
   /** Pantalla de info no hay pacientes ingresados. */
-  static void pantallaNoHayIngresados(){
+  static void pantallaNoHayIngresados() {
     System.out.println("> INFO: No hay ningún paciente ingresado en el hospital.");
     System.out.println();
   }
 
   /** Pantalla de info no hay pacientes con consulta externa. */
-  static void pantallaNoHayPacientesConCitaConsultaExterna(){
+  static void pantallaNoHayPacientesConCitaConsultaExterna() {
     System.out.println("> INFO: No hay ningún paciente con cita para consulta externa.");
     System.out.println();
   }
 
   /** Pantalla de info el especialista no tiene pacientes para las fechas seleccionadas. */
-  static void pantallaEspecialistaSinPacientesEnRangoFechas(){
-    System.out.println("> INFO: El especialista no tiene citas con pacientes en el periodo indicado.");
+  static void pantallaEspecialistaSinPacientesEnRangoFechas() {
+    System.out.println(
+        "> INFO: El especialista no tiene citas con pacientes en el periodo indicado.");
     System.out.println();
   }
 
@@ -503,9 +531,12 @@ public final class PantallasTerminalDatos {
      PANTALLAS COMUNES
   ------------------------------------------------------------------------------------------------------------------ */
 
-  /** Introduce salto de línea y elementos repetidos para separar las pantallas. Incluye fecha de sistema. */
+  /**
+   * Introduce salto de línea y elementos repetidos para separar las pantallas. Incluye fecha de
+   * sistema.
+   */
   static void separarPantalla() {
-    System.out.println(SEPARADOR + "SysDate "+Utiles.getFechaHoraSistemaFormateada() + SEPARADOR);
+    System.out.println(SEPARADOR + "SysDate " + Utiles.getFechaHoraSistemaFormateada() + SEPARADOR);
   }
 
   /** Introduce salto de línea y elementos repetidos (simples) para separar las pantallas. */
@@ -513,12 +544,20 @@ public final class PantallasTerminalDatos {
     System.out.println(SEPARADOR_SIMPLE);
   }
 
-  /** Pantalla introducción de datos */
+  /**
+   * Pantalla introducción de datos.
+   *
+   * @param texto Texto introducido.
+   */
   static void pantallaIntroducirDato(String texto) {
     System.out.println("> Introduzca " + texto + "...");
   }
 
-  /** Pantalla selección de código */
+  /**
+   * Pantalla selección de código.
+   *
+   * @param texto Texto a mostrar.
+   */
   static void pantallaSeleccionarCodigo(String texto) {
     System.out.println("> Seleccione " + texto + "...");
   }
@@ -543,7 +582,11 @@ public final class PantallasTerminalDatos {
     System.out.println("> AVISO: se van a borrar los datos...");
   }
 
-  /** Pantalla aviso persona no encontrada */
+  /**
+   * Pantalla aviso persona no encontrada.
+   *
+   * @param nif NIF de la persona.
+   */
   static void pantallaAvisoPersonaNoEncontrada(String nif) {
     System.out.println("> AVISO: No se ha encontrado la persona con NIF " + nif);
   }

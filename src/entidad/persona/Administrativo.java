@@ -23,8 +23,8 @@ public class Administrativo extends Personal {
 
     /**
      * Constructor de Grupo.
-     *
-     * @param codigo código.
+     * @param id Id del grupo.
+     * @param codigo Código del grupo.
      */
     private Grupo(int id, String codigo) {
       this.id = id;
