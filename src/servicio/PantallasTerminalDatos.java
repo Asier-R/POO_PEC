@@ -30,6 +30,7 @@ public final class PantallasTerminalDatos {
     System.out.println("> 2. Gestión de pacientes");
     System.out.println("> 3. Gestión Contable");
     System.out.println("> 4. Gestión mantenimiento");
+    System.out.println("> 5. Consultar empleados del sistema");
     opcionesComunes();
   }
 
@@ -325,6 +326,14 @@ public final class PantallasTerminalDatos {
     System.out.println("> 8. Finalizar Alta");
     opcionesComunes();
   }
+
+  /** Pantalla de baja de consulta de empleados del sistema. */
+  static void pantallaConsultarEmpleadosDelSistema() {
+    separarPantalla();
+    System.out.println(">>> 5. CONSULTAR EMPLEADOS DEL SISTEMA");
+    System.out.println();
+  }
+
 
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE SERVICIOS MÉDICOS

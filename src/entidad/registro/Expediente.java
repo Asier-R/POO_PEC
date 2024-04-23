@@ -187,4 +187,9 @@ public class Expediente {
   public void grabarDatos(){
     this.historial.grabarDatos(this);
   }
+
+  @Override
+  public String toString(){
+    return "Estado: "+this.getEstado()+"  Diagnostico: "+this.getDiagnostico();
+  }
 }

@@ -75,6 +75,10 @@ public final class LogicaTerminalDatos {
       case "4": // 4. Gestión mantenimiento
         // TODO: opcional
         break;
+      case "5": // 5. Consultar empleados del sistema
+        Consultas.consultarEmpleadosDelSistema();
+        pantallaGerencia();
+        break;
       case "X": // X. Volver a 0. INICIO
         pantallaInicio();
         break;
@@ -165,7 +169,7 @@ public final class LogicaTerminalDatos {
         break;
       case "2": // 2. Seleccionar rango de consulta.
         PantallasTerminalDatos.pantallaConsultarPeriodo();
-        seleccionarRango(opt);
+        seleccionarRango(Utiles.leerLinea().toUpperCase());
         pantallaConsultarPacientesCitaConEspecialista();
         break;
       case "3": // 3. Ejecutar consulta

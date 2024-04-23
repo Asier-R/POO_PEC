@@ -327,7 +327,7 @@ public final class Consultas {
     for (Unidad unidad : unidades) {
       if (unidad instanceof Habitacion) {
         habitacion = (Habitacion) unidad;
-        habitacion.getPacientes().forEach(Consultas::presentar);
+        habitacion.getPacientes().forEach(Consultas::presentarPacienteConExpediente);
         contador = +habitacion.getPacientes().size();
       }
     }
@@ -347,7 +347,7 @@ public final class Consultas {
         ubicacion = paciente.getCita().getUbicacion();
         if (ubicacion instanceof Consulta) {
           if (fechaCita.isAfter(fechaDesde) && fechaCita.isBefore(fechaHasta)) {
-            presentar(paciente);
+            presentarPacienteConExpediente(paciente);
             contador++;
           }
         }
@@ -383,13 +383,42 @@ public final class Consultas {
       for (Cita cita : sanitario.getCitas()) {
         fechaCita = cita.getFechaCita();
         if (fechaCita.isAfter(fechaDesde) && fechaCita.isBefore(fechaHasta)) {
-          presentar(cita.getPaciente());
+          presentarPacienteConExpediente(cita.getPaciente());
           contador++;
         }
       }
       if (contador == 0) PantallasTerminalDatos.pantallaEspecialistaSinPacientesEnRangoFechas();
     } else {
       System.out.println("Faltan los siguientes campos: " + falta);
+    }
+  }
+
+  /**
+   * Muestra por pantalla los datos del paciente y su expediente.
+   *
+   * @param paciente Paciente cuyos datos se van a mostrar.
+   */
+  private static void presentarPacienteConExpediente(Paciente paciente) {
+    PantallasTerminalDatos.separarPantallaSimple();
+    final String p = "> PACIENTE: " + paciente.toString().replace("\n", "  ");
+    final String e = "> EXPEDIENTE: " + paciente.getExpediente();
+    System.out.println(p + "\n" + e);
+  }
+
+  /** Consulta los empleados del sistema clasificados por su unidad de trabajo. */
+  static void consultarEmpleadosDelSistema() {
+    PantallasTerminalDatos.pantallaConsultarEmpleadosDelSistema();
+    final List<Unidad> unidades = LogicaTerminalDatos.getHospital().getUnidades();
+    final List<Personal> personal = LogicaTerminalDatos.getHospital().getPersonal();
+
+    CodigoActividadEnum ubicacion;
+    for (Unidad unidad : unidades) {
+      ubicacion = unidad.getCodigoActividad();
+      System.out.println(">> " + ubicacion.getDescripcion());
+      for (Personal persona : personal) {
+        if (persona.getCodigoActividad().equals(ubicacion)) presentar(persona);
+      }
+      System.out.println();
     }
   }
 
