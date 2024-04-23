@@ -2,6 +2,7 @@ package servicio;
 
 import entidad.persona.*;
 import entidad.registro.Cita;
+import entidad.registro.Expediente;
 import entidad.unidad.Unidad;
 import entidad.unidad.formacion.Formacion;
 import enumerado.CodigoActividadEnum;
@@ -254,6 +255,28 @@ public final class Gerencia {
       System.out.println("Faltan los siguientes campos: " + falta);
     }
     LTDGerencia.pantallaPrepararFormacionEstudiantes();
+  }
+
+  /* ------------------------------------------------------------------------------------------------------------------
+     MÉTODOS PARA GESTIÓN CONTABLE
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /**
+   * Prepara y emite facturas para los pacientes dados de alta y sin seguridad social.
+   */
+  static void prepararEmitirFacturas(){
+    PantallasTerminalDatos.pantallaInfoEmisionFactura();
+    List<Paciente> pacientes = LogicaTerminalDatos.getHospital().getPacientes();
+    Expediente expediente;
+    for(Paciente paciente : pacientes){
+      expediente = paciente.getExpediente();
+      if(expediente.tieneSeguridadSocial() && expediente.getEstado().equals(Expediente.Estado.SANO)) presentarFactura(paciente);
+    }
+  }
+
+  private static void presentarFactura(Paciente paciente){
+    PantallasTerminalDatos.separarPantallaSimple();
+    System.out.println("> PACIENTE: " + paciente.toString().replace("\n", "  "));
   }
 
   /* ------------------------------------------------------------------------------------------------------------------

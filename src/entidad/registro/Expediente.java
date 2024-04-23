@@ -71,6 +71,12 @@ public class Expediente {
   private DiagnosticoTratamiento.DiagnosticosTratamientos diagnostico;
 
   /**
+   * Indica si el paciente tiene seguridad social. Es un campo cuyo valor se asigna de forma
+   * aleatoria en la creación de instancia.
+   */
+  private boolean tieneSeguridadSocial;
+
+  /**
    * Constructor de Expediente.
    *
    * @param paciente Paciente.
@@ -80,6 +86,7 @@ public class Expediente {
     this.paciente = paciente;
     this.historial = new Historial();
     this.estado = Estado.EN_ESPERA;
+    this.tieneSeguridadSocial = Math.random() < 0.5;
   }
 
   /**
@@ -182,14 +189,21 @@ public class Expediente {
   }
 
   /**
-   * Graba los datos del expediente en el historial.
+   * Devuelve true si el paciente tiene seguridad social.
+   *
+   * @return True si tiene seguridad social.
    */
-  public void grabarDatos(){
+  public boolean tieneSeguridadSocial() {
+    return tieneSeguridadSocial;
+  }
+
+  /** Graba los datos del expediente en el historial. */
+  public void grabarDatos() {
     this.historial.grabarDatos(this);
   }
 
   @Override
-  public String toString(){
-    return "Estado: "+this.getEstado()+"  Diagnostico: "+this.getDiagnostico();
+  public String toString() {
+    return "Estado: " + this.getEstado() + "  Diagnostico: " + this.getDiagnostico();
   }
 }

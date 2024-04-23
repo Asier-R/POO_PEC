@@ -482,6 +482,19 @@ public final class PantallasTerminalDatos {
      PANTALLAS DE GESTIÓN DE CONTABLE
   ------------------------------------------------------------------------------------------------------------------ */
 
+  /** Pantalla de gestión de contable con las opciones disponibles. */
+  static void pantallaGestionContable() {
+    separarPantalla();
+    System.out.println(">>> 1.3. GESTIÓN CONTABLE");
+    System.out.println("> 1. Preparar y emitir facturas");
+    opcionesComunes();
+  }
+
+  /** Pantalla de gestión de contable con las opciones disponibles. */
+  static void pantallaInfoEmisionFactura() {
+    System.out.println(">> Se emite factura para los siguientes pacientes dados de alta: ");
+  }
+
   /* ------------------------------------------------------------------------------------------------------------------
      PANTALLAS DE GESTIÓN DE MANTENIMIENTO
   ------------------------------------------------------------------------------------------------------------------ */

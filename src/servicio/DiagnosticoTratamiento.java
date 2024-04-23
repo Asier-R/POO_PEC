@@ -19,8 +19,8 @@ public final class DiagnosticoTratamiento {
   }
 
   /**
-   * Genera un diagnostico para un paciente que acude a consulta primaria
-   * @return DiagnosticoTratamiento
+   * Genera un diagnostico para un paciente que acude a consulta primaria.
+   * @return DiagnosticoTratamiento.
    */
   public static DiagnosticosTratamientos diagnosticar(){
     Random random = new Random();

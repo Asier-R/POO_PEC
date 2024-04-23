@@ -741,4 +741,31 @@ public final class LTDGerencia {
     }
   }
 
+  /* ------------------------------------------------------------------------------------------------------------------
+     PANTALLAS DE GESTIÓN CONTABLE
+  ------------------------------------------------------------------------------------------------------------------ */
+
+  /** Lógica de pantalla 1.3. GESTIÓN CONTABLE */
+  static void pantallaGestionContable() {
+    PantallasTerminalDatos.pantallaGestionContable();
+    String opt = Utiles.leerLinea().toUpperCase();
+
+    switch (opt) {
+      case "1": // 1. Preparar y emitir facturas
+        Gerencia.prepararEmitirFacturas();
+        pantallaGestionContable();
+        break;
+      case "X": // X. Volver a 1. GERENCIA
+        LogicaTerminalDatos.pantallaGerencia();
+        break;
+      case "Z": // Z. Finalizar
+        if (!LogicaTerminalDatos.finPrograma()) pantallaGestionContable();
+        PantallasTerminalDatos.pantallaCierre();
+        break;
+      default: // Permanecer en la pantalla
+        pantallaGestionContable();
+        break;
+    }
+  }
+
 }

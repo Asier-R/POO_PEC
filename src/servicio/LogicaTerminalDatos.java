@@ -70,7 +70,7 @@ public final class LogicaTerminalDatos {
         LTDGerencia.pantallaGestionPacientes();
         break;
       case "3": // 3. Gestión Contable
-        // TODO: opcional
+        LTDGerencia.pantallaGestionContable();
         break;
       case "4": // 4. Gestión mantenimiento
         // TODO: opcional
