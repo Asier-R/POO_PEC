@@ -1,6 +1,6 @@
 import servicio.LogicaTerminalDatos;
 
-public class Main {
+public class Hospital {
 
   public static void main(String[] args) {
     // Se genera javadoc con opciones: -encoding utf8 -docencoding utf8 -charset utf8
