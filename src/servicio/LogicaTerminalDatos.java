@@ -72,10 +72,10 @@ public final class LogicaTerminalDatos {
       case "3": // 3. Gestión Contable
         LTDGerencia.pantallaGestionContable();
         break;
-      case "4": // 4. Gestión mantenimiento
-        // TODO: opcional
-        break;
-      case "5": // 5. Consultar empleados del sistema
+      //case "4": // 4. Gestión mantenimiento
+      //  // TODO: opcional
+      //  break;
+      case "4": // 4. Consultar empleados del sistema
         Consultas.consultarEmpleadosDelSistema();
         pantallaGerencia();
         break;

@@ -29,8 +29,8 @@ public final class PantallasTerminalDatos {
     System.out.println("> 1. Gestión del personal");
     System.out.println("> 2. Gestión de pacientes");
     System.out.println("> 3. Gestión Contable");
-    System.out.println("> 4. Gestión mantenimiento");
-    System.out.println("> 5. Consultar empleados del sistema");
+    //System.out.println("> 4. Gestión mantenimiento");
+    System.out.println("> 4. Consultar empleados del sistema");
     opcionesComunes();
   }
 
